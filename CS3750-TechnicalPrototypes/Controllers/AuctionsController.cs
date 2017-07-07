@@ -54,12 +54,14 @@ namespace CS3750TechnicalPrototypes.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AuctionID,AuctionName,startDate,endDate,openingBid,increment")] Auction auction)
+        public async Task<IActionResult> Create([Bind("AuctionID,AuctionName,startDate,endDate,openingBid,increment,description")] Auction auction)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(auction);
                 await _context.SaveChangesAsync();
+
+                //TODO: returns to auction page
                 return RedirectToAction("Index");
             }
             return View(auction);
