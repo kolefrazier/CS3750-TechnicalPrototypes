@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace CS3750_TechnicalPrototypes
+namespace CS3750TechnicalPrototypes
 {
     public class Program
     {
