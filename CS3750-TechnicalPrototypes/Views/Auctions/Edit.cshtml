@@ -1,0 +1,64 @@
+@model CS3750TechnicalPrototypes.Models.Auction
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Auction</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="AuctionID" />
+        <div class="form-group">
+            <label asp-for="AuctionName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="AuctionName" class="form-control" />
+                <span asp-validation-for="AuctionName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="startDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="startDate" class="form-control" />
+                <span asp-validation-for="startDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="endDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="endDate" class="form-control" />
+                <span asp-validation-for="endDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="openingBid" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="openingBid" class="form-control" />
+                <span asp-validation-for="openingBid" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="increment" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="increment" class="form-control" />
+                <span asp-validation-for="increment" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

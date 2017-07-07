@@ -7,9 +7,11 @@ namespace CS3750TechnicalPrototypes.Models
 {
 	public class Auction
 	{
-		//This is just a placeholder to create the CS3750TechnicalPrototypes.Models namespace.
-
 		public int AuctionID { get; set; }
 		public string AuctionName { get; set; }
-	}
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
+        public int openingBid { get; set; }
+        public int increment { get; set; }
+    }
 }
