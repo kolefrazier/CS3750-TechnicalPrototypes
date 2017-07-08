@@ -24,14 +24,22 @@ namespace CS3750TechnicalPrototypes.Data
 
 			var auctions = new Auction[]
 			{
-				new Auction { AuctionName = "One auction, ha ha ha" },
-				new Auction { AuctionName = "Two auction, ha ha ha" }
+				new Auction { AuctionID = 1, itemID = 1, AuctionName = "2 Nights Accommodation in an Ocen View Pool Villa at Trisara",
+                               AuctionStartDate = DateTime.Parse("2017-07-14"), AuctionEndDate = DateTime.Parse("2017-07-24"),
+                               OpeningBid = 58500, eventID = 1},
+				new Auction { AuctionID = 2, itemID = 2, AuctionName = "2 Nights Accommodation at Le Meridien Phuket Beach Resort + 2 Dinners",
+                               AuctionStartDate = DateTime.Parse("2017-07-14"), AuctionEndDate = DateTime.Parse("2017-07-24"),
+                               OpeningBid = 36000, eventID = 1},
+                		new Auction { AuctionID = 3, itemID = 3, AuctionName = "1 Night Accommodation at Andara Resort + In-Suite BBQ w/ Champagne",
+                               AuctionStartDate = DateTime.Parse("2017-07-14"), AuctionEndDate = DateTime.Parse("2017-07-24"),
+                               OpeningBid = 34000, eventID = 1}
 			};
 
 			foreach (Auction a in auctions)
 			{
 				context.Auctions.Add(a);
 			}
+            context.SaveChanges();
 		}
 	}
 }
