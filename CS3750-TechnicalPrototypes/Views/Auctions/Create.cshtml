@@ -2,71 +2,71 @@
 
 @{
     ViewData["Title"] = "Create";
+   // Layout = null;
 }
 
-<h2>Create</h2>
+
 
 <form asp-action="Create">
+    <hr />
     <div class="form-horizontal">
-        <h4>Auction</h4>
-        <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            @*<label asp-for="AuctionName" class="col-md-2 control-label"></label>*@
-            <div class="col-md-10">
-                <input asp-for="AuctionName" class="form-control" />
+            <label asp-for="AuctionName" class="col-md-4 control-label">Auction Name:</label>
+            <div >
+                <input asp-for="AuctionName" class="form-control"/>
                 <span asp-validation-for="AuctionName" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-           <!-- <label asp-for="startDate" class="col-md-2 control-label"></label> -->
-            <div class="col-md-10">
-                <input asp-for="startDate" class="form-control" placeholder="dd/mm/yyyy"/>
+            <label asp-for="description" class="col-md-4 control-label">Description</label>
+            <div>
+                <textarea asp-for="description" class="form-control" placeholder="Description" cols="120" rows="10"></textarea>
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="startDate" class="col-md-4 control-label"></label>
+            <div>
+                <input asp-for="startDate" class="form-control" placeholder="Start Date (mm/dd/yyyy)"/>
                 <span asp-validation-for="startDate" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-        @*    <label asp-for="endDate" class="col-md-2 control-label"></label>*@
-            <div class="col-md-10">
-                <input asp-for="endDate" class="form-control" placeholder="dd/mm/yyyy" />
+            <label asp-for="endDate" class="col-md-4 control-label"></label>
+            <div>
+                <input asp-for="endDate" class="form-control" placeholder="End Date (mm/dd/yyyy)" />
                 <span asp-validation-for="endDate" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            @*<label asp-for="openingBid" class="col-md-2 control-label"></label>*@
-            <div class="col-md-10">
+            <label asp-for="openingBid" class="col-md-4 control-label"></label>
+            <div>
                 <input asp-for="openingBid" class="form-control" />
                 <span asp-validation-for="openingBid" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-        @*    <label asp-for="increment" class="col-md-2 control-label"></label>*@
-            <div class="col-md-10">
+            <label asp-for="increment" class="col-md-4 control-label"></label>
+            <div>
                 <input asp-for="increment" class="form-control" />
                 <span asp-validation-for="increment" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            @*    <label asp-for="increment" class="col-md-2 control-label"></label>*@
-            <div class="col-md-10">
-              @*  <input asp-for="description" class="form-control" placeholder="Description" />*@
-                <textarea asp-for="description" class="form-control" placeholder="Description" cols="60" rows="10"></textarea>
-                <span asp-validation-for="description" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-
+            <div class="col-md-offset-8 col-md-12">
                 <!--Submit button-->
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
+
 </form>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
