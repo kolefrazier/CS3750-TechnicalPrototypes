@@ -1,0 +1,53 @@
+@model CS3750TechnicalPrototypes.Models.Auction
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Auction</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="AuctionID" />
+        <dt>
+            @Html.DisplayNameFor(model => model.AuctionName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AuctionName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OpeningBid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OpeningBid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EventId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EventId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

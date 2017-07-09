@@ -8,9 +8,10 @@ using CS3750TechnicalPrototypes.Data;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    partial class AuctionContextModelSnapshot : ModelSnapshot
+    [Migration("20170709075221_Initialization")]
+    partial class Initialization
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -23,7 +24,6 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<string>("AuctionName");
 
-
                     b.Property<DateTime>("EndDate");
 
                     b.Property<int>("EventId");
@@ -32,12 +32,10 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<DateTime>("StartDate");
 
-
                     b.HasKey("AuctionID");
 
                     b.ToTable("Auction");
                 });
-
 
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.BidHistory", b =>
                 {
@@ -95,7 +93,6 @@ namespace CS3750TechnicalPrototypes.Migrations
                         .HasForeignKey("AuctionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
-
         }
     }
 }
