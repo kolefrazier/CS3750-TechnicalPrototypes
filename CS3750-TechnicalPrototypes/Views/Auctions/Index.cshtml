@@ -1,0 +1,66 @@
+@model IEnumerable<CS3750TechnicalPrototypes.Models.Auction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+    
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuctionName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.startDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.endDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.openingBid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.increment)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuctionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.startDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.endDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.openingBid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.increment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AuctionID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AuctionID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AuctionID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

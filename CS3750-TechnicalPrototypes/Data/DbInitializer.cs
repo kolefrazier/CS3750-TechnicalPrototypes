@@ -25,27 +25,7 @@ namespace CS3750TechnicalPrototypes.Data
 			// --- Auction ---
 			var auctions = new Auction[]
 			{
-				new Auction
-				{
-					AuctionName = "First Auction That Is Available",
-					StartDate = DateTime.Parse("2017-7-8"),
-					EndDate = DateTime.Parse("2017-8-1"),
-					OpeningBid = 123.45
-				},
-				new Auction
-				{
-					AuctionName = "Second Auction In The Past",
-					StartDate = DateTime.Parse("2016-1-2"),
-					EndDate = DateTime.Parse("2016-2-3"),
-					OpeningBid = 456.78
-				},
-				new Auction
-				{
-					AuctionName = "Third Auction In The Past Again",
-					StartDate = DateTime.Parse("2016-2-3"),
-					EndDate = DateTime.Parse("2016-4-5"),
-					OpeningBid = 901.23
-				},
+
 			};
 
 			foreach (Auction a in auctions)

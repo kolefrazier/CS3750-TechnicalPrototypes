@@ -23,6 +23,7 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<string>("AuctionName");
 
+
                     b.Property<DateTime>("EndDate");
 
                     b.Property<int>("EventId");
@@ -31,10 +32,12 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<DateTime>("StartDate");
 
+
                     b.HasKey("AuctionID");
 
                     b.ToTable("Auction");
                 });
+
 
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.BidHistory", b =>
                 {
@@ -92,6 +95,7 @@ namespace CS3750TechnicalPrototypes.Migrations
                         .HasForeignKey("AuctionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
+
         }
     }
 }
