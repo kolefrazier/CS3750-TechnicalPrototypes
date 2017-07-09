@@ -56,7 +56,7 @@ namespace CS3750TechnicalPrototypes
 			{
 				routes.MapRoute(
 					name: "default",
-					template: "{controller=Home}/{action=Index}/{id?}");
+					template: "{controller=Auction}/{action=Index}/{id?}");
 			});
 
 			DbInitializer.Initialize(context);
