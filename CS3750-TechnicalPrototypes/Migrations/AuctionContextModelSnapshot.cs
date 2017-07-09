@@ -23,79 +23,20 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<string>("AuctionName");
 
+                    b.Property<string>("description");
 
-                    b.Property<DateTime>("EndDate");
+                    b.Property<DateTime>("endDate");
 
-                    b.Property<int>("EventId");
+                    b.Property<int>("increment");
 
-                    b.Property<double>("OpeningBid");
+                    b.Property<int>("openingBid");
 
-                    b.Property<DateTime>("StartDate");
-
+                    b.Property<DateTime>("startDate");
 
                     b.HasKey("AuctionID");
 
                     b.ToTable("Auction");
                 });
-
-
-            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.BidHistory", b =>
-                {
-                    b.Property<int>("BidHistoryId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("AuctionID");
-
-                    b.Property<double>("BidAmount");
-
-                    b.Property<DateTime>("BidDate");
-
-                    b.Property<int>("ItemId");
-
-                    b.HasKey("BidHistoryId");
-
-                    b.HasIndex("AuctionID");
-
-                    b.ToTable("BidHistory");
-                });
-
-            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Item", b =>
-                {
-                    b.Property<int>("ItemId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AuctionId");
-
-                    b.Property<string>("ItemDescription");
-
-                    b.Property<string>("ItemName");
-
-                    b.Property<double>("ItemValue");
-
-                    b.Property<int>("SponsorId");
-
-                    b.HasKey("ItemId");
-
-                    b.HasIndex("AuctionId");
-
-                    b.ToTable("Item");
-                });
-
-            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.BidHistory", b =>
-                {
-                    b.HasOne("CS3750TechnicalPrototypes.Models.Auction", "Auction")
-                        .WithMany("BidHistory")
-                        .HasForeignKey("AuctionID");
-                });
-
-            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Item", b =>
-                {
-                    b.HasOne("CS3750TechnicalPrototypes.Models.Auction", "Auction")
-                        .WithMany("Item")
-                        .HasForeignKey("AuctionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
         }
     }
 }
