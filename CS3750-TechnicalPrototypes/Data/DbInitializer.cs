@@ -71,7 +71,7 @@ namespace CS3750TechnicalPrototypes.Data
 					ItemName = "Overnight Fishing Trip at Barnacle Bay",
 					ItemDescription = "Enjoy an overnight trip, fishing barnacle bombs from Barnacle Bay! Winning this package will give your heart a warm feeling while your nose dies in disgust.",
 					ItemValue = 80.00,
-					Auction = context.Auctions.First(a => a.AuctionID == 1)
+					Auction = context.Auctions.First(a => a.AuctionID == 2)
 				},
 				new Item
 				{
@@ -79,7 +79,7 @@ namespace CS3750TechnicalPrototypes.Data
 					ItemName = "Crazy Edd's Grand Fishing Day",
 					ItemDescription = "Crazy Edd has offered to take you on the grandest fishing trip ever. It will exceed your imagination's attempts at imagining it. Don't pass up this once in a lifetime opportunity!",
 					ItemValue = 200.00,
-					Auction = context.Auctions.First(a => a.AuctionID == 1)
+					Auction = context.Auctions.First(a => a.AuctionID == 3)
 				},
 			};
 
