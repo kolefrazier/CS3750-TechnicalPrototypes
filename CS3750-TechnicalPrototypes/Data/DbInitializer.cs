@@ -16,22 +16,23 @@ namespace CS3750TechnicalPrototypes.Data
 			if (context.Auctions.Any())
 				return;
 
-			//Seed data
-			//	No need to specify primary keys. Foreign keys need to be set up with LINQ.
-			//	Tip: Use arrays with object-initializers. Fill out as much data as you can.
-			//	Syntax: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/how-to-initialize-objects-by-using-an-object-initializer#example-1
-			//	Tip: With "one-to-many" relations, start with the "one" then do the "many". (A game has many reviews. Games initalized then reviews initialized.)
+            //Seed data
+            //	No need to specify primary keys. Foreign keys need to be set up with LINQ.
+            //	Tip: Use arrays with object-initializers. Fill out as much data as you can.
+            //	Syntax: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/how-to-initialize-objects-by-using-an-object-initializer#example-1
+            //	Tip: With "one-to-many" relations, start with the "one" then do the "many". (A game has many reviews. Games initalized then reviews initialized.)
 
-			// --- Auction ---
-			var auctions = new Auction[]
-			{
-				new Auction
-				{
-					AuctionName = "First Auction That Is Available",
-					Description = "This is our first auction of the year! Currently open!",
-					StartDate = DateTime.Parse("2017-7-8"),
-					EndDate = DateTime.Parse("2017-8-1"),
-					OpeningBid = 123.45
+            // --- Auction ---
+            var auctions = new Auction[]
+            {
+                new Auction
+                {
+                    AuctionName = "First Auction That Is Available",
+                    Description = "This is our first auction of the year! Currently open!",
+                    StartDate = DateTime.Parse("2017-7-8"),
+                    EndDate = DateTime.Parse("2017-8-1"),
+                    OpeningBid = 123.45,
+                    ItemID = 1
 				},
 				new Auction
 				{
@@ -39,7 +40,9 @@ namespace CS3750TechnicalPrototypes.Data
 					Description = "This is our second auction of last year. This auction is closed.",
 					StartDate = DateTime.Parse("2016-1-2"),
 					EndDate = DateTime.Parse("2016-2-3"),
-					OpeningBid = 456.78
+					OpeningBid = 456.78,
+                    ItemID = 2
+
 				},
 				new Auction
 				{
@@ -47,7 +50,8 @@ namespace CS3750TechnicalPrototypes.Data
 					Description = "This was the third auction of last year. This auction is closed.",
 					StartDate = DateTime.Parse("2016-2-3"),
 					EndDate = DateTime.Parse("2016-4-5"),
-					OpeningBid = 901.23
+					OpeningBid = 901.23,
+                    ItemID = 3
 				},
 			};
 
@@ -67,8 +71,8 @@ namespace CS3750TechnicalPrototypes.Data
 					ItemDescription = "Enjoy five unforgettable nights out in the lovely stench that is the exclusive Barnacle Bay! Winning this package will give your heart a warm feeling while your nose dies in disgust.",
 					ItemValue = 100.00,
 					OpeningBid = 80.00,
-					BidIncrement = 10.00,
-					Auction = context.Auctions.First(a => a.AuctionID == 1)
+					BidIncrement = 10.00
+					//Auction = context.Auctions.First(a => a.AuctionID == 1)
 				},
 				new Item
 				{
@@ -77,8 +81,8 @@ namespace CS3750TechnicalPrototypes.Data
 					ItemDescription = "Enjoy an overnight trip, fishing barnacle bombs from Barnacle Bay! Winning this package will give your heart a warm feeling while your nose dies in disgust.",
 					ItemValue = 80.00,
 					OpeningBid = 70.00,
-					BidIncrement = 10.00,
-					Auction = context.Auctions.First(a => a.AuctionID == 2)
+					BidIncrement = 10.00
+					//Auction = context.Auctions.First(a => a.AuctionID == 2)
 				},
 				new Item
 				{
@@ -87,8 +91,8 @@ namespace CS3750TechnicalPrototypes.Data
 					ItemDescription = "Crazy Edd has offered to take you on the grandest fishing trip ever. It will exceed your imagination's attempts at imagining it. Don't pass up this once in a lifetime opportunity!",
 					ItemValue = 200.00,
 					OpeningBid = 180.00,
-					BidIncrement = 10.00,
-					Auction = context.Auctions.First(a => a.AuctionID == 3)
+					BidIncrement = 10.00
+					//Auction = context.Auctions.First(a => a.AuctionID == 3)
 				},
 			};
 

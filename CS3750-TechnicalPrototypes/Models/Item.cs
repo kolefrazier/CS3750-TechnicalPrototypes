@@ -18,7 +18,7 @@ namespace CS3750TechnicalPrototypes.Models
 		public double BidIncrement { get; set; }
 
 		//Navigation Properties
-		public int AuctionId { get; set; }
+	//	public int AuctionId { get; set; }
 		public virtual Auction Auction { get; set; }
 	}
 }
