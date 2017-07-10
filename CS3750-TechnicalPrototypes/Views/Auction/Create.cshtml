@@ -2,54 +2,64 @@
 
 @{
     ViewData["Title"] = "Create";
+    // Layout = null;
 }
 
-<h2>Create</h2>
+
 
 <form asp-action="Create">
+    <hr />
     <div class="form-horizontal">
-        <h4>Auction</h4>
-        <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="AuctionName" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="AuctionName" class="form-control" />
-                <span asp-validation-for="AuctionName" class="text-danger"></span>
+            <div class="col-md-4"></div>
+            <label asp-for="AuctionName" class="sr-only control-label">Auction Name:</label>
+            <div>
+                <input asp-for="AuctionName" class="form-control" placeholder="Auction Name" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="StartDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
+            <div class="col-md-4"></div>
+            <label  class="sr-only control-label">Description</label>
+            <div>
+                <textarea  class="form-control" placeholder="Description" cols="120" rows="10"></textarea>
             </div>
         </div>
+
         <div class="form-group">
-            <label asp-for="EndDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
+            <div class="col-md-4"></div>
+            <label asp-for="StartDate" class="sr-only control-label"></label>
+
+            <div style="float:left;margin-right:40px">
+                <input asp-for="StartDate" class="form-control " style="width:200px" placeholder="Start Date (mm/dd/yyyy)" />
             </div>
+
+            <label asp-for="EndDate" class="sr-only control-label"></label>
+            <div">
+                <input asp-for="EndDate" class="form-control" style="width:200px" placeholder="End Date (mm/dd/yyyy)" />
         </div>
-        <div class="form-group">
-            <label asp-for="OpeningBid" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="OpeningBid" class="form-control" />
-                <span asp-validation-for="OpeningBid" class="text-danger"></span>
-            </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-4"></div>
+
+        <label asp-for="OpeningBid" class="sr-only control-label"></label>
+
+        <div style="float:left;margin-right:40px">
+            <input asp-for="OpeningBid" class="form-control" style="width:200px;" placeholder="Starting Bid" />
         </div>
-        <div class="form-group">
-            <label asp-for="EventId" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="EventId" class="form-control" />
-                <span asp-validation-for="EventId" class="text-danger"></span>
-            </div>
+
+        <label class="sr-only control-label"></label>
+        <div>
+            <input  class="form-control" style="width:200px" placeholder="Bid Increment" />
         </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-8 col-md-12">
+            <!--Submit button-->
+            <input type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
 </form>
@@ -57,6 +67,7 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
