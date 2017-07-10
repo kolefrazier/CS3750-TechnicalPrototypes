@@ -78,7 +78,7 @@ namespace CS3750TechnicalPrototypes.Data
 					ItemValue = 80.00,
 					OpeningBid = 70.00,
 					BidIncrement = 10.00,
-					Auction = context.Auctions.First(a => a.AuctionID == 1)
+					Auction = context.Auctions.First(a => a.AuctionID == 2)
 				},
 				new Item
 				{
@@ -88,7 +88,7 @@ namespace CS3750TechnicalPrototypes.Data
 					ItemValue = 200.00,
 					OpeningBid = 180.00,
 					BidIncrement = 10.00,
-					Auction = context.Auctions.First(a => a.AuctionID == 1)
+					Auction = context.Auctions.First(a => a.AuctionID == 3)
 				},
 			};
 
