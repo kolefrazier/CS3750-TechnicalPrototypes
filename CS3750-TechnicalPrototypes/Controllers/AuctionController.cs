@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CS3750TechnicalPrototypes.Data;
 using CS3750TechnicalPrototypes.Models;
+using CS3750TechnicalPrototypes.Models.ViewModels;
 
 namespace CS3750TechnicalPrototypes.Controllers
 {
@@ -33,14 +34,21 @@ namespace CS3750TechnicalPrototypes.Controllers
                 return NotFound();
             }
 
-            var auction = await _context.Auctions
-                .SingleOrDefaultAsync(m => m.AuctionID == id);
-            if (auction == null)
+            var auction = await _context.Auctions.SingleOrDefaultAsync(m => m.AuctionID == id);
+            var item = await _context.Items.SingleOrDefaultAsync(x => x.AuctionId == auction.AuctionID);
+
+            if (auction == null || item == null)
             {
                 return NotFound();
             }
 
-            return View(auction);
+            AuctionDetails aucDet = new AuctionDetails()
+            {
+                Auction = auction,
+                Item = item
+            };
+
+            return View(aucDet);
         }
 
         // GET: Auction/Create
