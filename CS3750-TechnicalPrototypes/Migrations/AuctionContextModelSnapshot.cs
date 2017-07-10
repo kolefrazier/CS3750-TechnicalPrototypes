@@ -23,6 +23,8 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<string>("AuctionName");
 
+                    b.Property<string>("Description");
+
                     b.Property<DateTime>("EndDate");
 
                     b.Property<int>("EventId");
@@ -63,11 +65,15 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<int>("AuctionId");
 
+                    b.Property<double>("BidIncrement");
+
                     b.Property<string>("ItemDescription");
 
                     b.Property<string>("ItemName");
 
                     b.Property<double>("ItemValue");
+
+                    b.Property<double>("OpeningBid");
 
                     b.Property<int>("SponsorId");
 
