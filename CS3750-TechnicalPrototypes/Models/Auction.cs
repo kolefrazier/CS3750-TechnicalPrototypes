@@ -11,6 +11,7 @@ namespace CS3750TechnicalPrototypes.Models
 		[Key]
 		public int AuctionID { get; set; }
 		public string AuctionName { get; set; }
+		public string Description { get; set; }
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
 		public double OpeningBid { get; set; }

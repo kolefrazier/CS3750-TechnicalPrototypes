@@ -14,6 +14,8 @@ namespace CS3750TechnicalPrototypes.Models
 		public string ItemName { get; set; }
 		public string ItemDescription { get; set; }
 		public double ItemValue { get; set; }
+		public double OpeningBid { get; set; }
+		public double BidIncrement { get; set; }
 
 		//Navigation Properties
 		public int AuctionId { get; set; }

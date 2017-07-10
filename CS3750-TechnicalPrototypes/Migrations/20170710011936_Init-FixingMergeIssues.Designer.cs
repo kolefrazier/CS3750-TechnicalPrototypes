@@ -8,8 +8,8 @@ using CS3750TechnicalPrototypes.Data;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    [Migration("20170709075221_Initialization")]
-    partial class Initialization
+    [Migration("20170710011936_Init-FixingMergeIssues")]
+    partial class InitFixingMergeIssues
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,8 @@ namespace CS3750TechnicalPrototypes.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AuctionName");
+
+                    b.Property<string>("Description");
 
                     b.Property<DateTime>("EndDate");
 
@@ -64,11 +66,15 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<int>("AuctionId");
 
+                    b.Property<double>("BidIncrement");
+
                     b.Property<string>("ItemDescription");
 
                     b.Property<string>("ItemName");
 
                     b.Property<double>("ItemValue");
+
+                    b.Property<double>("OpeningBid");
 
                     b.Property<int>("SponsorId");
 
