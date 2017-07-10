@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CS3750TechnicalPrototypes.Models
 {
-
 	public class Auction
 	{
 		[Key]
@@ -21,5 +20,4 @@ namespace CS3750TechnicalPrototypes.Models
 		public IEnumerable<Item> Item { get; set; }
 		public IEnumerable<BidHistory> BidHistory { get; set; }
 	}
-
 }

@@ -27,7 +27,7 @@ namespace CS3750TechnicalPrototypes.Controllers
             return View();
         }
 
-        public IActionResult AuctionControlPanel()
+        public IActionResult AdminControl()
         {
            // ViewData["Message"] = "Your contact page.";
 
