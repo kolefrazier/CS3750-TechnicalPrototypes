@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +6,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CS3750TechnicalPrototypes.Data;
 using CS3750TechnicalPrototypes.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+
 
 namespace CS3750TechnicalPrototypes.Controllers
 {
@@ -16,7 +18,7 @@ namespace CS3750TechnicalPrototypes.Controllers
 
         public ItemsController(AuctionContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: Items
@@ -48,7 +50,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
-            ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID");
+            //ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID");
             return View();
         }
 
@@ -65,7 +67,7 @@ namespace CS3750TechnicalPrototypes.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-           // ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID", item.AuctionId);
+            // ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID", item.AuctionId);
             return View(item);
         }
 
@@ -82,7 +84,7 @@ namespace CS3750TechnicalPrototypes.Controllers
             {
                 return NotFound();
             }
-          //  ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID", item.AuctionId);
+            //  ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID", item.AuctionId);
             return View(item);
         }
 
@@ -118,7 +120,7 @@ namespace CS3750TechnicalPrototypes.Controllers
                 }
                 return RedirectToAction("Index");
             }
-          //  ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID", item.AuctionId);
+            //  ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID", item.AuctionId);
             return View(item);
         }
 
@@ -156,5 +158,6 @@ namespace CS3750TechnicalPrototypes.Controllers
         {
             return _context.Items.Any(e => e.ItemId == id);
         }
+
     }
 }
