@@ -7,26 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CS3750TechnicalPrototypes.Data;
 using CS3750TechnicalPrototypes.Models;
-using CS3750TechnicalPrototypes.Models.ViewModels;
 
 namespace CS3750TechnicalPrototypes.Controllers
 {
-    public class AuctionController : Controller
+    public class ItemsController : Controller
     {
         private readonly AuctionContext _context;
 
-        public AuctionController(AuctionContext context)
+        public ItemsController(AuctionContext context)
         {
             _context = context;    
         }
 
-        // GET: Auction
+        // GET: Items
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Auctions.ToListAsync());
+            var auctionContext = _context.Items.Include(i => i.Auction);
+            return View(await auctionContext.ToListAsync());
         }
 
-        // GET: Auction/Details/5
+        // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,46 +34,42 @@ namespace CS3750TechnicalPrototypes.Controllers
                 return NotFound();
             }
 
-            var auction = await _context.Auctions.SingleOrDefaultAsync(m => m.AuctionID == id);
-            var item = await _context.Items.SingleOrDefaultAsync(x => x.ItemId == auction.ItemID);
-
-            if (auction == null || item == null)
+            var item = await _context.Items
+                .Include(i => i.Auction)
+                .SingleOrDefaultAsync(m => m.ItemId == id);
+            if (item == null)
             {
                 return NotFound();
             }
 
-            AuctionDetails aucDet = new AuctionDetails()
-            {
-                Auction = auction,
-                Item = item
-            };
-
-            return View(aucDet);
+            return View(item);
         }
 
-        // GET: Auction/Create
+        // GET: Items/Create
         public IActionResult Create()
         {
+            ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID");
             return View();
         }
 
-        // POST: Auction/Create
+        // POST: Items/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AuctionID,AuctionName,StartDate,EndDate,OpeningBid,EventId,ItemID")] Auction auction)
+        public async Task<IActionResult> Create([Bind("ItemId,SponsorId,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(auction);
+                _context.Add(item);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(auction);
+           // ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID", item.AuctionId);
+            return View(item);
         }
 
-        // GET: Auction/Edit/5
+        // GET: Items/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,22 +77,23 @@ namespace CS3750TechnicalPrototypes.Controllers
                 return NotFound();
             }
 
-            var auction = await _context.Auctions.SingleOrDefaultAsync(m => m.AuctionID == id);
-            if (auction == null)
+            var item = await _context.Items.SingleOrDefaultAsync(m => m.ItemId == id);
+            if (item == null)
             {
                 return NotFound();
             }
-            return View(auction);
+          //  ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID", item.AuctionId);
+            return View(item);
         }
 
-        // POST: Auction/Edit/5
+        // POST: Items/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AuctionID,AuctionName,StartDate,EndDate,OpeningBid,EventId,ItemID")] Auction auction)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemId,SponsorId,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
         {
-            if (id != auction.AuctionID)
+            if (id != item.ItemId)
             {
                 return NotFound();
             }
@@ -105,12 +102,12 @@ namespace CS3750TechnicalPrototypes.Controllers
             {
                 try
                 {
-                    _context.Update(auction);
+                    _context.Update(item);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AuctionExists(auction.AuctionID))
+                    if (!ItemExists(item.ItemId))
                     {
                         return NotFound();
                     }
@@ -121,10 +118,11 @@ namespace CS3750TechnicalPrototypes.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(auction);
+          //  ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID", item.AuctionId);
+            return View(item);
         }
 
-        // GET: Auction/Delete/5
+        // GET: Items/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,30 +130,31 @@ namespace CS3750TechnicalPrototypes.Controllers
                 return NotFound();
             }
 
-            var auction = await _context.Auctions
-                .SingleOrDefaultAsync(m => m.AuctionID == id);
-            if (auction == null)
+            var item = await _context.Items
+                .Include(i => i.Auction)
+                .SingleOrDefaultAsync(m => m.ItemId == id);
+            if (item == null)
             {
                 return NotFound();
             }
 
-            return View(auction);
+            return View(item);
         }
 
-        // POST: Auction/Delete/5
+        // POST: Items/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var auction = await _context.Auctions.SingleOrDefaultAsync(m => m.AuctionID == id);
-            _context.Auctions.Remove(auction);
+            var item = await _context.Items.SingleOrDefaultAsync(m => m.ItemId == id);
+            _context.Items.Remove(item);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool AuctionExists(int id)
+        private bool ItemExists(int id)
         {
-            return _context.Auctions.Any(e => e.AuctionID == id);
+            return _context.Items.Any(e => e.ItemId == id);
         }
     }
 }

@@ -8,8 +8,8 @@ using CS3750TechnicalPrototypes.Data;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    [Migration("20170709075221_Initialization")]
-    partial class Initialization
+    [Migration("20170710031553_AddedItemIdToAuction")]
+    partial class AddedItemIdToAuction
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,9 +24,13 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<string>("AuctionName");
 
+                    b.Property<string>("Description");
+
                     b.Property<DateTime>("EndDate");
 
                     b.Property<int>("EventId");
+
+                    b.Property<int>("ItemID");
 
                     b.Property<double>("OpeningBid");
 
@@ -62,7 +66,9 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AuctionId");
+                    b.Property<int?>("AuctionID");
+
+                    b.Property<double>("BidIncrement");
 
                     b.Property<string>("ItemDescription");
 
@@ -70,11 +76,13 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<double>("ItemValue");
 
+                    b.Property<double>("OpeningBid");
+
                     b.Property<int>("SponsorId");
 
                     b.HasKey("ItemId");
 
-                    b.HasIndex("AuctionId");
+                    b.HasIndex("AuctionID");
 
                     b.ToTable("Item");
                 });
@@ -90,8 +98,7 @@ namespace CS3750TechnicalPrototypes.Migrations
                 {
                     b.HasOne("CS3750TechnicalPrototypes.Models.Auction", "Auction")
                         .WithMany("Item")
-                        .HasForeignKey("AuctionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuctionID");
                 });
         }
     }

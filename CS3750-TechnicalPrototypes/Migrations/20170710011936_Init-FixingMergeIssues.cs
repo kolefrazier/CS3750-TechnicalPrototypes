@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CS3750TechnicalPrototypes.Migrations
 {
-    public partial class Initialization : Migration
+    public partial class InitFixingMergeIssues : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,7 @@ namespace CS3750TechnicalPrototypes.Migrations
                     AuctionID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AuctionName = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     EndDate = table.Column<DateTime>(nullable: false),
                     EventId = table.Column<int>(nullable: false),
                     OpeningBid = table.Column<double>(nullable: false),
@@ -55,9 +56,11 @@ namespace CS3750TechnicalPrototypes.Migrations
                     ItemId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AuctionId = table.Column<int>(nullable: false),
+                    BidIncrement = table.Column<double>(nullable: false),
                     ItemDescription = table.Column<string>(nullable: true),
                     ItemName = table.Column<string>(nullable: true),
                     ItemValue = table.Column<double>(nullable: false),
+                    OpeningBid = table.Column<double>(nullable: false),
                     SponsorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

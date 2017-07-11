@@ -8,9 +8,10 @@ using CS3750TechnicalPrototypes.Data;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    partial class AuctionContextModelSnapshot : ModelSnapshot
+    [Migration("20170710011936_Init-FixingMergeIssues")]
+    partial class InitFixingMergeIssues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -28,8 +29,6 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.Property<DateTime>("EndDate");
 
                     b.Property<int>("EventId");
-
-                    b.Property<int>("ItemID");
 
                     b.Property<double>("OpeningBid");
 
@@ -65,7 +64,7 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AuctionID");
+                    b.Property<int>("AuctionId");
 
                     b.Property<double>("BidIncrement");
 
@@ -81,7 +80,7 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.HasKey("ItemId");
 
-                    b.HasIndex("AuctionID");
+                    b.HasIndex("AuctionId");
 
                     b.ToTable("Item");
                 });
@@ -97,7 +96,8 @@ namespace CS3750TechnicalPrototypes.Migrations
                 {
                     b.HasOne("CS3750TechnicalPrototypes.Models.Auction", "Auction")
                         .WithMany("Item")
-                        .HasForeignKey("AuctionID");
+                        .HasForeignKey("AuctionId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }
