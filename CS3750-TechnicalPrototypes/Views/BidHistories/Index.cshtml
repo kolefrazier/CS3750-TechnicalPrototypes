@@ -13,14 +13,14 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.BidDate)
+                    @Html.DisplayNameFor(model => model.Auction.AuctionName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.BidAmount)
+                    @Html.DisplayNameFor(model => model.Auction.OpeningBid)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.ItemId)
-                </th>
+                </th>*@
             <th></th>
         </tr>
     </thead>
@@ -28,18 +28,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.BidDate)
+                @Html.DisplayFor(modelItem => item.Auction.AuctionName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BidAmount)
+                @Html.DisplayFor(modelItem => item.Auction.OpeningBid)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ItemId)
+                @*@Html.DisplayFor(modelItem => item.ItemId)*@
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
+                <a asp-action="PlaceBid" asp-route-id="@item.BidHistoryId">Place Bid</a>
+                @*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
             </td>
         </tr>
 }

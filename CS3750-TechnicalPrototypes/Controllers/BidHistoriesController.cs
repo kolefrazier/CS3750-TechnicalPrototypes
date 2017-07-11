@@ -22,8 +22,23 @@ namespace CS3750TechnicalPrototypes.Controllers
         // GET: BidHistories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.BidHistory.ToListAsync());
+            List<BidHistory> model = new List<BidHistory>();
+
+
+            var auctions = await _context.Auctions.ToListAsync();
+
+            foreach (Auction auc in auctions)
+            {
+                BidHistory history = new BidHistory()
+                {
+                    Auction = auc
+                };
+                model.Add(history);
+            }
+
+            return View(model);
         }
+
 
         // GET: BidHistories/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -17,5 +17,10 @@ namespace CS3750TechnicalPrototypes.Models
 		public virtual int ItemId { get; set; }
 		public virtual Auction Auction { get; set; }
 		public virtual Bidder Bidder { get; set; }
-	}
+
+        public static implicit operator List<object>(BidHistory v)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
