@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CS3750TechnicalPrototypes.Data;
 using CS3750TechnicalPrototypes.Models;
 using CS3750TechnicalPrototypes.Models.ViewModels;
+using Microsoft.AspNetCore.Session;
+using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CS3750TechnicalPrototypes.Controllers
 {
@@ -17,7 +17,7 @@ namespace CS3750TechnicalPrototypes.Controllers
 
         public AuctionController(AuctionContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: Auction
@@ -54,8 +54,11 @@ namespace CS3750TechnicalPrototypes.Controllers
         // GET: Auction/Create
         public IActionResult Create()
         {
+            PopulateDropDownList();
             return View();
         }
+
+ 
 
         // POST: Auction/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -73,6 +76,9 @@ namespace CS3750TechnicalPrototypes.Controllers
             return View(auction);
         }
 
+
+
+
         // GET: Auction/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -86,7 +92,15 @@ namespace CS3750TechnicalPrototypes.Controllers
             {
                 return NotFound();
             }
+           // PopulateDropDownList();
             return View(auction);
+        }
+
+        private void PopulateDropDownList()
+        {
+            var ItemsQuery = from i in _context.Items
+                             select i;
+            ViewBag.ItemId = new SelectList(ItemsQuery.AsNoTracking(), "ItemId", "ItemName");
         }
 
         // POST: Auction/Edit/5
@@ -157,5 +171,6 @@ namespace CS3750TechnicalPrototypes.Controllers
         {
             return _context.Auctions.Any(e => e.AuctionID == id);
         }
+
     }
 }
