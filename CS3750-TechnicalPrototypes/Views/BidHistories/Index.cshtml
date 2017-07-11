@@ -18,9 +18,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Auction.OpeningBid)
                 </th>
-                @*<th>
-                    @Html.DisplayNameFor(model => model.ItemId)
-                </th>*@
+                <th>
+                    Item Name
+                </th>
             <th></th>
         </tr>
     </thead>
@@ -34,7 +34,10 @@
                 @Html.DisplayFor(modelItem => item.Auction.OpeningBid)
             </td>
             <td>
-                @*@Html.DisplayFor(modelItem => item.ItemId)*@
+                @foreach (var it in item.Auction.Item)
+                {
+                    @Html.DisplayFor(modelItem => it.ItemName)
+                }
             </td>
             <td>
                 <a  asp-route-id="@item.BidHistoryId">Place Bid</a>

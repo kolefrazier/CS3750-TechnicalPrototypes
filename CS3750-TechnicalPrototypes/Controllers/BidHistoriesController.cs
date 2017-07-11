@@ -26,9 +26,18 @@ namespace CS3750TechnicalPrototypes.Controllers
 
 
             var auctions = await _context.Auctions.ToListAsync();
+           // var items = await _context.Items.ToListAsync();
 
             foreach (Auction auc in auctions)
             {
+                //Only way I could come up with to get the items
+                //Because items is enumerable in the auction model I have to make a new list
+                //and place a single item within in order to satisfy requirements
+                List<Item> itList = new List<Item>();
+                Item temp = await _context.Items.SingleOrDefaultAsync(x => x.ItemId == auc.ItemID);
+                itList.Add(temp);
+                auc.Item = itList;
+
                 BidHistory history = new BidHistory()
                 {
                     Auction = auc
