@@ -16,5 +16,6 @@ namespace CS3750TechnicalPrototypes.Models
 		//Navigation Properties
 		public virtual int ItemId { get; set; }
 		public virtual Auction Auction { get; set; }
+		public virtual Bidder Bidder { get; set; }
 	}
 }

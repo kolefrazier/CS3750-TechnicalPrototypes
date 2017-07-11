@@ -61,6 +61,49 @@ namespace CS3750TechnicalPrototypes.Data
 			}
 			context.SaveChanges();
 
+			// --- Bidders ---
+			var bidders = new Bidder[]
+			{
+				new Bidder
+				{
+					FirstName = "Michael",
+					LastName = "Scott",
+					PhoneNumber = "18004561234",
+					EmailAddress = "mscott@dundermifflin.com",
+					IsRegistered = false,
+					Password = "none",
+					Security = "none"
+				},
+
+				new Bidder
+				{
+					FirstName = "Barney",
+					LastName = "Stinson",
+					PhoneNumber = "450GetGood",
+					EmailAddress = "Barney@BarneyStinson.com",
+					IsRegistered = false,
+					Password = "none",
+					Security = "none"
+				},
+
+				new Bidder
+				{
+					FirstName = "Homer",
+					LastName = "Simpson",
+					PhoneNumber = "8881231337",
+					EmailAddress = "homer@mrplow.com",
+					IsRegistered = false,
+					Password = "none",
+					Security = "none"
+				}
+			};
+
+			foreach (Bidder b in bidders)
+			{
+				context.Bidders.Add(b);
+			}
+			context.SaveChanges();
+
 			// --- Items ---
 			var items = new Item[]
 			{
@@ -111,49 +154,56 @@ namespace CS3750TechnicalPrototypes.Data
 					BidDate = DateTime.Parse("2017-7-10"),
 					BidAmount = 210.00,
 					ItemId = 3,
-					Auction = context.Auctions.First(a => a.AuctionID == 1)
+					Auction = context.Auctions.First(a => a.AuctionID == 1),
+					Bidder = context.Bidders.First(b => b.BidderID == 1)
 				},
 				new BidHistory
 				{
 					BidDate = DateTime.Parse("2017-7-10"),
 					BidAmount = 220.00,
 					ItemId = 3,
-					Auction = context.Auctions.First(a => a.AuctionID == 1)
+					Auction = context.Auctions.First(a => a.AuctionID == 1),
+					Bidder = context.Bidders.First(b => b.BidderID == 1)
 				},
 				new BidHistory
 				{
 					BidDate = DateTime.Parse("2017-7-11"),
 					BidAmount = 230.00,
 					ItemId = 3,
-					Auction = context.Auctions.First(a => a.AuctionID == 1)
+					Auction = context.Auctions.First(a => a.AuctionID == 1),
+					Bidder = context.Bidders.First(b => b.BidderID == 2)
 				},
 				new BidHistory
 				{
 					BidDate = DateTime.Parse("2017-7-12"),
 					BidAmount = 100.00,
 					ItemId = 2,
-					Auction = context.Auctions.First(a => a.AuctionID == 1)
+					Auction = context.Auctions.First(a => a.AuctionID == 1),
+					Bidder = context.Bidders.First(b => b.BidderID == 2)
 				},
 				new BidHistory
 				{
 					BidDate = DateTime.Parse("2017-7-13"),
 					BidAmount = 115.00,
 					ItemId = 2,
-					Auction = context.Auctions.First(a => a.AuctionID == 1)
+					Auction = context.Auctions.First(a => a.AuctionID == 1),
+					Bidder = context.Bidders.First(b => b.BidderID == 3)
 				},
 				new BidHistory
 				{
 					BidDate = DateTime.Parse("2017-7-12"),
 					BidAmount = 110.00,
 					ItemId = 1,
-					Auction = context.Auctions.First(a => a.AuctionID == 1)
+					Auction = context.Auctions.First(a => a.AuctionID == 1),
+					Bidder = context.Bidders.First(b => b.BidderID == 3)
 				},
 				new BidHistory
 				{
 					BidDate = DateTime.Parse("2017-7-14"),
 					BidAmount = 180.00,
 					ItemId = 1,
-					Auction = context.Auctions.First(a => a.AuctionID == 1)
+					Auction = context.Auctions.First(a => a.AuctionID == 1),
+					Bidder = context.Bidders.First(b => b.BidderID == 1)
 				},
 			};
 
