@@ -92,7 +92,7 @@ namespace CS3750TechnicalPrototypes.Controllers
             {
                 return NotFound();
             }
-           // PopulateDropDownList();
+            PopulateDropDownList();
             return View(auction);
         }
 
@@ -135,6 +135,7 @@ namespace CS3750TechnicalPrototypes.Controllers
                 }
                 return RedirectToAction("Index");
             }
+            PopulateDropDownList();
             return View(auction);
         }
 
