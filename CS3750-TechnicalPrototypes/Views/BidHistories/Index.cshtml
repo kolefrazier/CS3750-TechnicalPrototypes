@@ -41,7 +41,8 @@
 					}
 				</td>
 				<td>
-					<a asp-action="Create" asp-route-AuctionId="@item.Auction.AuctionID" asp-route-ItemId="@item.ItemId">Enter Bid</a>
+					<a asp-action="Create" asp-route-AuctionId="@item.Auction.AuctionID" asp-route-ItemId="@item.ItemId">Enter Bid</a> |
+					<a asp-action="BidsByAuction" asp-route-id="@item.Auction.AuctionID">All Bids</a>
 					@*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
 						<a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
 						<a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
