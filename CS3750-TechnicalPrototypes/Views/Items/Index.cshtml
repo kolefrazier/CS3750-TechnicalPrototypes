@@ -12,6 +12,11 @@
 <table class="table">
     <thead>
         <tr>
+            <!-- Change this once images database is created -->
+                <th>
+                    Image
+                </th>
+                
                 <th>
                     
                     @Html.DisplayNameFor(model => model.SponsorId)
@@ -41,6 +46,10 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <!-- change this once images database is created -->
+            <th>
+                <img href="http://static.asiawebdirect.com/m/bangkok/hotels/huahin-bangkok-com/hilton-resort/rooms/pageContent/02/highlightedBox/02/image.jpg" width="100" height="100" />
+            </th>
             <td>
                 @Html.DisplayFor(modelItem => item.SponsorId)
             </td>
