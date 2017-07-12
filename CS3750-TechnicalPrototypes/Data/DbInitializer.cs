@@ -22,17 +22,17 @@ namespace CS3750TechnicalPrototypes.Data
 			//	Syntax: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/how-to-initialize-objects-by-using-an-object-initializer#example-1
 			//	Tip: With "one-to-many" relations, start with the "one" then do the "many". (A game has many reviews. Games initalized then reviews initialized.)
 
-            // --- Auction ---
-            var auctions = new Auction[]
-            {
-                new Auction
-                {
-                    AuctionName = "First Auction That Is Available",
-                    Description = "This is our first auction of the year! Currently open!",
-                    StartDate = DateTime.Parse("2017-7-8"),
-                    EndDate = DateTime.Parse("2017-8-1"),
-                    OpeningBid = 123.45,
-                    ItemID = 1
+			// --- Auction ---
+			var auctions = new Auction[]
+			{
+				new Auction
+				{
+					AuctionName = "First Auction That Is Available",
+					Description = "This is our first auction of the year! Currently open!",
+					StartDate = DateTime.Parse("2017-7-8"),
+					EndDate = DateTime.Parse("2017-8-1"),
+					OpeningBid = 123.45,
+					ItemID = 1
 				},
 				new Auction
 				{
@@ -41,7 +41,7 @@ namespace CS3750TechnicalPrototypes.Data
 					StartDate = DateTime.Parse("2016-1-2"),
 					EndDate = DateTime.Parse("2016-2-3"),
 					OpeningBid = 456.78,
-                    ItemID = 2
+					ItemID = 2
 
 				},
 				new Auction
@@ -51,7 +51,7 @@ namespace CS3750TechnicalPrototypes.Data
 					StartDate = DateTime.Parse("2016-2-3"),
 					EndDate = DateTime.Parse("2016-4-5"),
 					OpeningBid = 901.23,
-                    ItemID = 3
+					ItemID = 3
 				},
 			};
 
