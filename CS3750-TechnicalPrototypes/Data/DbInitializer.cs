@@ -183,7 +183,7 @@ namespace CS3750TechnicalPrototypes.Data
 					BidDate = DateTime.Parse("2017-7-10"),
 					BidAmount = 220.00,
 					ItemId = 3,
-					Auction = context.Auctions.First(a => a.AuctionID == 1),
+					Auction = context.Auctions.First(a => a.AuctionID == 2),
 					Bidder = context.Bidders.First(b => b.BidderID == 1)
 				},
 				new BidHistory
@@ -191,7 +191,7 @@ namespace CS3750TechnicalPrototypes.Data
 					BidDate = DateTime.Parse("2017-7-11"),
 					BidAmount = 230.00,
 					ItemId = 3,
-					Auction = context.Auctions.First(a => a.AuctionID == 1),
+					Auction = context.Auctions.First(a => a.AuctionID == 2),
 					Bidder = context.Bidders.First(b => b.BidderID == 2)
 				},
 				new BidHistory
@@ -207,7 +207,7 @@ namespace CS3750TechnicalPrototypes.Data
 					BidDate = DateTime.Parse("2017-7-13"),
 					BidAmount = 115.00,
 					ItemId = 2,
-					Auction = context.Auctions.First(a => a.AuctionID == 1),
+					Auction = context.Auctions.First(a => a.AuctionID == 2),
 					Bidder = context.Bidders.First(b => b.BidderID == 3)
 				},
 				new BidHistory

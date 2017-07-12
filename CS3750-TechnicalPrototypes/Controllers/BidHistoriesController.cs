@@ -61,15 +61,11 @@ namespace CS3750TechnicalPrototypes.Controllers
 
 				foreach(BidHistory b in BidsByAuction)
 				{
-					Item i = _context.Items.First(it => it.ItemId == b.ItemId);
-					BidHistory bh = _context.BidHistory.First(x => x.Auction.AuctionID == (int)id);
-					Bidder bi = bh.Bidder;
-
 					BidDetails tmp = new BidDetails
 					{
-						Item = i,
-						BidHistory = bh,
-						Bidder = bi
+						BidHistory = b,
+						Item = _context.Items.First(i => i.ItemId == b.ItemId),
+						Bidder = b.Bidder
 					};
 					BidDetailsCollection.Add(tmp);
 				}
