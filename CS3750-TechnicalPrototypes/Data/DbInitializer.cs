@@ -95,6 +95,17 @@ namespace CS3750TechnicalPrototypes.Data
 					IsRegistered = false,
 					Password = "none",
 					Security = "none"
+				},
+
+				new Bidder
+				{
+					FirstName = "Tom",
+					LastName = "Hanks",
+					PhoneNumber = "1800TomHank",
+					EmailAddress = "tom@tom.com",
+					IsRegistered = true,
+					Password = "abcdEfg123",
+					Security = "blah"
 				}
 			};
 
@@ -114,8 +125,8 @@ namespace CS3750TechnicalPrototypes.Data
 					ItemDescription = "Enjoy five unforgettable nights out in the lovely stench that is the exclusive Barnacle Bay! Winning this package will give your heart a warm feeling while your nose dies in disgust.",
 					ItemValue = 100.00,
 					OpeningBid = 80.00,
-					BidIncrement = 10.00
-					//Auction = context.Auctions.First(a => a.AuctionID == 1)
+					BidIncrement = 10.00,
+					Auction = context.Auctions.First(a => a.AuctionID == 1)
 				},
 				new Item
 				{
@@ -124,8 +135,8 @@ namespace CS3750TechnicalPrototypes.Data
 					ItemDescription = "Enjoy an overnight trip, fishing barnacle bombs from Barnacle Bay! Winning this package will give your heart a warm feeling while your nose dies in disgust.",
 					ItemValue = 80.00,
 					OpeningBid = 70.00,
-					BidIncrement = 10.00
-					//Auction = context.Auctions.First(a => a.AuctionID == 2)
+					BidIncrement = 10.00,
+					Auction = context.Auctions.First(a => a.AuctionID == 2)
 				},
 				new Item
 				{
@@ -134,9 +145,19 @@ namespace CS3750TechnicalPrototypes.Data
 					ItemDescription = "Crazy Edd has offered to take you on the grandest fishing trip ever. It will exceed your imagination's attempts at imagining it. Don't pass up this once in a lifetime opportunity!",
 					ItemValue = 200.00,
 					OpeningBid = 180.00,
-					BidIncrement = 10.00
-					//Auction = context.Auctions.First(a => a.AuctionID == 3)
+					BidIncrement = 10.00,
+					Auction = context.Auctions.First(a => a.AuctionID == 3)
 				},
+				new Item
+				{
+					SponsorId = 2,
+					ItemName = "Video games by Tom Hanks",
+					ItemDescription = "Tom Hanks will hand deliver three video games (of your choice) to you to own forever.",
+					ItemValue = 1200.00,
+					OpeningBid = 1000.00,
+					BidIncrement = 50.00,
+					Auction = context.Auctions.First(a => a.AuctionID == 2)
+				}
 			};
 
 			foreach (Item i in items)

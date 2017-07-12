@@ -1,0 +1,75 @@
+@model List<CS3750TechnicalPrototypes.Models.ViewModels.BidDetails>
+
+@{
+	ViewData["Title"] = "ListBidsByAuction";
+}
+
+<h2>ListBidsByAuction</h2>
+
+<div>
+	<h4>BidHistory</h4>
+	<hr />
+
+	@if (Model.Count <= 0)
+	{
+		<p class="text-center">No auction found or no bids for requested auction exist.</p>
+	}
+	else
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>
+						Bid ID
+					</th>
+					<th>
+						Bid Date
+					</th>
+					<th>
+						Item Id
+					</th>
+					<th>
+						Bid Amount
+					</th>
+					<th>
+						Bidder Name
+					</th>
+					<th>
+						Bidder Email
+					</th>
+					<th>
+
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.BidHistory.BidHistoryId)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.BidHistory.BidDate)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.BidHistory.ItemId)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.BidHistory.BidAmount)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Bidder.FirstName) @Html.DisplayFor(modelItem => item.Bidder.LastName)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Bidder.EmailAddress)
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+</div>
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>

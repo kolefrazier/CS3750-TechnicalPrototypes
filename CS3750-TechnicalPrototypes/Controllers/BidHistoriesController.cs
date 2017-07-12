@@ -49,6 +49,36 @@ namespace CS3750TechnicalPrototypes.Controllers
 			return View(model);
 		}
 
+		// GET: Bids by Auction, BidHistories/BidsByAuction/5
+		[HttpGet]
+		public IActionResult BidsByAuction(int? id)
+		{
+			if(id != null && (int)id > 0)
+			{
+				var BidsByAuction = _context.BidHistory.Where(b => b.Auction.AuctionID == (int)id).ToList<BidHistory>();
+
+				List<BidDetails> BidDetailsCollection = new List<BidDetails>();
+
+				foreach(BidHistory b in BidsByAuction)
+				{
+					Item i = _context.Items.First(it => it.ItemId == b.ItemId);
+					BidHistory bh = _context.BidHistory.First(x => x.Auction.AuctionID == (int)id);
+					Bidder bi = bh.Bidder;
+
+					BidDetails tmp = new BidDetails
+					{
+						Item = i,
+						BidHistory = bh,
+						Bidder = bi
+					};
+					BidDetailsCollection.Add(tmp);
+				}
+				return View(BidDetailsCollection);
+			} else
+			{
+				return RedirectToAction("Index");
+			}
+		}
 
 		// GET: BidHistories/Details/5
 		public async Task<IActionResult> Details(int? id)
