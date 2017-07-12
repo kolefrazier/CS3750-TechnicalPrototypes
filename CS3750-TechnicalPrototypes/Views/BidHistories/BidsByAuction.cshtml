@@ -16,7 +16,13 @@
 	}
 	else
 	{
-		<table class="table">
+		<div class="row">
+			<dl class="dl-horizontal">
+				<dt>Total Bids</dt>
+				<dd>@Model.Count</dd>
+			</dl>
+		</div>
+		<div class="row"><table class="table">
 			<thead>
 				<tr>
 					<th>
@@ -37,9 +43,7 @@
 					<th>
 						Bidder Email
 					</th>
-					<th>
-
-					</th>
+					<th></th> <!--Intentionally left empty. Delete button column, no header needed.-->
 				</tr>
 			</thead>
 			<tbody>
@@ -64,12 +68,16 @@
 						<td>
 							@Html.DisplayFor(modelItem => item.Bidder.EmailAddress)
 						</td>
+						<td>
+							<a asp-action="Delete" asp-controller="BidHistories" asp-route-id="@item.BidHistory.BidHistoryId" class="btn btn-danger">Delete Bid</a>
+						</td>
 					</tr>
 				}
 			</tbody>
 		</table>
+	</div>
 	}
-</div>
-<div>
-	<a asp-action="Index">Back to List</a>
-</div>
+	</div>
+	<div>
+		<a asp-action="Index">Back to List</a>
+	</div>
