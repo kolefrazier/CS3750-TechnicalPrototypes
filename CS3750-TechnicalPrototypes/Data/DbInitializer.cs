@@ -16,32 +16,31 @@ namespace CS3750TechnicalPrototypes.Data
 			if (context.Auctions.Any())
 				return;
 
-            //Seed data
-            //	No need to specify primary keys. Foreign keys need to be set up with LINQ.
-            //	Tip: Use arrays with object-initializers. Fill out as much data as you can.
-            //	Syntax: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/how-to-initialize-objects-by-using-an-object-initializer#example-1
-            //	Tip: With "one-to-many" relations, start with the "one" then do the "many". (A game has many reviews. Games initalized then reviews initialized.)
+			//Seed data
+			//	No need to specify primary keys. Foreign keys need to be set up with LINQ.
+			//	Tip: Use arrays with object-initializers. Fill out as much data as you can.
+			//	Syntax: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/how-to-initialize-objects-by-using-an-object-initializer#example-1
+			//	Tip: With "one-to-many" relations, start with the "one" then do the "many". (A game has many reviews. Games initalized then reviews initialized.)
 
             // --- Auction ---
             var auctions = new Auction[]
             {
                 new Auction
                 {
-                    AuctionName = "2 Nights Accommodation in an Ocean View Pool Villa at Trisara",
-                    Description = "Enjoy a two night stay in a spectacular Ocean View Pool Villa at Trisara, " +
-                        "Inclusive of 2x Trisara spa treatments, daily breakfast, and the Trisara Sunday Jazz Brunch for 2.",
+                    AuctionName = "First Auction That Is Available",
+                    Description = "This is our first auction of the year! Currently open!",
                     StartDate = DateTime.Parse("2017-7-8"),
                     EndDate = DateTime.Parse("2017-8-1"),
-                    OpeningBid = 58500,
+                    OpeningBid = 123.45,
                     ItemID = 1
 				},
 				new Auction
 				{
 					AuctionName = "2 Nights Accommodations at Le Meridien Phuket Beach Resort + 2 Dinners",
 					Description = "This is our second auction of last year. This auction is closed.",
-					StartDate = DateTime.Parse("2017-1-2"),
-					EndDate = DateTime.Parse("2017-2-3"),
-					OpeningBid = 36000,
+					StartDate = DateTime.Parse("2016-1-2"),
+					EndDate = DateTime.Parse("2016-2-3"),
+					OpeningBid = 456.78,
                     ItemID = 2
 
 				},
@@ -49,9 +48,9 @@ namespace CS3750TechnicalPrototypes.Data
 				{
 					AuctionName = "1 Night Accommodations at Andara Resort + In-suite BBQ w/ Champagne",
 					Description = "This was the third auction of last year. This auction is closed.",
-					StartDate = DateTime.Parse("2017-2-3"),
-					EndDate = DateTime.Parse("2017-4-5"),
-					OpeningBid = 34000,
+					StartDate = DateTime.Parse("2016-2-3"),
+					EndDate = DateTime.Parse("2016-4-5"),
+					OpeningBid = 901.23,
                     ItemID = 3
 				},
 			};
