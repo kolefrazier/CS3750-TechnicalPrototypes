@@ -27,30 +27,31 @@ namespace CS3750TechnicalPrototypes.Data
             {
                 new Auction
                 {
-                    AuctionName = "First Auction That Is Available",
-                    Description = "This is our first auction of the year! Currently open!",
+                    AuctionName = "2 Nights Accommodation in an Ocean View Pool Villa at Trisara",
+                    Description = "Enjoy a two night stay in a spectacular Ocean View Pool Villa at Trisara, " +
+                        "Inclusive of 2x Trisara spa treatments, daily breakfast, and the Trisara Sunday Jazz Brunch for 2.",
                     StartDate = DateTime.Parse("2017-7-8"),
                     EndDate = DateTime.Parse("2017-8-1"),
-                    OpeningBid = 123.45,
+                    OpeningBid = 58500,
                     ItemID = 1
 				},
 				new Auction
 				{
-					AuctionName = "Second Auction In The Past",
+					AuctionName = "2 Nights Accommodations at Le Meridien Phuket Beach Resort + 2 Dinners",
 					Description = "This is our second auction of last year. This auction is closed.",
-					StartDate = DateTime.Parse("2016-1-2"),
-					EndDate = DateTime.Parse("2016-2-3"),
-					OpeningBid = 456.78,
+					StartDate = DateTime.Parse("2017-1-2"),
+					EndDate = DateTime.Parse("2017-2-3"),
+					OpeningBid = 36000,
                     ItemID = 2
 
 				},
 				new Auction
 				{
-					AuctionName = "Third Auction In The Past Again",
+					AuctionName = "1 Night Accommodations at Andara Resort + In-suite BBQ w/ Champagne",
 					Description = "This was the third auction of last year. This auction is closed.",
-					StartDate = DateTime.Parse("2016-2-3"),
-					EndDate = DateTime.Parse("2016-4-5"),
-					OpeningBid = 901.23,
+					StartDate = DateTime.Parse("2017-2-3"),
+					EndDate = DateTime.Parse("2017-4-5"),
+					OpeningBid = 34000,
                     ItemID = 3
 				},
 			};
