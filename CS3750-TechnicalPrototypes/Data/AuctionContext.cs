@@ -20,17 +20,19 @@ namespace CS3750TechnicalPrototypes.Data
 		public DbSet<Item> Items { get; set; }
 		public DbSet<BidHistory> BidHistory { get; set; }
 		public DbSet<Bidder> Bidders { get; set; }
+        public DbSet<Event> Event { get; set; }
 
-		/// <summary>
-		/// Removes plurality from DbSet property names when creating the table.
-		/// </summary>
-		/// <param name="modelBuilder"></param>
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        /// <summary>
+        /// Removes plurality from DbSet property names when creating the table.
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Auction>().ToTable("Auction");
 			modelBuilder.Entity<Item>().ToTable("Item");
 			modelBuilder.Entity<BidHistory>().ToTable("BidHistory");
 			modelBuilder.Entity<Bidder>().ToTable("Bidder");
-		}
+            modelBuilder.Entity<Event>().ToTable("Event");
+        }
 	}
 }

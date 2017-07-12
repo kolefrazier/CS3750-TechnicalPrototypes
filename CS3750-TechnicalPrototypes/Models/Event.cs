@@ -10,10 +10,11 @@ namespace CS3750TechnicalPrototypes.Models
     {
             [Key]
             public int EventID { get; set; }
-            public int AuctionID { get; set; }
             public string eventTitle { get; set; }
             public DateTime openingEventDate { get; set; }
             public DateTime closingEventDate { get; set; }
             public string eventDescription { get; set; }
+
+            public int AuctionID { get; set; }
     }
 }
