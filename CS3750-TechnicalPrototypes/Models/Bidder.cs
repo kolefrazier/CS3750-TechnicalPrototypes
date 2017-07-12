@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace CS3750TechnicalPrototypes.Models
 {
-    public class Bidder
-    {
+	public class Bidder
+	{
 		public int BidderID { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
