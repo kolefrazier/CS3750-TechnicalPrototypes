@@ -1,54 +1,60 @@
 @model CS3750TechnicalPrototypes.Models.ViewModels.AuctionDetails
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
 
 <h2>Details</h2>
+<h4>Auction</h4>
+<hr />
+<div>
+	<a asp-action="Edit" asp-route-id="@Model.Auction.AuctionID">Edit</a> |
+	<a asp-action="Index">Back to List</a>
+</div>
 
-<div>
-    <h4>Auction</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Auction.AuctionName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Auction.AuctionName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Auction.StartDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Auction.StartDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Auction.EndDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Auction.EndDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Auction.OpeningBid)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Auction.OpeningBid)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Auction.EventId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Auction.EventId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Item.ItemDescription)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Item.ItemDescription)
-        </dd>
-    </dl>
+<div class="row">
+	<div class="col-md-4">
+		<img src="http://static.asiawebdirect.com/m/bangkok/hotels/huahin-bangkok-com/hilton-resort/rooms/pageContent/02/highlightedBox/02/image.jpg" alt="vacation" width="350" height="350" />
+	</div>
+	<div class="col-md-8">
+		<dl class="dl-horizontal">
+			<dt>
+				@Html.DisplayNameFor(model => model.Auction.AuctionName)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Auction.AuctionName)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Auction.StartDate)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Auction.StartDate)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Auction.EndDate)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Auction.EndDate)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Auction.OpeningBid)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Auction.OpeningBid)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Auction.EventId)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Auction.EventId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Item.ItemDescription)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Item.ItemDescription)
+			</dd>
+		</dl>
+	</div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Auction.AuctionID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
