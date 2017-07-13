@@ -11,51 +11,47 @@ using CS3750TechnicalPrototypes.Models.ViewModels;
 
 namespace CS3750TechnicalPrototypes.Controllers
 {
-	public class BidHistoriesController : Controller
-	{
-		private readonly AuctionContext _context;
+    public class BidHistoriesController : Controller
+    {
+        private readonly AuctionContext _context;
 
-		public BidHistoriesController(AuctionContext context)
-		{
-			_context = context;    
-		}
+        public BidHistoriesController(AuctionContext context)
+        {
+            _context = context;
+        }
 
-		// GET: BidHistories
-		public async Task<IActionResult> Index()
-		{
-			List<BidHistory> model = new List<BidHistory>();
+        // GET: BidHistories
+        public async Task<IActionResult> Index(int? id)
+        {
+            //List<BidHistory> model = new List<BidHistory>();
+            if (id == null)
+            {
+                return RedirectToAction("ViewActiveAuctions");
+               // return NotFound();
+            }
 
 
-			var auctions = await _context.Auctions.ToListAsync();
-		   // var items = await _context.Items.ToListAsync();
+            var history = await _context.BidHistory.ToListAsync();
+            var auction = await _context.Auctions.Where(x => x.AuctionId == id).SingleOrDefaultAsync();
+            var items = await _context.Items.Where(x => x.AuctionId == id).ToListAsync();
 
-			foreach (Auction auc in auctions)
-			{
-				//Only way I could come up with to get the items
-				//Because items is enumerable in the auction model I have to make a new list
-				//and place a single item within in order to satisfy requirements
-				List<Item> itList = new List<Item>();
-				Item temp = await _context.Items.SingleOrDefaultAsync(x => x.ItemId == auc.ItemID);
-				itList.Add(temp);
-				auc.Item = itList;
+            AuctionItem aucIt = new AuctionItem()
+            {
+                Auction = auction,
+                Item = items
+            };
 
-				BidHistory history = new BidHistory()
-				{
-					Auction = auc
-				};
-				model.Add(history);
-			}
+            return View(aucIt);
+        }
 
-			return View(model);
-		}
-
-		// GET: Bids by Auction, BidHistories/BidsByAuction/5
+        //TODO: Fix Bids by Auction page
+        /*// GET: Bids by Auction, BidHistories/BidsByAuction/5
 		[HttpGet]
 		public IActionResult BidsByAuction(int? id)
 		{
 			if(id != null && (int)id > 0)
 			{
-				var BidsByAuction = _context.BidHistory.Where(b => b.Auction.AuctionId == (int)id).ToList<BidHistory>();
+				var BidsByAuction = _context.BidHistory.Where(b => b.AuctionId == (int)id).ToList<BidHistory>();
 
 				List<BidDetails> BidDetailsCollection = new List<BidDetails>();
 
@@ -75,181 +71,192 @@ namespace CS3750TechnicalPrototypes.Controllers
 				return RedirectToAction("Index");
 			}
 		}
+        */
 
-		// GET: BidHistories/Details/5
-		public async Task<IActionResult> Details(int? id)
-		{
-			if (id == null)
-			{
-				return NotFound();
-			}
+        public IActionResult ViewActiveAuctions()
+        {
+            var auctions = _context.Auctions.ToList();
+            return View(auctions);
+        }
 
-			var bidHistory = await _context.BidHistory
-				.SingleOrDefaultAsync(m => m.BidHistoryId == id);
-			if (bidHistory == null)
-			{
-				return NotFound();
-			}
+        // GET: BidHistories/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-			return View(bidHistory);
-		}
+            var bidHistory = await _context.BidHistory
+                .SingleOrDefaultAsync(m => m.BidHistoryId == id);
+            if (bidHistory == null)
+            {
+                return NotFound();
+            }
 
-		// GET: BidHistories/Create
-		public IActionResult Create(int? ItemId, int? AuctionId)
-		{
-			if(ItemId != null && ItemId > 0 && AuctionId != null && AuctionId > 0)
-			{
-				BidCreateViewModel tmp = new BidCreateViewModel
-				{
-					ItemId = (int)ItemId,
-					AuctionId = (int)AuctionId
-				};
-				return View(tmp);
-			} else
-			{
-				return View();
-			}
-			
-		}
+            return View(bidHistory);
+        }
 
-		// POST: BidHistories/Create
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		//[HttpPost]
-		//[ValidateAntiForgeryToken]
-		//public async Task<IActionResult> Create([Bind("BidHistoryId,BidDate,BidAmount,ItemId")] BidHistory bidHistory)
-		//{
-		//    if (ModelState.IsValid)
-		//    {
-		//        _context.Add(bidHistory);
-		//        await _context.SaveChangesAsync();
-		//        return RedirectToAction("Index");
-		//    }
-		//    return View(bidHistory);
-		//}
+        // GET: BidHistories/Create
+        public IActionResult Create(int? ItemId, int? AuctionId)
+        {
+            if (ItemId != null && ItemId > 0 && AuctionId != null && AuctionId > 0)
+            {
+                BidCreateViewModel tmp = new BidCreateViewModel
+                {
+                    ItemId = (int)ItemId,
+                    AuctionId = (int)AuctionId
+                };
+                return View(tmp);
+            }
+            else
+            {
+                return View();
+            }
 
-		// POST: BidHistories/Create
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("BidDate,BidAmount,ItemId,AuctionId,Bidder_FirstName,Bidder_LastName,Bidder_PhoneNumber,Bidder_EmailAddress")] BidCreateViewModel bid)
-		{
-			Item item = _context.Items.SingleOrDefault(i => i.ItemId == 1); // bid.ItemId); //Temp debug workaround because ItemId keeps passing in as 0.
+        }
 
-			Bidder newBidder = new Bidder
-			{
-				FirstName = bid.Bidder_FirstName,
-				LastName = bid.Bidder_LastName,
-				PhoneNumber = bid.Bidder_PhoneNumber,
-				EmailAddress = bid.Bidder_EmailAddress,
-				IsRegistered = false,
-				Password = "derp",
-				Security = "derpaderp"
-			};
+        // POST: BidHistories/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("BidHistoryId,BidDate,BidAmount,ItemId")] BidHistory bidHistory)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(bidHistory);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(bidHistory);
+        //}
 
-			_context.Bidders.Add(newBidder);
-			await _context.SaveChangesAsync();
+        // POST: BidHistories/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("BidDate,BidAmount,ItemId,AuctionId,Bidder_FirstName,Bidder_LastName,Bidder_PhoneNumber,Bidder_EmailAddress")] BidCreateViewModel bid)
+        {
+           // Item item = _context.Items.SingleOrDefault(i => i.ItemId == 1); // bid.ItemId); //Temp debug workaround because ItemId keeps passing in as 0.
 
-			BidHistory newBid = new BidHistory
-			{
-				Auction = _context.Auctions.SingleOrDefault(a => a.AuctionId == 1), //Temp debug workaround because AuctionId keeps passing in as 0.
-				//Auction = _context.Auctions.SingleOrDefault(a => a.AuctionID == bid.AuctionId),
-				BidDate = bid.BidDate,
-				BidAmount = bid.BidAmount,
-				ItemId = bid.ItemId,
-				Bidder = _context.Bidders.FirstOrDefault(b => b.FirstName == bid.Bidder_FirstName && b.LastName == bid.Bidder_LastName)
-			};
+            Bidder newBidder = new Bidder
+            {
+                FirstName = bid.Bidder_FirstName,
+                LastName = bid.Bidder_LastName,
+                PhoneNumber = bid.Bidder_PhoneNumber,
+                EmailAddress = bid.Bidder_EmailAddress,
+                IsRegistered = false,
+                Password = "derp",
+                Security = "derpaderp"
+            };
 
-			_context.BidHistory.Add(newBid);
-			await _context.SaveChangesAsync();
+            _context.Bidders.Add(newBidder);
+            await _context.SaveChangesAsync();
 
-			return RedirectToAction("Index", "BidHistories");
-		}
 
-		// GET: BidHistories/Edit/5
-		public async Task<IActionResult> Edit(int? id)
-		{
-			if (id == null)
-			{
-				return NotFound();
-			}
 
-			var bidHistory = await _context.BidHistory.SingleOrDefaultAsync(m => m.BidHistoryId == id);
-			if (bidHistory == null)
-			{
-				return NotFound();
-			}
-			return View(bidHistory);
-		}
+            BidHistory newBid = new BidHistory
+            {
+                //Auction = _context.Auctions.SingleOrDefault(a => a.AuctionId == 1), //Temp debug workaround because AuctionId keeps passing in as 0.
+                //Auction = _context.Auctions.SingleOrDefault(a => a.AuctionID == bid.AuctionId),
+                BidDate = bid.BidDate,
+                BidAmount = bid.BidAmount,
+                ItemId = bid.ItemId,
+                BidderId = newBidder.BidderID
+                //Bidder = _context.Bidders.FirstOrDefault(b => b.FirstName == bid.Bidder_FirstName && b.LastName == bid.Bidder_LastName)
+            };
 
-		// POST: BidHistories/Edit/5
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, [Bind("BidHistoryId,BidDate,BidAmount,ItemId")] BidHistory bidHistory)
-		{
-			if (id != bidHistory.BidHistoryId)
-			{
-				return NotFound();
-			}
+            _context.BidHistory.Add(newBid);
+            await _context.SaveChangesAsync();
 
-			if (ModelState.IsValid)
-			{
-				try
-				{
-					_context.Update(bidHistory);
-					await _context.SaveChangesAsync();
-				}
-				catch (DbUpdateConcurrencyException)
-				{
-					if (!BidHistoryExists(bidHistory.BidHistoryId))
-					{
-						return NotFound();
-					}
-					else
-					{
-						throw;
-					}
-				}
-				return RedirectToAction("Index");
-			}
-			return View(bidHistory);
-		}
+            return RedirectToAction("Index", "BidHistories", bid.AuctionId);
+        }
 
-		// GET: BidHistories/Delete/5
-		public async Task<IActionResult> Delete(int? id)
-		{
-			if (id == null)
-			{
-				return NotFound();
-			}
+        // GET: BidHistories/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-			var bidHistory = await _context.BidHistory
-				.SingleOrDefaultAsync(m => m.BidHistoryId == id);
-			if (bidHistory == null)
-			{
-				return NotFound();
-			}
+            var bidHistory = await _context.BidHistory.SingleOrDefaultAsync(m => m.BidHistoryId == id);
+            if (bidHistory == null)
+            {
+                return NotFound();
+            }
+            return View(bidHistory);
+        }
 
-			return View(bidHistory);
-		}
+        // POST: BidHistories/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("BidHistoryId,BidDate,BidAmount,ItemId")] BidHistory bidHistory)
+        {
+            if (id != bidHistory.BidHistoryId)
+            {
+                return NotFound();
+            }
 
-		// POST: BidHistories/Delete/5
-		[HttpPost, ActionName("Delete")]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> DeleteConfirmed(int id)
-		{
-			var bidHistory = await _context.BidHistory.SingleOrDefaultAsync(m => m.BidHistoryId == id);
-			_context.BidHistory.Remove(bidHistory);
-			await _context.SaveChangesAsync();
-			return RedirectToAction("Index");
-		}
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(bidHistory);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BidHistoryExists(bidHistory.BidHistoryId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            return View(bidHistory);
+        }
 
-		private bool BidHistoryExists(int id)
-		{
-			return _context.BidHistory.Any(e => e.BidHistoryId == id);
-		}
-	}
+        // GET: BidHistories/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var bidHistory = await _context.BidHistory
+                .SingleOrDefaultAsync(m => m.BidHistoryId == id);
+            if (bidHistory == null)
+            {
+                return NotFound();
+            }
+
+            return View(bidHistory);
+        }
+
+        // POST: BidHistories/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var bidHistory = await _context.BidHistory.SingleOrDefaultAsync(m => m.BidHistoryId == id);
+            _context.BidHistory.Remove(bidHistory);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        private bool BidHistoryExists(int id)
+        {
+            return _context.BidHistory.Any(e => e.BidHistoryId == id);
+        }
+    }
 }
