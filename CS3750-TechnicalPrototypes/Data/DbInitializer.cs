@@ -31,8 +31,8 @@ namespace CS3750TechnicalPrototypes.Data
 					Description = "This is our first auction of the year! Currently open!",
 					StartDate = DateTime.Parse("2017-7-8"),
 					EndDate = DateTime.Parse("2017-8-1"),
-					OpeningBid = 58500,
-					ItemID = 1
+					//OpeningBid = 58500,
+					//ItemID = 1
 				},
 				new Auction
 				{
@@ -40,8 +40,8 @@ namespace CS3750TechnicalPrototypes.Data
 					Description = "This is our second auction of last year. This auction is closed.",
 					StartDate = DateTime.Parse("2017-1-2"),
 					EndDate = DateTime.Parse("2017-2-3"),
-					OpeningBid = 36000,
-					ItemID = 2
+					//OpeningBid = 36000,
+					//ItemID = 2
 
 				},
 				new Auction
@@ -50,8 +50,8 @@ namespace CS3750TechnicalPrototypes.Data
 					Description = "This was the third auction of last year. This auction is closed.",
 					StartDate = DateTime.Parse("2016-2-3"),
 					EndDate = DateTime.Parse("2016-4-5"),
-					OpeningBid = 901.23,
-					ItemID = 3
+					//OpeningBid = 901.23,
+					//ItemID = 3
 				},
 			};
 

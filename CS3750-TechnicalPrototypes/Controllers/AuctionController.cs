@@ -35,26 +35,28 @@ namespace CS3750TechnicalPrototypes.Controllers
             }
 
             var auction = await _context.Auctions.SingleOrDefaultAsync(m => m.AuctionID == id);
-            var item = await _context.Items.SingleOrDefaultAsync(x => x.ItemId == auction.ItemID);
+            // var item = await _context.Items.SingleOrDefaultAsync(x => x.ItemId == auction.ItemID);
 
-            if (auction == null || item == null)
+            
+
+            if (auction == null)
             {
                 return NotFound();
             }
 
-            AuctionDetails aucDet = new AuctionDetails()
-            {
-                Auction = auction,
-                Item = item
-            };
+            //AuctionDetails aucDet = new AuctionDetails()
+            //{
+            //    Auction = auction,
+            //    Item = item
+            //};
 
-            return View(aucDet);
+            return View(auction);
         }
 
         // GET: Auction/Create
         public IActionResult Create()
         {
-            PopulateDropDownList();
+           // PopulateDropDownList();
             return View();
         }
 
@@ -65,7 +67,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AuctionID,AuctionName,StartDate,EndDate,OpeningBid,EventId,ItemID")] Auction auction)
+        public async Task<IActionResult> Create([Bind("AuctionID,AuctionName,StartDate,EndDate")] Auction auction) //re-add eventId
         {
             if (ModelState.IsValid)
             {
@@ -92,23 +94,23 @@ namespace CS3750TechnicalPrototypes.Controllers
             {
                 return NotFound();
             }
-            PopulateDropDownList();
+           // PopulateDropDownList();
             return View(auction);
         }
 
-        private void PopulateDropDownList()
-        {
-            var ItemsQuery = from i in _context.Items
-                             select i;
-            ViewBag.ItemId = new SelectList(ItemsQuery.AsNoTracking(), "ItemId", "ItemName");
-        }
+        //private void PopulateDropDownList()
+        //{
+        //    var ItemsQuery = from i in _context.Items
+        //                     select i;
+        //    ViewBag.ItemId = new SelectList(ItemsQuery.AsNoTracking(), "ItemId", "ItemName");
+        //}
 
         // POST: Auction/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AuctionID,AuctionName,StartDate,EndDate,OpeningBid,EventId,ItemID")] Auction auction)
+        public async Task<IActionResult> Edit(int id, [Bind("AuctionID,AuctionName,StartDate,EndDateEventId")] Auction auction)
         {
             if (id != auction.AuctionID)
             {
@@ -135,7 +137,7 @@ namespace CS3750TechnicalPrototypes.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            PopulateDropDownList();
+       //     PopulateDropDownList();
             return View(auction);
         }
 

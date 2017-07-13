@@ -8,9 +8,10 @@ using CS3750TechnicalPrototypes.Data;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    partial class AuctionContextModelSnapshot : ModelSnapshot
+    [Migration("20170713161417_postSprintFixes")]
+    partial class postSprintFixes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

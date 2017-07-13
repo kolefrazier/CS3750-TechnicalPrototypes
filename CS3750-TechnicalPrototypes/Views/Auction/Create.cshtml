@@ -33,26 +33,32 @@
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
+        @*<div class="form-group">
             <label asp-for="OpeningBid" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="OpeningBid" class="form-control" />
                 <span asp-validation-for="OpeningBid" class="text-danger"></span>
             </div>
-        </div>
-        <div class="form-group">
+        </div>*@
+
+
+        @*TODO: make drop down list*@
+        @*<div class="form-group">
             <label asp-for="EventId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="EventId" class="form-control" />
                 <span asp-validation-for="EventId" class="text-danger"></span>
             </div>
-        </div>
-        <div class="form-group">
+        </div>*@
+
+        @*Relocating functionality*@
+        @*<div class="form-group">
             <label asp-for="ItemID" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <select asp-for="ItemID" class="form-control" asp-items="ViewBag.ItemId"></select>
             </div>
-        </div>
+        </div>*@
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
