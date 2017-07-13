@@ -27,20 +27,20 @@ namespace CS3750TechnicalPrototypes.Data
 			{
 				new Auction
 				{
-					AuctionName = "First Auction That Is Available",
+					AuctionName = "2 Nights Accommodation in an Ocean View Pool Villa at Trisara",
 					Description = "This is our first auction of the year! Currently open!",
 					StartDate = DateTime.Parse("2017-7-8"),
 					EndDate = DateTime.Parse("2017-8-1"),
-					OpeningBid = 123.45,
+					OpeningBid = 58500,
 					ItemID = 1
 				},
 				new Auction
 				{
 					AuctionName = "2 Nights Accommodations at Le Meridien Phuket Beach Resort + 2 Dinners",
 					Description = "This is our second auction of last year. This auction is closed.",
-					StartDate = DateTime.Parse("2016-1-2"),
-					EndDate = DateTime.Parse("2016-2-3"),
-					OpeningBid = 456.78,
+					StartDate = DateTime.Parse("2017-1-2"),
+					EndDate = DateTime.Parse("2017-2-3"),
+					OpeningBid = 36000,
 					ItemID = 2
 
 				},
