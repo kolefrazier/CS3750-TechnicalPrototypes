@@ -55,7 +55,7 @@ namespace CS3750TechnicalPrototypes.Controllers
 		{
 			if(id != null && (int)id > 0)
 			{
-				var BidsByAuction = _context.BidHistory.Where(b => b.Auction.AuctionID == (int)id).ToList<BidHistory>();
+				var BidsByAuction = _context.BidHistory.Where(b => b.Auction.AuctionId == (int)id).ToList<BidHistory>();
 
 				List<BidDetails> BidDetailsCollection = new List<BidDetails>();
 
@@ -153,7 +153,7 @@ namespace CS3750TechnicalPrototypes.Controllers
 
 			BidHistory newBid = new BidHistory
 			{
-				Auction = _context.Auctions.SingleOrDefault(a => a.AuctionID == 1), //Temp debug workaround because AuctionId keeps passing in as 0.
+				Auction = _context.Auctions.SingleOrDefault(a => a.AuctionId == 1), //Temp debug workaround because AuctionId keeps passing in as 0.
 				//Auction = _context.Auctions.SingleOrDefault(a => a.AuctionID == bid.AuctionId),
 				BidDate = bid.BidDate,
 				BidAmount = bid.BidAmount,

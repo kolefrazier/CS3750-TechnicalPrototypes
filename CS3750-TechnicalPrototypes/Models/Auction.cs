@@ -9,7 +9,7 @@ namespace CS3750TechnicalPrototypes.Models
 	public class Auction
 	{
 		[Key]
-		public int AuctionID { get; set; }
+		public int AuctionId { get; set; }
 		public string AuctionName { get; set; }
 		public string Description { get; set; } //just in case we can use it to describe something in more detail
 		public DateTime StartDate { get; set; }
