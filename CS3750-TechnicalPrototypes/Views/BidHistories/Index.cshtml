@@ -7,11 +7,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Bid Histories</h2>
+<h2>Auction Items</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -39,7 +37,7 @@
                 </td>
 
                 <td>
-                    <a asp-action="Create" asp-route-ItemId="@item.ItemId">Enter Bid</a> |
+                    <a asp-action="Create" asp-route-ItemId="@item.ItemId" asp-route-AuctionId="@item.AuctionId">Enter Bid</a> |
                     <a asp-action="BidsByAuction">All Bids</a>
                     @*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |

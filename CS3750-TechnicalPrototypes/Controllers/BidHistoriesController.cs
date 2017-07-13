@@ -23,7 +23,6 @@ namespace CS3750TechnicalPrototypes.Controllers
         // GET: BidHistories
         public async Task<IActionResult> Index(int? id)
         {
-            //List<BidHistory> model = new List<BidHistory>();
             if (id == null)
             {
                 return RedirectToAction("ViewActiveAuctions");
@@ -171,6 +170,7 @@ namespace CS3750TechnicalPrototypes.Controllers
             _context.BidHistory.Add(newBid);
             await _context.SaveChangesAsync();
 
+            //Doesn't work and I have no idea why
             return RedirectToAction("Index", "BidHistories", bid.AuctionId);
         }
 
