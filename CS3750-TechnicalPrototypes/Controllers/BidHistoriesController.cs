@@ -170,8 +170,7 @@ namespace CS3750TechnicalPrototypes.Controllers
             _context.BidHistory.Add(newBid);
             await _context.SaveChangesAsync();
 
-            //Doesn't work and I have no idea why
-            return RedirectToAction("Index", "BidHistories", bid.AuctionId);
+            return RedirectToAction("Index", "BidHistories", new { id = bid.AuctionId });
         }
 
         // GET: BidHistories/Edit/5
