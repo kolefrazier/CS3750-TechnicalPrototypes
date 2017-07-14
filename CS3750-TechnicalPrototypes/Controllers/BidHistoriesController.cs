@@ -26,7 +26,7 @@ namespace CS3750TechnicalPrototypes.Controllers
             if (id == null)
             {
                 return RedirectToAction("ViewActiveAuctions");
-               // return NotFound();
+                // return NotFound();
             }
 
 
@@ -69,8 +69,23 @@ namespace CS3750TechnicalPrototypes.Controllers
 			{
 				return RedirectToAction("Index");
 			}
-		}
-        */
+		}*/
+
+
+        //takes bidder id as input
+        public IActionResult ViewBidHistory(int? id)
+        {
+          //  List<BidHistory> model = new List<BidHistory>();
+            var history =  _context.BidHistory.Where(x => x.BidderId == id).ToList();
+            foreach(BidHistory bh in history)
+            {
+                var items = _context.Items.Where(x => x.ItemId == bh.ItemId).ToList();
+                bh.Item = items;
+            }
+
+            return View(history);
+        }
+
 
         public IActionResult ViewActiveAuctions()
         {
@@ -138,7 +153,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BidDate,BidAmount,ItemId,AuctionId,Bidder_FirstName,Bidder_LastName,Bidder_PhoneNumber,Bidder_EmailAddress")] BidCreateViewModel bid)
         {
-           // Item item = _context.Items.SingleOrDefault(i => i.ItemId == 1); // bid.ItemId); //Temp debug workaround because ItemId keeps passing in as 0.
+            // Item item = _context.Items.SingleOrDefault(i => i.ItemId == 1); // bid.ItemId); //Temp debug workaround because ItemId keeps passing in as 0.
 
             Bidder newBidder = new Bidder
             {

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CS3750TechnicalPrototypes.Models.BidHistory>
+
+@{
+    ViewData["Title"] = "User Bid History";
+}
+
+<h3>Start entering user ids into the url to see user bid history data</h3>
+<h3>example: http://localhost:56366/BidHistories/ViewBidHistory/5</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Item.ElementAt(0).ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item.ElementAt(0).ItemDescription)
+            </th>
+            <th>
+                Bid Amount
+            </th>
+            <th>
+                Bid Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bid in Model)
+        {
+            foreach (var item in bid.Item)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => bid.BidAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => bid.BidDate)
+
+
+                </td>
+                <td>
+                    @*<a asp-action="Create" asp-route-ItemId="@item.ItemId" asp-route-AuctionId="@item.AuctionId">Enter Bid</a> |*@
+                  @*  <a asp-action="BidsByAuction">All Bids</a>*@
+                    @*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
+                </td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>

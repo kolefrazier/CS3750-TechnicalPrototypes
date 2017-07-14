@@ -18,6 +18,7 @@ namespace CS3750TechnicalPrototypes.Models
         // public int AuctionId { get; set; }
         public int ItemId { get; set; }
         public int BidderId { get; set; }
+        public IEnumerable<Item> Item { get; set; }
         //public virtual Auction Auction { get; set; }
         //public virtual Bidder Bidder { get; set; }
 

@@ -20,6 +20,6 @@ namespace CS3750TechnicalPrototypes.Models
 		//Navigation Properties
 		public int ItemID { get; set; }
 		public IEnumerable<Item> Item { get; set; }
-		public IEnumerable<BidHistory> BidHistory { get; set; }
+		//public IEnumerable<BidHistory> BidHistory { get; set; }
 	}
 }

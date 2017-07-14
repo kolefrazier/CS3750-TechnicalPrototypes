@@ -8,9 +8,10 @@ using CS3750TechnicalPrototypes.Data;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    partial class AuctionContextModelSnapshot : ModelSnapshot
+    [Migration("20170714004644_addingUserBidhistoryView")]
+    partial class addingUserBidhistoryView
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -107,7 +108,7 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<int>("AuctionId");
 
-                    b.Property<int?>("BidHistoryId");
+                    b.Property<int>("BidHistoryId");
 
                     b.Property<double>("BidIncrement");
 
@@ -139,7 +140,8 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.HasOne("CS3750TechnicalPrototypes.Models.BidHistory", "BidHistory")
                         .WithMany("Item")
-                        .HasForeignKey("BidHistoryId");
+                        .HasForeignKey("BidHistoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }
