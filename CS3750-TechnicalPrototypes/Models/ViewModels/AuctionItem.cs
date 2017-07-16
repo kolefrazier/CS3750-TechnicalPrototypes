@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace CS3750TechnicalPrototypes.Models.ViewModels
 {
-    public class AuctionDetails
+    public class AuctionItem
     {
         public Auction Auction { get; set; }
-        public Item Item { get; set; }
-       
+        public IEnumerable<Item> Item { get; set; } 
     }
 }

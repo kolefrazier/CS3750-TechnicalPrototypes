@@ -1,53 +1,49 @@
-@model IEnumerable<CS3750TechnicalPrototypes.Models.BidHistory>
+<!--Page containing all the currently selected auctions individual items. Each auction can have more than one item-->
+
+
+@model CS3750TechnicalPrototypes.Models.ViewModels.AuctionItem
 
 @{
-	ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";
 }
 
-<h2>Bid Histories</h2>
+<h2>Auction Items</h2>
 
-<p>
-	<a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
-	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.Auction.AuctionName)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Auction.OpeningBid)
-			</th>
-			<th>
-				Item Name
-			</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
-			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.Auction.AuctionName)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Auction.OpeningBid)
-				</td>
-				<td>
-					@foreach (var it in item.Auction.Item)
-					{
-						@Html.DisplayFor(modelItem => it.ItemName)
-					}
-				</td>
-				<td>
-					<a asp-action="Create" asp-route-AuctionId="@item.Auction.AuctionID" asp-route-ItemId="@item.ItemId">Enter Bid</a> |
-					<a asp-action="BidsByAuction" asp-route-id="@item.Auction.AuctionID">All Bids</a>
-					@*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
-						<a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
-						<a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
-				</td>
-			</tr>
-		}
-	</tbody>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Item.ElementAt(0).ItemId)
+            </th>
+            <th>
+                	@Html.DisplayNameFor(model => model.Item.ElementAt(0).OpeningBid)
+            </th>
+            <th>
+                Item Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Item)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemValue)
+                </td>
+
+                <td>
+                    <a asp-action="Create" asp-route-ItemId="@item.ItemId" asp-route-AuctionId="@item.AuctionId">Enter Bid</a> |
+                    <a asp-action="BidsByAuction">All Bids</a>
+                    @*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

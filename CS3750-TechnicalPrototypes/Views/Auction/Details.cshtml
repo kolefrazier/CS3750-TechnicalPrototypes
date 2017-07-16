@@ -1,4 +1,4 @@
-@model CS3750TechnicalPrototypes.Models.ViewModels.AuctionDetails
+@model CS3750TechnicalPrototypes.Models.Auction
 
 @{
 	ViewData["Title"] = "Details";
@@ -8,7 +8,7 @@
 <h4>Auction</h4>
 <hr />
 <div>
-	<a asp-action="Edit" asp-route-id="@Model.Auction.AuctionID">Edit</a> |
+	<a asp-action="Edit" asp-route-id="@Model.AuctionId">Edit</a> |
 	<a asp-action="Index">Back to List</a>
 </div>
 
@@ -19,40 +19,28 @@
 	<div class="col-md-8">
 		<dl class="dl-horizontal">
 			<dt>
-				@Html.DisplayNameFor(model => model.Auction.AuctionName)
+				@Html.DisplayNameFor(model => model.AuctionName)
 			</dt>
 			<dd>
-				@Html.DisplayFor(model => model.Auction.AuctionName)
+				@Html.DisplayFor(model => model.AuctionName)
 			</dd>
 			<dt>
-				@Html.DisplayNameFor(model => model.Auction.StartDate)
+				@Html.DisplayNameFor(model => model.StartDate)
 			</dt>
 			<dd>
-				@Html.DisplayFor(model => model.Auction.StartDate)
+				@Html.DisplayFor(model => model.StartDate)
 			</dd>
 			<dt>
-				@Html.DisplayNameFor(model => model.Auction.EndDate)
+				@Html.DisplayNameFor(model => model.EndDate)
 			</dt>
 			<dd>
-				@Html.DisplayFor(model => model.Auction.EndDate)
+				@Html.DisplayFor(model => model.EndDate)
 			</dd>
 			<dt>
-				@Html.DisplayNameFor(model => model.Auction.OpeningBid)
+				@Html.DisplayNameFor(model => model.EventId)
 			</dt>
 			<dd>
-				@Html.DisplayFor(model => model.Auction.OpeningBid)
-			</dd>
-			<dt>
-				@Html.DisplayNameFor(model => model.Auction.EventId)
-			</dt>
-			<dd>
-				@Html.DisplayFor(model => model.Auction.EventId)
-			</dd>
-			<dt>
-				@Html.DisplayNameFor(model => model.Item.ItemDescription)
-			</dt>
-			<dd>
-				@Html.DisplayFor(model => model.Item.ItemDescription)
+				@Html.DisplayFor(model => model.EventId)
 			</dd>
 		</dl>
 	</div>

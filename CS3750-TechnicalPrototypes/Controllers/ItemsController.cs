@@ -50,7 +50,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
-            //ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID");
+            PopulateDropDownList();
             return View();
         }
 
@@ -84,7 +84,8 @@ namespace CS3750TechnicalPrototypes.Controllers
             {
                 return NotFound();
             }
-            //  ViewData["AuctionId"] = new SelectList(_context.Auctions, "AuctionID", "AuctionID", item.AuctionId);
+
+            PopulateDropDownList();
             return View(item);
         }
 
@@ -157,6 +158,15 @@ namespace CS3750TechnicalPrototypes.Controllers
         private bool ItemExists(int id)
         {
             return _context.Items.Any(e => e.ItemId == id);
+        }
+
+
+        //Populates the ViewBag with all currently active auctions
+        private void PopulateDropDownList()
+        {
+            var AuctionsQuery = from i in _context.Auctions
+                                select i;
+            ViewBag.AuctionId = new SelectList(AuctionsQuery.AsNoTracking(), "AuctionId", "AuctionName");
         }
 
     }

@@ -10,6 +10,8 @@
 	<a asp-action="Index">Back to List</a>
 </div>
 
+<h1>@Html.DisplayFor(model => model.AuctionId)</h1>
+
 <hr />
 
 <form asp-action="Create">
@@ -24,7 +26,7 @@
 				<input asp-for="ItemId" value="@{@Model.ItemId}" hidden="hidden" />
 				<input asp-for="AuctionId" value="@{@Model.AuctionId}" hidden="hidden" />
 			*@
-
+            
 
 			<div class="col-md-6">
 				<div class="form-group">
