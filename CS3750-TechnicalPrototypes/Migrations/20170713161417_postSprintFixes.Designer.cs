@@ -8,9 +8,10 @@ using CS3750TechnicalPrototypes.Data;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    partial class AuctionContextModelSnapshot : ModelSnapshot
+    [Migration("20170713161417_postSprintFixes")]
+    partial class postSprintFixes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -18,7 +19,7 @@ namespace CS3750TechnicalPrototypes.Migrations
 
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Auction", b =>
                 {
-                    b.Property<int>("AuctionId")
+                    b.Property<int>("AuctionID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AuctionName");
@@ -33,7 +34,7 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<DateTime>("StartDate");
 
-                    b.HasKey("AuctionId");
+                    b.HasKey("AuctionID");
 
                     b.ToTable("Auction");
                 });
@@ -67,15 +68,21 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.Property<int>("BidHistoryId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("AuctionID");
+
                     b.Property<double>("BidAmount");
 
                     b.Property<DateTime>("BidDate");
 
-                    b.Property<int>("BidderId");
+                    b.Property<int?>("BidderID");
 
                     b.Property<int>("ItemId");
 
                     b.HasKey("BidHistoryId");
+
+                    b.HasIndex("AuctionID");
+
+                    b.HasIndex("BidderID");
 
                     b.ToTable("BidHistory");
                 });
@@ -107,8 +114,6 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<int>("AuctionId");
 
-                    b.Property<int?>("BidHistoryId");
-
                     b.Property<double>("BidIncrement");
 
                     b.Property<string>("ItemDescription");
@@ -125,9 +130,18 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.HasIndex("AuctionId");
 
-                    b.HasIndex("BidHistoryId");
-
                     b.ToTable("Item");
+                });
+
+            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.BidHistory", b =>
+                {
+                    b.HasOne("CS3750TechnicalPrototypes.Models.Auction", "Auction")
+                        .WithMany("BidHistory")
+                        .HasForeignKey("AuctionID");
+
+                    b.HasOne("CS3750TechnicalPrototypes.Models.Bidder", "Bidder")
+                        .WithMany()
+                        .HasForeignKey("BidderID");
                 });
 
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Item", b =>
@@ -136,10 +150,6 @@ namespace CS3750TechnicalPrototypes.Migrations
                         .WithMany("Item")
                         .HasForeignKey("AuctionId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CS3750TechnicalPrototypes.Models.BidHistory", "BidHistory")
-                        .WithMany("Item")
-                        .HasForeignKey("BidHistoryId");
                 });
         }
     }

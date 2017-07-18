@@ -8,9 +8,10 @@ using CS3750TechnicalPrototypes.Data;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    partial class AuctionContextModelSnapshot : ModelSnapshot
+    [Migration("20170713171227_updatingBidHistories")]
+    partial class updatingBidHistories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -67,6 +68,8 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.Property<int>("BidHistoryId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("AuctionId");
+
                     b.Property<double>("BidAmount");
 
                     b.Property<DateTime>("BidDate");
@@ -76,6 +79,8 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.Property<int>("ItemId");
 
                     b.HasKey("BidHistoryId");
+
+                    b.HasIndex("AuctionId");
 
                     b.ToTable("BidHistory");
                 });
@@ -107,8 +112,6 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<int>("AuctionId");
 
-                    b.Property<int?>("BidHistoryId");
-
                     b.Property<double>("BidIncrement");
 
                     b.Property<string>("ItemDescription");
@@ -125,9 +128,14 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.HasIndex("AuctionId");
 
-                    b.HasIndex("BidHistoryId");
-
                     b.ToTable("Item");
+                });
+
+            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.BidHistory", b =>
+                {
+                    b.HasOne("CS3750TechnicalPrototypes.Models.Auction")
+                        .WithMany("BidHistory")
+                        .HasForeignKey("AuctionId");
                 });
 
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Item", b =>
@@ -136,10 +144,6 @@ namespace CS3750TechnicalPrototypes.Migrations
                         .WithMany("Item")
                         .HasForeignKey("AuctionId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CS3750TechnicalPrototypes.Models.BidHistory", "BidHistory")
-                        .WithMany("Item")
-                        .HasForeignKey("BidHistoryId");
                 });
         }
     }

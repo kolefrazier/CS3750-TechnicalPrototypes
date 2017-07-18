@@ -1,22 +1,20 @@
 @model IEnumerable<CS3750TechnicalPrototypes.Models.Auction>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ViewActiveAuctions";
 }
 
-<h2>Auction Page</h2>
+<h2>ViewActiveAuctions</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                Image
-            </th>
                 <th>
                     @Html.DisplayNameFor(model => model.AuctionName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.StartDate)
@@ -25,7 +23,10 @@
                     @Html.DisplayNameFor(model => model.EndDate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EventId)
+                    @*@Html.DisplayNameFor(model => model.EventId)*@
+                </th>
+                <th>
+                   @* @Html.DisplayNameFor(model => model.ItemID)*@
                 </th>
             <th></th>
         </tr>
@@ -33,11 +34,11 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <th>
-                <img src="http://static.asiawebdirect.com/m/bangkok/hotels/huahin-bangkok-com/hilton-resort/rooms/pageContent/02/highlightedBox/02/image.jpg" alt="vacation" width="100" height="100" />
-            </th>
             <td>
                 @Html.DisplayFor(modelItem => item.AuctionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StartDate)
@@ -45,14 +46,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
-
             <td>
-                @Html.DisplayFor(modelItem => item.EventId)
+                @*@Html.DisplayFor(modelItem => item.EventId)*@
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.AuctionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AuctionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AuctionId">Delete</a>
+            @*    @Html.DisplayFor(modelItem => item.ItemID)*@
+            </td>
+            <td>
+                <a value="View Auction" asp-action="Index" asp-route-id="@item.AuctionId">View Auction</a>
+                @*<a asp-action="Details" asp-route-id="@item.AuctionId">Details</a> 
+                <a asp-action="Delete" asp-route-id="@item.AuctionId">Delete</a>*@
             </td>
         </tr>
 }
