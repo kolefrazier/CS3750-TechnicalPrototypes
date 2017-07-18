@@ -8,9 +8,10 @@ using CS3750TechnicalPrototypes.Data;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    partial class AuctionContextModelSnapshot : ModelSnapshot
+    [Migration("20170718141148_addedMediaTables")]
+    partial class addedMediaTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -134,44 +135,6 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.ToTable("Item");
                 });
 
-            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Media", b =>
-                {
-                    b.Property<int>("PhotoID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ItemID");
-
-                    b.Property<string>("MediaName");
-
-                    b.Property<string>("MediaPath");
-
-                    b.Property<int>("MediaTypeId");
-
-                    b.Property<string>("PhotoToolTip");
-
-                    b.HasKey("PhotoID");
-
-                    b.HasIndex("ItemID")
-                        .IsUnique();
-
-                    b.HasIndex("MediaTypeId")
-                        .IsUnique();
-
-                    b.ToTable("Media");
-                });
-
-            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.MediaType", b =>
-                {
-                    b.Property<int>("MediaTypeID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("MediaDescription");
-
-                    b.HasKey("MediaTypeID");
-
-                    b.ToTable("MediaType");
-                });
-
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.BidHistory", b =>
                 {
                     b.HasOne("CS3750TechnicalPrototypes.Models.Auction", "Auction")
@@ -188,19 +151,6 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.HasOne("CS3750TechnicalPrototypes.Models.Auction", "Auction")
                         .WithMany("Item")
                         .HasForeignKey("AuctionID");
-                });
-
-            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Media", b =>
-                {
-                    b.HasOne("CS3750TechnicalPrototypes.Models.Item")
-                        .WithOne("Media")
-                        .HasForeignKey("CS3750TechnicalPrototypes.Models.Media", "ItemID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CS3750TechnicalPrototypes.Models.MediaType", "MediaType")
-                        .WithOne("Media")
-                        .HasForeignKey("CS3750TechnicalPrototypes.Models.Media", "MediaTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

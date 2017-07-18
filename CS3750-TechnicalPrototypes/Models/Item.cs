@@ -20,5 +20,6 @@ namespace CS3750TechnicalPrototypes.Models
 		//Navigation Properties
 	//	public int AuctionId { get; set; }
 		public virtual Auction Auction { get; set; }
+        public virtual Media Media { get; set; }
 	}
 }
