@@ -23,13 +23,13 @@ namespace CS3750TechnicalPrototypes.Data
         public DbSet<Event> Event { get; set; }
         public DbSet<Media> Media { get; set; }
         public DbSet<MediaType> MediaType { get; set; }
-       
+		public DbSet<Role> Roles { get; set; }
 
-        /// <summary>
-        /// Removes plurality from DbSet property names when creating the table.
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		/// <summary>
+		/// Removes plurality from DbSet property names when creating the table.
+		/// </summary>
+		/// <param name="modelBuilder"></param>
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Auction>().ToTable("Auction");
 			modelBuilder.Entity<Item>().ToTable("Item");
@@ -38,7 +38,7 @@ namespace CS3750TechnicalPrototypes.Data
             modelBuilder.Entity<Event>().ToTable("Event");
             modelBuilder.Entity<Media>().ToTable("Media");
             modelBuilder.Entity<MediaType>().ToTable("MediaType");
-            
+			modelBuilder.Entity<Role>().ToTable("Role");
         }
 	}
 }

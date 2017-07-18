@@ -61,9 +61,47 @@ namespace CS3750TechnicalPrototypes.Data
 			}
 			context.SaveChanges();
 
+			// --- Roles ---
+			var roles = new Role[]
+			{
+				new Role
+				{
+					ShortDescription = "Administrator",
+					UserRole = Roles.Administrator
+				},
+				new Role
+				{
+					ShortDescription = "Office Staff",
+					UserRole = Roles.OfficeWorker
+				},
+				new Role
+				{
+					ShortDescription = "Normal User",
+					UserRole = Roles.User
+				}
+			};
+
+			foreach(Role r in roles)
+			{
+				context.Roles.Add(r);
+			}
+			context.SaveChanges();
+
 			// --- Bidders ---
 			var bidders = new Bidder[]
 			{
+				new Bidder
+				{
+					FirstName = "The",
+					LastName = "Administrator",
+					PhoneNumber = "18000023545",
+					EmailAddress = "admin@phbgtu.com",
+					IsRegistered = true,
+					Password = "Password123",
+					Security = "none",
+					Role = context.Roles.First(r => r.RoleID == 1)
+				},
+
 				new Bidder
 				{
 					FirstName = "Michael",
@@ -72,7 +110,8 @@ namespace CS3750TechnicalPrototypes.Data
 					EmailAddress = "mscott@dundermifflin.com",
 					IsRegistered = false,
 					Password = "none",
-					Security = "none"
+					Security = "none",
+					Role = context.Roles.First(r => r.RoleID == 3)
 				},
 
 				new Bidder
@@ -83,7 +122,8 @@ namespace CS3750TechnicalPrototypes.Data
 					EmailAddress = "Barney@BarneyStinson.com",
 					IsRegistered = false,
 					Password = "none",
-					Security = "none"
+					Security = "none",
+					Role = context.Roles.First(r => r.RoleID == 3)
 				},
 
 				new Bidder
@@ -94,7 +134,8 @@ namespace CS3750TechnicalPrototypes.Data
 					EmailAddress = "homer@mrplow.com",
 					IsRegistered = false,
 					Password = "none",
-					Security = "none"
+					Security = "none",
+					Role = context.Roles.First(r => r.RoleID == 3)
 				},
 
 				new Bidder
@@ -105,7 +146,8 @@ namespace CS3750TechnicalPrototypes.Data
 					EmailAddress = "tom@tom.com",
 					IsRegistered = true,
 					Password = "abcdEfg123",
-					Security = "blah"
+					Security = "blah",
+					Role = context.Roles.First(r => r.RoleID == 3)
 				}
 			};
 
