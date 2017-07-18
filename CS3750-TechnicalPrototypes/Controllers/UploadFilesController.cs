@@ -73,35 +73,16 @@ namespace CS3750TechnicalPrototypes.Controllers
             // Don't rely on or trust the FileName property without validation.
             Media fp = new Media()
             {
-                Path = test,
-                fileName = fName
+                MediaPath = test,
+                MediaName = fName,
+                ItemId = 1, //temp to avoid errors  
+                //MediaTypeId = 1
             };
 
             _context.Media.Add(fp);
             await _context.SaveChangesAsync();
             return Ok(new { count = files.Count, size, filePath, fName, test });
         }
-
-        //[HttpPost("UploadFiles")]
-        //public async Task<IActionResult> Post(IList<IFormFile> files)
-        //{
-        //    long size = 0;
-        //    foreach (var file in files)
-        //    {
-        //        var filename = ContentDispositionHeaderValue
-        //                        .Parse(file.ContentDisposition)
-        //                        .FileName
-        //                        .Trim('"');
-        //        filename = hostingEnv.WebRootPath + $@"\{filename}";
-        //        size += file.Length;
-        //        using (FileStream fs = System.IO.File.Create(filename))
-        //        {
-        //            file.CopyTo(fs);
-        //            fs.Flush();
-        //        }
-        //    }
-
-        //    return View();
-        //}
+        
     }
 }

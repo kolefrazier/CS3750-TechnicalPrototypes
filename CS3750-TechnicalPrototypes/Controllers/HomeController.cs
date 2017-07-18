@@ -20,6 +20,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         {
             List<Media> model = new List<Media>();
             model = _context.Media.ToList();
+            //model.ElementAt(0).Path
             return View(model);
         }
 

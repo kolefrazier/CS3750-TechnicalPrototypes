@@ -66,7 +66,8 @@
     <div class="owl-carousel">
         @foreach (var pic in Model)
         {
-            var fileN = String.Concat(pic.Path, pic.fileName);
+            var fileN = String.Concat(pic.MediaPath, pic.MediaName);
+          //  <div>test</div>
             <div><img src="@fileN" width="100" height="100" /></div>
         }
 
