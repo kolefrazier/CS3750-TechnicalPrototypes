@@ -3,14 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using CS3750TechnicalPrototypes.Models;
+using CS3750TechnicalPrototypes.Data;
 
 namespace CS3750TechnicalPrototypes.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly AuctionContext _context;
+
+        public HomeController(AuctionContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            return View();
+            List<Media> model = new List<Media>();
+            model = _context.Media.ToList();
+            return View(model);
         }
 
         public IActionResult About()
@@ -38,5 +48,6 @@ namespace CS3750TechnicalPrototypes.Controllers
         {
             return View();
         }
+  
     }
 }
