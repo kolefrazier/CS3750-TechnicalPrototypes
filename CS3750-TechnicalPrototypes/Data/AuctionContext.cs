@@ -21,6 +21,9 @@ namespace CS3750TechnicalPrototypes.Data
 		public DbSet<BidHistory> BidHistory { get; set; }
 		public DbSet<Bidder> Bidders { get; set; }
         public DbSet<Event> Event { get; set; }
+        public DbSet<Media> Media { get; set; }
+        public DbSet<MediaType> MediaType { get; set; }
+       
 
         /// <summary>
         /// Removes plurality from DbSet property names when creating the table.
@@ -33,6 +36,9 @@ namespace CS3750TechnicalPrototypes.Data
 			modelBuilder.Entity<BidHistory>().ToTable("BidHistory");
 			modelBuilder.Entity<Bidder>().ToTable("Bidder");
             modelBuilder.Entity<Event>().ToTable("Event");
+            modelBuilder.Entity<Media>().ToTable("Media");
+            modelBuilder.Entity<MediaType>().ToTable("MediaType");
+            
         }
 	}
 }
