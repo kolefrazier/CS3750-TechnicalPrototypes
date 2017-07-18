@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using CS3750TechnicalPrototypes.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Session;
 
 namespace CS3750TechnicalPrototypes
 {
@@ -32,6 +33,14 @@ namespace CS3750TechnicalPrototypes
 			// Add framework services.
 			services.AddDbContext<AuctionContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 			services.AddMvc();
+
+			//Session Configuration Items
+			services.AddDistributedMemoryCache();
+			services.AddSession(options =>
+			{
+				options.IdleTimeout = TimeSpan.FromMinutes(30);
+				options.CookieHttpOnly = true;
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +52,7 @@ namespace CS3750TechnicalPrototypes
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+				app.UseSession();
 				app.UseBrowserLink();
 			}
 			else
