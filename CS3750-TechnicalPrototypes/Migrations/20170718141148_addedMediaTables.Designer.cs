@@ -8,9 +8,10 @@ using CS3750TechnicalPrototypes.Data;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    partial class AuctionContextModelSnapshot : ModelSnapshot
+    [Migration("20170718141148_addedMediaTables")]
+    partial class addedMediaTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -18,7 +19,7 @@ namespace CS3750TechnicalPrototypes.Migrations
 
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Auction", b =>
                 {
-                    b.Property<int>("AuctionId")
+                    b.Property<int>("AuctionID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AuctionName");
@@ -31,9 +32,11 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<int>("ItemID");
 
+                    b.Property<double>("OpeningBid");
+
                     b.Property<DateTime>("StartDate");
 
-                    b.HasKey("AuctionId");
+                    b.HasKey("AuctionID");
 
                     b.ToTable("Auction");
                 });
@@ -67,15 +70,21 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.Property<int>("BidHistoryId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("AuctionID");
+
                     b.Property<double>("BidAmount");
 
                     b.Property<DateTime>("BidDate");
 
-                    b.Property<int>("BidderId");
+                    b.Property<int?>("BidderID");
 
                     b.Property<int>("ItemId");
 
                     b.HasKey("BidHistoryId");
+
+                    b.HasIndex("AuctionID");
+
+                    b.HasIndex("BidderID");
 
                     b.ToTable("BidHistory");
                 });
@@ -105,9 +114,7 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AuctionId");
-
-                    b.Property<int?>("BidHistoryId");
+                    b.Property<int?>("AuctionID");
 
                     b.Property<double>("BidIncrement");
 
@@ -123,74 +130,27 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.HasKey("ItemId");
 
-                    b.HasIndex("AuctionId");
-
-                    b.HasIndex("BidHistoryId");
+                    b.HasIndex("AuctionID");
 
                     b.ToTable("Item");
                 });
 
-            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Media", b =>
+            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.BidHistory", b =>
                 {
-                    b.Property<int>("PhotoID")
-                        .ValueGeneratedOnAdd();
+                    b.HasOne("CS3750TechnicalPrototypes.Models.Auction", "Auction")
+                        .WithMany("BidHistory")
+                        .HasForeignKey("AuctionID");
 
-                    b.Property<int>("ItemID");
-
-                    b.Property<string>("MediaName");
-
-                    b.Property<string>("MediaPath");
-
-                    b.Property<int>("MediaTypeId");
-
-                    b.Property<string>("PhotoToolTip");
-
-                    b.HasKey("PhotoID");
-
-                    b.HasIndex("ItemID")
-                        .IsUnique();
-
-                    b.HasIndex("MediaTypeId")
-                        .IsUnique();
-
-                    b.ToTable("Media");
-                });
-
-            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.MediaType", b =>
-                {
-                    b.Property<int>("MediaTypeID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("MediaDescription");
-
-                    b.HasKey("MediaTypeID");
-
-                    b.ToTable("MediaType");
+                    b.HasOne("CS3750TechnicalPrototypes.Models.Bidder", "Bidder")
+                        .WithMany()
+                        .HasForeignKey("BidderID");
                 });
 
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Item", b =>
                 {
                     b.HasOne("CS3750TechnicalPrototypes.Models.Auction", "Auction")
                         .WithMany("Item")
-                        .HasForeignKey("AuctionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CS3750TechnicalPrototypes.Models.BidHistory", "BidHistory")
-                        .WithMany("Item")
-                        .HasForeignKey("BidHistoryId");
-                });
-
-            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Media", b =>
-                {
-                    b.HasOne("CS3750TechnicalPrototypes.Models.Item")
-                        .WithOne("Media")
-                        .HasForeignKey("CS3750TechnicalPrototypes.Models.Media", "ItemID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CS3750TechnicalPrototypes.Models.MediaType", "MediaType")
-                        .WithOne("Media")
-                        .HasForeignKey("CS3750TechnicalPrototypes.Models.Media", "MediaTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuctionID");
                 });
         }
     }
