@@ -135,23 +135,21 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.Property<int>("PhotoID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ItemID");
+                    b.Property<int>("ItemId");
 
                     b.Property<string>("MediaName");
 
                     b.Property<string>("MediaPath");
 
-                    b.Property<int>("MediaTypeId");
+                    b.Property<int?>("MediaTypeID");
 
                     b.Property<string>("PhotoToolTip");
 
                     b.HasKey("PhotoID");
 
-                    b.HasIndex("ItemID")
-                        .IsUnique();
+                    b.HasIndex("ItemId");
 
-                    b.HasIndex("MediaTypeId")
-                        .IsUnique();
+                    b.HasIndex("MediaTypeID");
 
                     b.ToTable("Media");
                 });
@@ -161,7 +159,7 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.Property<int>("MediaTypeID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("MediaDescription");
+                    b.Property<string>("MediaDescription");
 
                     b.HasKey("MediaTypeID");
 
@@ -183,14 +181,13 @@ namespace CS3750TechnicalPrototypes.Migrations
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Media", b =>
                 {
                     b.HasOne("CS3750TechnicalPrototypes.Models.Item")
-                        .WithOne("Media")
-                        .HasForeignKey("CS3750TechnicalPrototypes.Models.Media", "ItemID")
+                        .WithMany("Media")
+                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CS3750TechnicalPrototypes.Models.MediaType", "MediaType")
-                        .WithOne("Media")
-                        .HasForeignKey("CS3750TechnicalPrototypes.Models.Media", "MediaTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("MediaTypeID");
                 });
         }
     }
