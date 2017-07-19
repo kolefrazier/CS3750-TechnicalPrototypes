@@ -24,6 +24,7 @@ namespace CS3750TechnicalPrototypes.Data
         public DbSet<Media> Media { get; set; }
         public DbSet<MediaType> MediaType { get; set; }
 		public DbSet<Role> Roles { get; set; }
+        public DbSet<Sponsor> Sponsors { get; set; }
 
 		/// <summary>
 		/// Removes plurality from DbSet property names when creating the table.
@@ -39,6 +40,7 @@ namespace CS3750TechnicalPrototypes.Data
             modelBuilder.Entity<Media>().ToTable("Media");
             modelBuilder.Entity<MediaType>().ToTable("MediaType");
 			modelBuilder.Entity<Role>().ToTable("Role");
+            modelBuilder.Entity<Sponsor>().ToTable("Sponsor");
         }
 	}
 }

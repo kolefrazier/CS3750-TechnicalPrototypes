@@ -10,7 +10,10 @@ namespace CS3750TechnicalPrototypes.Models
     {
         [Key]
         public int sponsorID { get; set; }
+        [Required]
+        [Display(Name = "Sponsor Name")]
         public string sponsorName { get; set; }
+        public string sponsorEmail { get; set; }
 
     }
 }

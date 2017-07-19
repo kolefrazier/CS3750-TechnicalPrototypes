@@ -8,6 +8,7 @@ namespace CS3750TechnicalPrototypes.Models
 {
 	public class Bidder
 	{
+        [Key]
 		public int BidderID { get; set; }
 
 		[Required]
