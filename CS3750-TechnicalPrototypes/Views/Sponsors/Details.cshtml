@@ -1,0 +1,30 @@
+@model CS3750TechnicalPrototypes.Models.Sponsor
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sponsor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sponsorName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.sponsorName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.sponsorEmail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.sponsorEmail)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.sponsorID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

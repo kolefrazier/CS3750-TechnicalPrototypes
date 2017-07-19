@@ -24,8 +24,5 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Sponsor\" />
-  </ItemGroup>
 
 </Project>
