@@ -157,49 +157,80 @@ namespace CS3750TechnicalPrototypes.Data
 			}
 			context.SaveChanges();
 
-			// --- Items ---
-			var items = new Item[]
+            // ---Sponsors---
+            var sponsors = new Sponsor[]
+            {
+                new Sponsor
+                {
+                    sponsorID = 2,
+                    sponsorName = "Barnacle Bay",
+                    sponsorEmail = "barnaclebayresort@gmail.com"
+                },
+
+                new Sponsor
+                {
+                    sponsorID = 1,
+                    sponsorName = "Crazy Edd",
+                    sponsorEmail = "crazyedfishing@yahoo.com"
+                },
+
+                new Sponsor
+                {
+                    sponsorID = 3,
+                    sponsorName = "Mystery Shippers",
+                    sponsorEmail = "unknownship@gmail.com"
+                },
+            };
+
+            foreach (Sponsor s in sponsors)
+            {
+                context.Sponsors.Add(s);
+            }
+            context.SaveChanges();
+
+            // --- Items ---
+            var items = new Item[]
 			{
 				new Item
 				{
-					SponsorId = 2,
 					ItemName = "Five Night Stay at Barnacle Bay",
 					ItemDescription = "Enjoy five unforgettable nights out in the lovely stench that is the exclusive Barnacle Bay! Winning this package will give your heart a warm feeling while your nose dies in disgust.",
 					ItemValue = 100.00,
 					OpeningBid = 80.00,
 					BidIncrement = 10.00,
-					Auction = context.Auctions.First(a => a.AuctionId == 1)
+					Auction = context.Auctions.First(a => a.AuctionId == 1),
+                    Sponsor = context.Sponsors.First(s => s.sponsorID == 2)
 				},
 				new Item
 				{
-					SponsorId = 2,
 					ItemName = "Overnight Fishing Trip at Barnacle Bay",
 					ItemDescription = "Enjoy an overnight trip, fishing barnacle bombs from Barnacle Bay! Winning this package will give your heart a warm feeling while your nose dies in disgust.",
 					ItemValue = 80.00,
 					OpeningBid = 70.00,
 					BidIncrement = 10.00,
-					Auction = context.Auctions.First(a => a.AuctionId == 2)
-				},
+					Auction = context.Auctions.First(a => a.AuctionId == 2),
+                    Sponsor = context.Sponsors.First(s => s.sponsorID == 2)
+                },
 				new Item
 				{
-					SponsorId = 1,
 					ItemName = "Crazy Edd's Grand Fishing Day",
 					ItemDescription = "Crazy Edd has offered to take you on the grandest fishing trip ever. It will exceed your imagination's attempts at imagining it. Don't pass up this once in a lifetime opportunity!",
 					ItemValue = 200.00,
 					OpeningBid = 180.00,
 					BidIncrement = 10.00,
-					Auction = context.Auctions.First(a => a.AuctionId == 3)
-				},
+					Auction = context.Auctions.First(a => a.AuctionId == 3),
+                    Sponsor = context.Sponsors.First(s => s.sponsorID == 1)
+                },
 				new Item
 				{
-					SponsorId = 2,
 					ItemName = "Video games by Tom Hanks",
 					ItemDescription = "Tom Hanks will hand deliver three video games (of your choice) to you to own forever.",
 					ItemValue = 1200.00,
 					OpeningBid = 1000.00,
 					BidIncrement = 50.00,
-					Auction = context.Auctions.First(a => a.AuctionId == 2)
-				}
+					Auction = context.Auctions.First(a => a.AuctionId == 2),
+                    Sponsor = context.Sponsors.First(s => s.sponsorID == 3)
+                }
 			};
 
 			foreach (Item i in items)
