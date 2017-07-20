@@ -199,7 +199,7 @@ namespace CS3750TechnicalPrototypes.Data
 					OpeningBid = 80.00,
 					BidIncrement = 10.00,
 					Auction = context.Auctions.First(a => a.AuctionId == 1),
-                    Sponsor = context.Sponsors.First(s => s.sponsorID == 2)
+                    //Sponsor = context.Sponsors.First(s => s.sponsorID == 2)
 				},
 				new Item
 				{
@@ -209,7 +209,7 @@ namespace CS3750TechnicalPrototypes.Data
 					OpeningBid = 70.00,
 					BidIncrement = 10.00,
 					Auction = context.Auctions.First(a => a.AuctionId == 2),
-                    Sponsor = context.Sponsors.First(s => s.sponsorID == 2)
+                   // Sponsor = context.Sponsors.First(s => s.sponsorID == 2)
                 },
 				new Item
 				{
@@ -219,7 +219,7 @@ namespace CS3750TechnicalPrototypes.Data
 					OpeningBid = 180.00,
 					BidIncrement = 10.00,
 					Auction = context.Auctions.First(a => a.AuctionId == 3),
-                    Sponsor = context.Sponsors.First(s => s.sponsorID == 1)
+                   // Sponsor = context.Sponsors.First(s => s.sponsorID == 1)
                 },
 				new Item
 				{
@@ -229,7 +229,7 @@ namespace CS3750TechnicalPrototypes.Data
 					OpeningBid = 1000.00,
 					BidIncrement = 50.00,
 					Auction = context.Auctions.First(a => a.AuctionId == 2),
-                    Sponsor = context.Sponsors.First(s => s.sponsorID == 3)
+                   // Sponsor = context.Sponsors.First(s => s.sponsorID == 3)
                 }
 			};
 

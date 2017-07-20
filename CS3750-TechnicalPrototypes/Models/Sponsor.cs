@@ -14,6 +14,6 @@ namespace CS3750TechnicalPrototypes.Models
         [Display(Name = "Sponsor Name")]
         public string sponsorName { get; set; }
         public string sponsorEmail { get; set; }
-
+        public IEnumerable<Item> Item { get; set; }
     }
 }

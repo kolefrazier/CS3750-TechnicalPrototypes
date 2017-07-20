@@ -128,13 +128,15 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<double>("OpeningBid");
 
-                    b.Property<int>("SponsorId");
+                    b.Property<int?>("sponsorID");
 
                     b.HasKey("ItemId");
 
                     b.HasIndex("AuctionId");
 
                     b.HasIndex("BidHistoryId");
+
+                    b.HasIndex("sponsorID");
 
                     b.ToTable("Item");
                 });
@@ -221,6 +223,10 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.HasOne("CS3750TechnicalPrototypes.Models.BidHistory", "BidHistory")
                         .WithMany("Item")
                         .HasForeignKey("BidHistoryId");
+
+                    b.HasOne("CS3750TechnicalPrototypes.Models.Sponsor", "Sponsor")
+                        .WithMany("Item")
+                        .HasForeignKey("sponsorID");
                 });
 
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Media", b =>

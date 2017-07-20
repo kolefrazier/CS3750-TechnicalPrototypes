@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CS3750TechnicalPrototypes.Migrations
 {
-    public partial class init : Migration
+    public partial class fix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,25 +25,6 @@ namespace CS3750TechnicalPrototypes.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Auction", x => x.AuctionId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Bidder",
-                columns: table => new
-                {
-                    BidderID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    EmailAddress = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    IsRegistered = table.Column<bool>(nullable: false),
-                    LastName = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    Security = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bidder", x => x.BidderID);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,6 +61,47 @@ namespace CS3750TechnicalPrototypes.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MediaType",
+                columns: table => new
+                {
+                    MediaTypeID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MediaDescription = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MediaType", x => x.MediaTypeID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Role",
+                columns: table => new
+                {
+                    RoleID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ShortDescription = table.Column<string>(nullable: true),
+                    UserRole = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.RoleID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sponsor",
+                columns: table => new
+                {
+                    sponsorID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    sponsorEmail = table.Column<string>(nullable: true),
+                    sponsorName = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sponsor", x => x.sponsorID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Item",
                 columns: table => new
                 {
@@ -91,8 +113,7 @@ namespace CS3750TechnicalPrototypes.Migrations
                     ItemDescription = table.Column<string>(nullable: true),
                     ItemName = table.Column<string>(nullable: true),
                     ItemValue = table.Column<double>(nullable: false),
-                    OpeningBid = table.Column<double>(nullable: false),
-                    SponsorId = table.Column<int>(nullable: false)
+                    OpeningBid = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,6 +133,32 @@ namespace CS3750TechnicalPrototypes.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Bidder",
+                columns: table => new
+                {
+                    BidderID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EmailAddress = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: false),
+                    IsRegistered = table.Column<bool>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: false),
+                    RoleID = table.Column<int>(nullable: true),
+                    Security = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bidder", x => x.BidderID);
+                    table.ForeignKey(
+                        name: "FK_Bidder_Role_RoleID",
+                        column: x => x.RoleID,
+                        principalTable: "Role",
+                        principalColumn: "RoleID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Media",
                 columns: table => new
                 {
@@ -120,6 +167,7 @@ namespace CS3750TechnicalPrototypes.Migrations
                     ItemId = table.Column<int>(nullable: false),
                     MediaName = table.Column<string>(nullable: true),
                     MediaPath = table.Column<string>(nullable: true),
+                    MediaTypeID = table.Column<int>(nullable: true),
                     PhotoToolTip = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -131,7 +179,18 @@ namespace CS3750TechnicalPrototypes.Migrations
                         principalTable: "Item",
                         principalColumn: "ItemId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Media_MediaType_MediaTypeID",
+                        column: x => x.MediaTypeID,
+                        principalTable: "MediaType",
+                        principalColumn: "MediaTypeID",
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bidder_RoleID",
+                table: "Bidder",
+                column: "RoleID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Item_AuctionId",
@@ -146,8 +205,12 @@ namespace CS3750TechnicalPrototypes.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Media_ItemId",
                 table: "Media",
-                column: "ItemId",
-                unique: true);
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Media_MediaTypeID",
+                table: "Media",
+                column: "MediaTypeID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -162,7 +225,16 @@ namespace CS3750TechnicalPrototypes.Migrations
                 name: "Media");
 
             migrationBuilder.DropTable(
+                name: "Sponsor");
+
+            migrationBuilder.DropTable(
+                name: "Role");
+
+            migrationBuilder.DropTable(
                 name: "Item");
+
+            migrationBuilder.DropTable(
+                name: "MediaType");
 
             migrationBuilder.DropTable(
                 name: "Auction");
