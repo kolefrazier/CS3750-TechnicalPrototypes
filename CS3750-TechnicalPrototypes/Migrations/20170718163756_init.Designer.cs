@@ -8,8 +8,8 @@ using CS3750TechnicalPrototypes.Data;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    [Migration("20170714005052_addingUserBidhistoryView2")]
-    partial class addingUserBidhistoryView2
+    [Migration("20170718163756_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,6 +74,8 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<int>("BidderId");
 
+                    b.Property<int>("ItemId");
+
                     b.HasKey("BidHistoryId");
 
                     b.ToTable("BidHistory");
@@ -129,6 +131,27 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.ToTable("Item");
                 });
 
+            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Media", b =>
+                {
+                    b.Property<int>("PhotoID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("MediaName");
+
+                    b.Property<string>("MediaPath");
+
+                    b.Property<string>("PhotoToolTip");
+
+                    b.HasKey("PhotoID");
+
+                    b.HasIndex("ItemId")
+                        .IsUnique();
+
+                    b.ToTable("Media");
+                });
+
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Item", b =>
                 {
                     b.HasOne("CS3750TechnicalPrototypes.Models.Auction", "Auction")
@@ -139,6 +162,14 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.HasOne("CS3750TechnicalPrototypes.Models.BidHistory", "BidHistory")
                         .WithMany("Item")
                         .HasForeignKey("BidHistoryId");
+                });
+
+            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Media", b =>
+                {
+                    b.HasOne("CS3750TechnicalPrototypes.Models.Item")
+                        .WithOne("Media")
+                        .HasForeignKey("CS3750TechnicalPrototypes.Models.Media", "ItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

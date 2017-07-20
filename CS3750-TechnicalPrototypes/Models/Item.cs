@@ -10,6 +10,7 @@ namespace CS3750TechnicalPrototypes.Models
     {
         [Key]
         public int ItemId { get; set; }
+        public int SponsorId { get; set; }
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
         public double ItemValue { get; set; }
@@ -21,7 +22,6 @@ namespace CS3750TechnicalPrototypes.Models
       //  public int BidHistoryId { get; set; }
         public virtual Auction Auction { get; set; }
         public virtual BidHistory BidHistory { get; set; }
-        public virtual Media Media { get; set; }
-        public virtual Sponsor Sponsor { get; set; }
+        public IEnumerable<Media> Media { get; set; }
     }
 }
