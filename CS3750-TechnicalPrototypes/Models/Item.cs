@@ -23,5 +23,6 @@ namespace CS3750TechnicalPrototypes.Models
         public virtual Auction Auction { get; set; }
         public virtual BidHistory BidHistory { get; set; }
         public IEnumerable<Media> Media { get; set; }
+        public virtual Sponsor Sponsor { get; set; }
     }
 }
