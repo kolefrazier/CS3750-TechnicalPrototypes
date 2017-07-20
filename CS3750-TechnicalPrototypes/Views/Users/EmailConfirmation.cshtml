@@ -3,14 +3,15 @@
 }
 
 <div class="text-center">
-	<h2>Verification Needed</h2>
-
-	<p>Some verification is needed. An email has been sent to the email address you entered. Please check your email for a confirmation.</p>
-	<p class="text-info">No email? Check your spam/junk folder and add confirm@phbgtu-org.com to your contact list.</p>
+	<h2>A confirmation email has been sent.</h2>
 	<br />
+	<p>Some verification is needed. An email has been sent to the email address you entered. Please check your email for a confirmation.</p>
+	<p><i>No email? Check your spam/junk folder and add confirm@phbgtu-org.com to your contact list.</i></p>
+	<br />
+	<a asp-action="Login" asp-controller="Users">Click here to mock-confirm your email address.</a>
+	<br />- or -<br />
+	<a asp-action="Login" asp-controller="Users">Click here to login.</a>
 	<hr />
 	<br />
-	<p class="text-muted">DEBUG: No email system is set up. This is just a mock page.</p>
-	<a asp-action="Index" asp-controller="Home">Click here to mock-confirm your email address and login.</a>
-	<a asp-action="Login" asp-controller="Users">Click here to login.</a>
+	<p class="text-muted">DEBUG: No email system is set up. This is just a mock page. Both links above go to the login page.</p>
 </div>

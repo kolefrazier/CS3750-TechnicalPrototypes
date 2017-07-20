@@ -84,7 +84,7 @@ namespace CS3750TechnicalPrototypes.Controllers
 					MatchedUser.IsRegistered = true; //Set to true.
 					MatchedUser.Password = bidder.Password;
 					MatchedUser.Security = bidder.Security;
-					//If we had an email provider, you could force someone to verify their email address before setting the above values.
+					//If we had an email provider, you could force someone to verify/prove ownership of their email address before setting the above values. But still not ideal.
 				} else
 				{
 					//Next, handle a non-existant user.
@@ -96,12 +96,13 @@ namespace CS3750TechnicalPrototypes.Controllers
 						PhoneNumber = bidder.PhoneNumber,
 						EmailAddress = bidder.EmailAddress,
 						IsRegistered = true,
+						Role = _context.Roles.First(r => r.RoleID == 3),
 						Password = bidder.Password,
 						Security = bidder.Security
 					};
 					_context.Add(NewBidder);
 					await _context.SaveChangesAsync();
-					return RedirectToAction("Login");
+					return RedirectToAction("EmailConfirmation");
 				}
 			}
 
@@ -236,7 +237,6 @@ namespace CS3750TechnicalPrototypes.Controllers
 
 		public void SetLoginInformation(Bidder user)
 		{
-			//Totally not susceptible to cookie modification.........
 			HttpContext.Session.SetString("LoggedIn", "true");
 			HttpContext.Session.SetInt32("UserId", user.BidderID);
 			HttpContext.Session.SetInt32("RoleId", RoleEnumToInt(user.Role.UserRole));
@@ -270,6 +270,7 @@ namespace CS3750TechnicalPrototypes.Controllers
 			}
 		}
 
+		//The non-dynamic wound festers further. Don't look too close, please.
 		private int RoleEnumToInt(Roles role)
 		{
 			switch (role)
