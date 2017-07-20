@@ -19,9 +19,11 @@ namespace CS3750TechnicalPrototypes.Models
 		public string LastName { get; set; }
 		[Required]
 		[DataType(DataType.PhoneNumber)]
+		[Display(Name = "Phone Number")]
 		public string PhoneNumber { get; set; }
 		[Required]
-		[DataType(DataType.PhoneNumber)]
+		[DataType(DataType.EmailAddress)]
+		[Display(Name = "Email Address")]
 		public string EmailAddress { get; set; }
 
 		public bool IsRegistered { get; set; }

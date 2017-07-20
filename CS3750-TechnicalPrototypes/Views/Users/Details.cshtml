@@ -1,0 +1,60 @@
+@model CS3750TechnicalPrototypes.Models.Bidder
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Bidder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EmailAddress)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsRegistered)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsRegistered)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Security)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Security)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.BidderID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

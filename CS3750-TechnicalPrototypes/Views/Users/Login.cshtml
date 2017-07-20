@@ -1,0 +1,17 @@
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+
+<form asp-action="Login">
+	<div class="form-horizontal">
+		<h4>Enter your credentials to sign in. (<a asp-action="Create">Don't have an account?</a>)</h4>
+		<hr />
+		<div asp-validation-summar="ModelOnly" class="text-danger"></div>
+		<div class="col-md-10">
+			<input asp-for
+		</div>
+	</div>
+</form>
