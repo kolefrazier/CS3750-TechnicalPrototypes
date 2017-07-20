@@ -59,7 +59,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,SponsorId,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
+        public async Task<IActionResult> Create([Bind("ItemId,sponsorID,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemId,SponsorId,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemId,sponsorID,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
         {
             if (id != item.ItemId)
             {
@@ -167,6 +167,11 @@ namespace CS3750TechnicalPrototypes.Controllers
             var AuctionsQuery = from i in _context.Auctions
                                 select i;
             ViewBag.AuctionId = new SelectList(AuctionsQuery.AsNoTracking(), "AuctionId", "AuctionName");
+        }
+
+        private void PopulateSponsors()
+        {
+
         }
 
     }
