@@ -8,7 +8,7 @@ namespace CS3750TechnicalPrototypes.Models
 {
 	public class Bidder
 	{
-        [Key]
+		[Key]
 		public int BidderID { get; set; }
 
 		[Required]
@@ -30,6 +30,7 @@ namespace CS3750TechnicalPrototypes.Models
 
 		[DataType(DataType.Password)]
 		public string Password { get; set; }
+		[Display(Name = "Security Phrase")]
 		public string Security { get; set; }
 
 		public Role Role { get; set; }

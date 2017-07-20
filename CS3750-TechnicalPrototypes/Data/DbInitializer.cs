@@ -90,6 +90,7 @@ namespace CS3750TechnicalPrototypes.Data
 			// --- Bidders ---
 			var bidders = new Bidder[]
 			{
+				//Users with Role level 1 (admin)
 				new Bidder
 				{
 					FirstName = "The",
@@ -100,6 +101,44 @@ namespace CS3750TechnicalPrototypes.Data
 					Password = "Password123",
 					Security = "none",
 					Role = context.Roles.First(r => r.RoleID == 1)
+				},
+
+				new Bidder
+				{
+					FirstName = "AdminWithA",
+					LastName = "ShortLogin",
+					PhoneNumber = "18000023545",
+					EmailAddress = "a@a.com",
+					IsRegistered = true,
+					Password = "a",
+					Security = "none",
+					Role = context.Roles.First(r => r.RoleID == 1)
+				},
+
+				//Users with Role level 2 (office worker)
+				new Bidder
+				{
+					FirstName = "Sam",
+					LastName = "OfficeWorker",
+					PhoneNumber = "18000023545",
+					EmailAddress = "sam@gmail.com",
+					IsRegistered = true,
+					Password = "a",
+					Security = "none",
+					Role = context.Roles.First(r => r.RoleID == 2)
+				},
+
+				//Users with Role level 3 (normal users)
+				new Bidder
+				{
+					FirstName = "Thomas",
+					LastName = "The Tank",
+					PhoneNumber = "18006549871",
+					EmailAddress = "thomas@trains.com",
+					IsRegistered = true, //IS REGISTERED
+					Password = "abcd123",
+					Security = "none",
+					Role = context.Roles.First(r => r.RoleID == 3)
 				},
 
 				new Bidder

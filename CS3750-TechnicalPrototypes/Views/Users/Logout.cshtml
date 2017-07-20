@@ -1,9 +1,20 @@
 @{
-    ViewData["Title"] = "Logout";
+	ViewData["Title"] = "Logout";
+	var IsValidated = (string) ViewData["IsLoggedIn"];
 }
 
-<h2>Logout</h2>
-
-<div>
-	<p>You have successfully logged out. <a >Click here to continue browsing.</a></p>
+<div class="text-center">
+	@if (IsValidated == "true")
+	{
+		<p class="text-info">Hmm... Something went wrong.</p>
+		<br />
+		<img src="http://memes1.fjcdn.com/pictures/Thonking_a8e966_6229433.jpg" alt="Draven is thonking." class="img-thumbnail" />
+	}
+	else
+	{
+		<h2>Logout Success</h2>
+		<p>You have successfully logged out.</p>
+		<br />
+		<p><a asp-action="Index" asp-controller="Auction">Back to browsing</a> or <a asp-action="Users" asp-controller="Login">sign in again</a></p>
+	}
 </div>

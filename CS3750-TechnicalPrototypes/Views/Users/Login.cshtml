@@ -1,17 +1,41 @@
-
+@model CS3750TechnicalPrototypes.Models.ViewModels.UserLoginViewModel
 @{
-    ViewData["Title"] = "Login";
+	ViewData["Title"] = "Login";
 }
 
 <h2>Login</h2>
 
 <form asp-action="Login">
 	<div class="form-horizontal">
-		<h4>Enter your credentials to sign in. (<a asp-action="Create">Don't have an account?</a>)</h4>
+		<h4>Enter your credentials to sign in.</h4>
+		<span class="text-muted"><a asp-action="Create">(Don't have an account?)</a></span>
 		<hr />
 		<div asp-validation-summar="ModelOnly" class="text-danger"></div>
-		<div class="col-md-10">
-			<input asp-for
+
+		<div class="form-group">
+			<label class="col-md-2 control-label">Email Address</label>
+			<div class="col-md-10">
+				<input asp-for="EmailAddress" class="form-control" />
+				<span asp-validation-for="EmailAddress" class="text-danger"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-2 control-label">Password</label>
+			<div class="col-md-10">
+				<input asp-for="Password" type="password" class="form-control" />
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Login" class="btn btn-default" />
+			</div>
 		</div>
 	</div>
 </form>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

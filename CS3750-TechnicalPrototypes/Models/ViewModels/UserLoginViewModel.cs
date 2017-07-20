@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace CS3750TechnicalPrototypes.Models.ViewModels
 {
-    public class NewUserViewModel
-    {
-		public string Username { get; set; }
+	public class UserLoginViewModel
+	{
+		public string EmailAddress { get; set; }
 		public string Password { get; set; }
 	}
 }
