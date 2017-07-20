@@ -162,21 +162,21 @@ namespace CS3750TechnicalPrototypes.Data
             {
                 new Sponsor
                 {
-                    sponsorID = 2,
+                    //sponsorID = 2,
                     sponsorName = "Barnacle Bay",
                     sponsorEmail = "barnaclebayresort@gmail.com"
                 },
 
                 new Sponsor
                 {
-                    sponsorID = 1,
+                    //sponsorID = 1,
                     sponsorName = "Crazy Edd",
                     sponsorEmail = "crazyedfishing@yahoo.com"
                 },
 
                 new Sponsor
                 {
-                    sponsorID = 3,
+                    //sponsorID = 3,
                     sponsorName = "Mystery Shippers",
                     sponsorEmail = "unknownship@gmail.com"
                 },
@@ -199,7 +199,9 @@ namespace CS3750TechnicalPrototypes.Data
 					OpeningBid = 80.00,
 					BidIncrement = 10.00,
 					Auction = context.Auctions.First(a => a.AuctionId == 1),
-                    Sponsor = context.Sponsors.First(s => s.sponsorID == 2)
+                    Sponsor = context.Sponsors.First(s => s.sponsorID == 2),
+					Media = null,
+					BidHistory = null
 				},
 				new Item
 				{
@@ -209,7 +211,9 @@ namespace CS3750TechnicalPrototypes.Data
 					OpeningBid = 70.00,
 					BidIncrement = 10.00,
 					Auction = context.Auctions.First(a => a.AuctionId == 2),
-                   // Sponsor = context.Sponsors.First(s => s.sponsorID == 2)
+                    Sponsor = context.Sponsors.First(s => s.sponsorID == 2),
+					Media = null,
+					BidHistory = null
                 },
 				new Item
 				{
@@ -219,8 +223,10 @@ namespace CS3750TechnicalPrototypes.Data
 					OpeningBid = 180.00,
 					BidIncrement = 10.00,
 					Auction = context.Auctions.First(a => a.AuctionId == 3),
-                    Sponsor = context.Sponsors.First(s => s.sponsorID == 1)
-                },
+                    Sponsor = context.Sponsors.First(s => s.sponsorID == 1),
+					Media = null,
+					BidHistory = null
+				},
 				new Item
 				{
 					ItemName = "Video games by Tom Hanks",
@@ -229,9 +235,10 @@ namespace CS3750TechnicalPrototypes.Data
 					OpeningBid = 1000.00,
 					BidIncrement = 50.00,
 					Auction = context.Auctions.First(a => a.AuctionId == 2),
-                    Sponsor = context.Sponsors.First(s => s.sponsorID == 3)
-                   
-                }
+                    Sponsor = context.Sponsors.First(s => s.sponsorID == 3),
+					Media = null,
+					BidHistory = null
+				}
 			};
 
 			foreach (Item i in items)
