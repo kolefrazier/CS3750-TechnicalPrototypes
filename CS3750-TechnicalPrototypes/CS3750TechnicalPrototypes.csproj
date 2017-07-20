@@ -7,6 +7,17 @@
   <PropertyGroup>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\css\owl.carousel.css" />
+    <Content Include="wwwroot\css\owl.carousel.min.css" />
+    <Content Include="wwwroot\css\owl.theme.default.css" />
+    <Content Include="wwwroot\css\owl.theme.default.min.css" />
+    <Content Include="wwwroot\css\owl.theme.green.css" />
+    <Content Include="wwwroot\css\owl.theme.green.min.css" />
+    <Content Include="wwwroot\js\owl.carousel.js" />
+    <Content Include="wwwroot\js\owl.carousel.min.js" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />

@@ -8,8 +8,8 @@ namespace CS3750TechnicalPrototypes.Models
     public class MediaType
     {
         public int MediaTypeID { get; set; } 
-        public int MediaDescription { get; set; }
+        public string MediaDescription { get; set; }
 
-        public virtual Media Media { get; set; } //abstract class
+        //public virtual Media Media { get; set; } //abstract class
     }
 }
