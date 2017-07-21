@@ -2,14 +2,30 @@
 
 @{
 	ViewData["Title"] = "Details";
+
+	string UserEmail = Context.Session.GetString("UserEmail");
+	string RoleName = Context.Session.GetString("RoleName");
+	int? RoleId = Context.Session.GetInt32("RoleId");
+	bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
 }
 
 <h2>Details</h2>
 <h4>Item</h4>
 <hr />
-<div>
-	<a asp-action="Edit" asp-route-id="@Model.ItemId">Edit</a> |
-	<a asp-action="Index">Back to List</a>
+
+<div class="row">
+	@if (IsPrivelegedUser)
+	{
+		<div>
+			<a asp-action="Edit" asp-route-id="@Model.ItemId" class="btn btn-success">Edit</a> |
+			<a asp-action="Index" class="btn btn-primary">Back to List</a>
+		</div>
+	}
+	else
+	{
+		<a asp-action="Index" class="btn btn-primary">Back to List</a>
+	}
+	<br />
 </div>
 
 <div class="row">

@@ -1,14 +1,23 @@
 @model IEnumerable<CS3750TechnicalPrototypes.Models.Item>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
+
+	string UserEmail = Context.Session.GetString("UserEmail");
+	string RoleName = Context.Session.GetString("RoleName");
+	int? RoleId = Context.Session.GetInt32("RoleId");
+	bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
 }
 
 <h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (IsPrivelegedUser)
+{
+	<p>
+		<a asp-action="Create">Create New</a>
+	</p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -40,7 +49,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Auction)
             </th>
-            <th></th>
+			@if (IsPrivelegedUser)
+			{
+				<th></th>
+			}
         </tr>
     </thead>
     <tbody>
@@ -71,11 +83,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Auction.AuctionId)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ItemId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a>
-            </td>
+			@if (IsPrivelegedUser)
+			{
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
+					<a asp-action="Details" asp-route-id="@item.ItemId">Details</a> |
+					<a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a>
+				</td>
+			}
+			else
+			{
+				<td>
+					<a asp-action="Details" asp-route-id="@item.ItemId" class="btn btn-primary">Details</a>
+				</td>
+			}
         </tr>
 }
     </tbody>

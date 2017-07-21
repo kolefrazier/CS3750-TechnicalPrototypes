@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CS3750TechnicalPrototypes.Models.BidHistory>
 
 @{
-    ViewData["Title"] = "User Bid History";
+	ViewData["Title"] = "User Bid History";
 
 	string UserEmail = Context.Session.GetString("UserEmail");
 	string RoleName = Context.Session.GetString("RoleName");
@@ -9,66 +9,70 @@
 	string IsValidated = Context.Session.GetString("LoggedIn");
 }
 
-<div class="text-center">
+
 @if (RoleId == null || IsValidated != "true")
 {
-	<p>Please <a asp-action="Login" asp-controller="Users">log in</a> to view your bid history.</p>
+	<div class="row text-center">
+		<h4>Please <a asp-action="Login" asp-controller="Users">log in</a> to view your bid history.</h4>
+	</div>
 }
 else
 {
-	<h4>Viewing bid history for @UserEmail </h4>
+	<div class="text-center">
+		<h4>Viewing bid history for @UserEmail </h4>
+
+		<p class="text-muted">DEBUG: Alter URL for specific bid histories.</p>
+		<p class="text-muted">example: http://localhost:56366/BidHistories/ViewBidHistory/5 </p>
+	</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Item.ElementAt(0).ItemName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Item.ElementAt(0).ItemDescription)
+				</th>
+				<th>
+					Bid Amount
+				</th>
+				<th>
+					Bid Date
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var bid in Model)
+			{
+				foreach (var item in bid.Item)
+				{
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.ItemName)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.ItemDescription)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => bid.BidAmount)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => bid.BidDate)
+
+
+						</td>
+						<td>
+							@*<a asp-action="Create" asp-route-ItemId="@item.ItemId" asp-route-AuctionId="@item.AuctionId">Enter Bid</a> |*@
+							@*  <a asp-action="BidsByAuction">All Bids</a>*@
+							@*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
+								<a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
+								<a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
 }
-	<p class="text-muted">DEBUG: Alter URL for specific bid histories.</p>
-	<p class="text-muted">example: http://localhost:56366/BidHistories/ViewBidHistory/5 </p>
-</div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Item.ElementAt(0).ItemName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Item.ElementAt(0).ItemDescription)
-            </th>
-            <th>
-                Bid Amount
-            </th>
-            <th>
-                Bid Date
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var bid in Model)
-        {
-            foreach (var item in bid.Item)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => bid.BidAmount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => bid.BidDate)
-
-
-                </td>
-                <td>
-                    @*<a asp-action="Create" asp-route-ItemId="@item.ItemId" asp-route-AuctionId="@item.AuctionId">Enter Bid</a> |*@
-                  @*  <a asp-action="BidsByAuction">All Bids</a>*@
-                    @*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
-                </td>
-            </tr>
-            }
-        }
-    </tbody>
-</table>

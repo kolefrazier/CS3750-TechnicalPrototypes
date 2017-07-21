@@ -238,7 +238,7 @@ namespace CS3750TechnicalPrototypes.Controllers
 		public IActionResult LogoutRedirectToLogin()
 		{
 			ClearLoginInformation();
-			return View("Login");
+			return RedirectToAction("Login");
 		}
 
 		// GET: Users/EmailConfirmation
