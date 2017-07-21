@@ -5,6 +5,7 @@
 	string UserEmail = Context.Session.GetString("UserEmail");
 	string RoleName = Context.Session.GetString("RoleName");
 	int? RoleId = Context.Session.GetInt32("RoleId");
+	bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
 }
 
 <!DOCTYPE html>
@@ -51,13 +52,13 @@
                         <li><a asp-area="" asp-controller="Items" asp-action="Index">Items</a></li>
                         <li><a asp-area="" asp-controller="BidHistories" asp-action="Index">Bid</a></li>*@
 
-					@if (RoleName == "Administrator" || RoleName == "OfficeWorker")
+					@if (IsPrivelegedUser)
 					{
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a asp-area="" asp-controller="Auction" asp-action="Index">Create Auction</a></li>
-								<li><a asp-area="" asp-controller="Items" asp-action="Index">Create Item</a></li>
+								<li><a asp-area="" asp-controller="Auction" asp-action="Create">Create Auction</a></li>
+								<li><a asp-area="" asp-controller="Items" asp-action="Create">Create Item</a></li>
 								<li><a href="#">More pages go here!</a></li>
 								@*<li role="separator" class="divider"></li>*@
 							</ul>

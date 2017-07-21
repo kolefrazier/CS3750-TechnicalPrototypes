@@ -1,16 +1,17 @@
 @model IEnumerable<CS3750TechnicalPrototypes.Models.Auction>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 
 	string UserEmail = Context.Session.GetString("UserEmail");
 	string RoleName = Context.Session.GetString("RoleName");
 	int? RoleId = Context.Session.GetInt32("RoleId");
+	bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
 }
 
 <h2>Auction Page</h2>
 
-@if (RoleName == "Administrator" || RoleName == "OfficeWorker")
+@if (IsPrivelegedUser)
 {
 	<p>
 		<a asp-action="Create">Create New</a>
@@ -58,7 +59,7 @@
                 @Html.DisplayFor(modelItem => item.EventId)
             </td>
 
-			@if (RoleName == "Administrator" || RoleName == "OfficeWorker")
+			@if (IsPrivelegedUser)
 			{
 				<td>
 					<a asp-action="Edit" asp-route-id="@item.AuctionId">Edit</a> |
