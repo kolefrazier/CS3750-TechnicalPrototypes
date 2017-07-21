@@ -1,52 +1,64 @@
 @model CS3750TechnicalPrototypes.Models.ViewModels.UserLoginViewModel
 @{
 	ViewData["Title"] = "Login";
+	string IsValidated = Context.Session.GetString("LoggedIn");
+	string Email = Context.Session.GetString("UserEmail");
 }
 
 <h2>Login</h2>
 
-<form asp-action="Login">
-	<div class="form-horizontal">
-		<h4>Enter your credentials to sign in.</h4>
-		<span class="text-muted"><a asp-action="Create">(Don't have an account?)</a></span>
-		<hr />
-		<div asp-validation-summar="ModelOnly" class="text-danger"></div>
-
-		<div class="form-group">
-			<label class="col-md-2 control-label">Email Address</label>
-			<div class="col-md-10">
-				<input asp-for="EmailAddress" class="form-control" />
-				<span asp-validation-for="EmailAddress" class="text-danger"></span>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="col-md-2 control-label">Password</label>
-			<div class="col-md-10">
-				<input asp-for="Password" type="password" class="form-control" />
-				<span asp-validation-for="Password" class="text-danger"></span>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Login" class="btn btn-default" />
-			</div>
-		</div>
+@if(IsValidated == "true")
+{
+	<div class="text-center">
+		<p>You are already logged in.</p>
+		<a asp-action="LogoutRedirectToLogin" asp-controller="Users">Not @Email? Sign into a different account.</a>
 	</div>
-</form>
-<hr />
+}
+else
+{
+	<form asp-action="Login">
+		<div class="form-horizontal">
+			<h4>Enter your credentials to sign in.</h4>
+			<span class="text-muted"><a asp-action="Create">(Don't have an account?)</a></span>
+			<hr />
+			<div asp-validation-summar="ModelOnly" class="text-danger"></div>
 
-<div>
-	<h4>DEBUG</h4>
-	<p>Here are some mock user logins:</p>
-	<ul>
-		<li><u>Role: email, password</u></li>
-		<li>Regular User: thomas@trains.com, abcd123</li>
-		<li>Office Worker: sam@gmail.com, a</li>
-		<li>Administrator: admin@phbgtu.com, Password123</li>
-	</ul>
-</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Email Address</label>
+				<div class="col-md-10">
+					<input asp-for="EmailAddress" class="form-control" />
+					<span asp-validation-for="EmailAddress" class="text-danger"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 control-label">Password</label>
+				<div class="col-md-10">
+					<input asp-for="Password" type="password" class="form-control" />
+					<span asp-validation-for="Password" class="text-danger"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-md-offset-2 col-md-10">
+					<input type="submit" value="Login" class="btn btn-default" />
+				</div>
+			</div>
+		</div>
+	</form>
+	<hr />
+
+	<div>
+		<h4>DEBUG</h4>
+		<p>Here are some mock user logins:</p>
+		<ul>
+			<li><u>Role: email, password</u></li>
+			<li>Regular User: thomas@trains.com, abcd123</li>
+			<li>Office Worker: sam@gmail.com, a</li>
+			<li>Administrator: admin@phbgtu.com, Password123</li>
+		</ul>
+	</div>
+}
 
 @section Scripts {
 	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

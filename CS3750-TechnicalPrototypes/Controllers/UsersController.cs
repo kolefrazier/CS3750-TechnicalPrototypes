@@ -234,6 +234,13 @@ namespace CS3750TechnicalPrototypes.Controllers
 			return View();
 		}
 
+		// GET: Users/LogoutRedirectToLogin
+		public IActionResult LogoutRedirectToLogin()
+		{
+			ClearLoginInformation();
+			return View("Login");
+		}
+
 		// GET: Users/EmailConfirmation
 		public IActionResult EmailConfirmation()
 		{
