@@ -2,10 +2,26 @@
 
 @{
     ViewData["Title"] = "User Bid History";
+
+	string UserEmail = Context.Session.GetString("UserEmail");
+	string RoleName = Context.Session.GetString("RoleName");
+	int? RoleId = Context.Session.GetInt32("RoleId");
+	string IsValidated = Context.Session.GetString("LoggedIn");
 }
 
-<h3>Start entering user ids into the url to see user bid history data</h3>
-<h3>example: http://localhost:56366/BidHistories/ViewBidHistory/5</h3>
+<div class="text-center">
+@if (RoleId == null || IsValidated != "true")
+{
+	<p>Please <a asp-action="Login" asp-controller="Users">log in</a> to view your bid history.</p>
+}
+else
+{
+	<h4>Viewing bid history for @UserEmail </h4>
+}
+	<p class="text-muted">DEBUG: Alter URL for specific bid histories.</p>
+	<p class="text-muted">example: http://localhost:56366/BidHistories/ViewBidHistory/5 </p>
+</div>
+
 <table class="table">
     <thead>
         <tr>

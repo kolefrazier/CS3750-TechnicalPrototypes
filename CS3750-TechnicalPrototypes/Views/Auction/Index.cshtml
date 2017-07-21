@@ -2,13 +2,21 @@
 
 @{
     ViewData["Title"] = "Index";
+
+	string UserEmail = Context.Session.GetString("UserEmail");
+	string RoleName = Context.Session.GetString("RoleName");
+	int? RoleId = Context.Session.GetInt32("RoleId");
 }
 
 <h2>Auction Page</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (RoleName == "Administrator" || RoleName == "OfficeWorker")
+{
+	<p>
+		<a asp-action="Create">Create New</a>
+	</p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -49,11 +57,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EventId)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.AuctionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AuctionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AuctionId">Delete</a>
-            </td>
+
+			@if (RoleName == "Administrator" || RoleName == "OfficeWorker")
+			{
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.AuctionId">Edit</a> |
+					<a asp-action="Details" asp-route-id="@item.AuctionId">Details</a> |
+					<a asp-action="Delete" asp-route-id="@item.AuctionId">Delete</a>
+				</td>
+			} else
+			{
+				<td>
+					<a asp-action="Details" asp-route-id="@item.AuctionId" class="btn btn-primary">View Auction</a>
+				</td>
+
+			}
+
         </tr>
 }
     </tbody>

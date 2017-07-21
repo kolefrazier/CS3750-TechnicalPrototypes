@@ -78,13 +78,18 @@ namespace CS3750TechnicalPrototypes.Controllers
 					return View();
 				} else if (MatchedUser != null && MatchedUser.IsRegistered == false)
 				{
-					//Else if the person exists and is NOT registered, set them up as such.
-					//	Don't ever do this in real life, please.
-					//	This is a terrible thing to do, but works for this prototype's simplicity.
-					MatchedUser.IsRegistered = true; //Set to true.
-					MatchedUser.Password = bidder.Password;
-					MatchedUser.Security = bidder.Security;
-					//If we had an email provider, you could force someone to verify/prove ownership of their email address before setting the above values. But still not ideal.
+					ModelState.AddModelError("EmailAddress", "This email is already in use. Please contact support if this is an error.");
+				//	//Else if the person exists and is NOT registered, set them up as such.
+				//	//	Don't ever do this in real life, please.
+				//	//	This is a terrible thing to do, but works for this prototype's simplicity.
+				//	MatchedUser.IsRegistered = true; //Set to true.
+				//	MatchedUser.Password = bidder.Password;
+				//	MatchedUser.Security = bidder.Security;
+
+				//	//Update the model
+				//	_context.Update(MatchedUser);
+				//	await _context.SaveChangesAsync();
+				//	//If we had an email provider, you could force someone to verify/prove ownership of their email address before setting the above values. But still not ideal.
 				} else
 				{
 					//Next, handle a non-existant user.

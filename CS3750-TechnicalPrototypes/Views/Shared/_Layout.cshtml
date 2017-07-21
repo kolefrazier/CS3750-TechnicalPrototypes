@@ -1,5 +1,12 @@
 ﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 @using Microsoft.AspNetCore.Http;
+
+@{ 
+	string UserEmail = Context.Session.GetString("UserEmail");
+	string RoleName = Context.Session.GetString("RoleName");
+	int? RoleId = Context.Session.GetInt32("RoleId");
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,16 +51,19 @@
                         <li><a asp-area="" asp-controller="Items" asp-action="Index">Items</a></li>
                         <li><a asp-area="" asp-controller="BidHistories" asp-action="Index">Bid</a></li>*@
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-area="" asp-controller="Auction" asp-action="Index">Create Auction</a></li>
-                            <li><a asp-area="" asp-controller="Items" asp-action="Index">Create Item</a></li>
-                            <li><a href="#">More pages go here!</a></li>
-                            @*<li role="separator" class="divider"></li>*@
-                        </ul>
-                    </li>
-
+					@if (RoleName == "Administrator" || RoleName == "OfficeWorker")
+					{
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a asp-area="" asp-controller="Auction" asp-action="Index">Create Auction</a></li>
+								<li><a asp-area="" asp-controller="Items" asp-action="Index">Create Item</a></li>
+								<li><a href="#">More pages go here!</a></li>
+								@*<li role="separator" class="divider"></li>*@
+							</ul>
+						</li>
+					}
+                    
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User<span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -66,7 +76,7 @@
                 </ul>
 
 				<div class="navbar-right">
-					@if (Context.Session.GetString("LoggedIn") != "true")
+					@if (Context.Session.GetString("LoggedIn") != "true" || RoleId == null)
 					{
 						<ul class="nav navbar-nav">
 							<li><a asp-action="Login" asp-controller="Users">Login</a></li>
@@ -77,15 +87,11 @@
 					}
 					else
 					{
-						string UserEmail = Context.Session.GetString("UserEmail");
-						string RoleName = Context.Session.GetString("RoleName");
-						int RoleId = (int) Context.Session.GetInt32("RoleId");
-
 						<ul class="nav navbar-nav">
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@UserEmail<span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="#">Role: @RoleName (@RoleId)</a></li>
+									<li><a>Role: @RoleName (@RoleId)</a></li>
 									<li><a asp-action="Logout" asp-controller="Users">Logout</a></li>
 								</ul>
 							</li>

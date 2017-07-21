@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CS3750TechnicalPrototypes.Data;
 using CS3750TechnicalPrototypes.Models;
 using CS3750TechnicalPrototypes.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
 
 namespace CS3750TechnicalPrototypes.Controllers
 {
@@ -71,10 +72,14 @@ namespace CS3750TechnicalPrototypes.Controllers
 			}
 		}*/
 
-
         //takes bidder id as input
         public IActionResult ViewBidHistory(int? id)
         {
+			if(id == null)
+			{
+				id = HttpContext.Session.GetInt32("UserId");
+			}
+
           //  List<BidHistory> model = new List<BidHistory>();
             var history =  _context.BidHistory.Where(x => x.BidderId == id).ToList();
             foreach(BidHistory bh in history)
