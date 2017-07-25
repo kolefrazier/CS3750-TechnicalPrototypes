@@ -51,7 +51,9 @@ namespace CS3750TechnicalPrototypes.Controllers
         public IActionResult Create()
         {
             PopulateDropDownList();
-            return View();
+			PopulateSponsors();
+
+			return View();
         }
 
         // POST: Items/Create
@@ -86,7 +88,9 @@ namespace CS3750TechnicalPrototypes.Controllers
             }
 
             PopulateDropDownList();
-            return View(item);
+			PopulateSponsors();
+
+			return View(item);
         }
 
         // POST: Items/Edit/5
