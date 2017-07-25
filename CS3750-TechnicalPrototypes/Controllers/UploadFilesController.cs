@@ -97,7 +97,8 @@ namespace CS3750TechnicalPrototypes.Controllers
 
             _context.Media.Add(fp);
             await _context.SaveChangesAsync();
-            return Ok(new { count = files.Count, size, filePath, fName, test });
+            // return Ok(new { count = files.Count, size, filePath, fName, test });
+            return RedirectToAction("UploadView");
         }
         
     }
