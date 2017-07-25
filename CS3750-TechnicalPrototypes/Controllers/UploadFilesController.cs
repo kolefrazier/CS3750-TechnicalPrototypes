@@ -48,18 +48,18 @@ namespace CS3750TechnicalPrototypes.Controllers
 
             // full path to file in temp location
             var filePath = Path.GetTempFileName();
+            
             //var filePath = "";
             var fName = "";
             var test = "";
-
+            if (files.Count == 0)
+            {
+                return RedirectToAction("UploadView");
+            }
             foreach (var formFile in files)
             {
                 fName = Path.GetFileName(formFile.FileName);
-                //if not file name foreach
-                if(fName == null)
-                {
-                    break;
-                }
+                
                 var ext = Path.GetExtension(formFile.FileName).ToLower();
                 var uploads = "media";
                 var spon = "sponsor";
