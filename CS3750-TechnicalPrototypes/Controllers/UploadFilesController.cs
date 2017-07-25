@@ -4,11 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-
 using CS3750TechnicalPrototypes.Data;
 using CS3750TechnicalPrototypes.Models;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Net.Http.Headers;
 
 namespace CS3750TechnicalPrototypes.Controllers
 {
@@ -22,6 +20,11 @@ namespace CS3750TechnicalPrototypes.Controllers
         {
             _context = context;
             hostingEnv = env;
+        }
+
+        public IActionResult UploadView()
+        {
+            return View();
         }
 
 
@@ -44,6 +47,11 @@ namespace CS3750TechnicalPrototypes.Controllers
             foreach (var formFile in files)
             {
                 fName = Path.GetFileName(formFile.FileName);
+                //if not file name foreach
+                if(fName == null)
+                {
+                    break;
+                }
                 var ext = Path.GetExtension(formFile.FileName).ToLower();
                 var uploads = "media";
                 var spon = "sponsor";
