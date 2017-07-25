@@ -30,7 +30,6 @@ namespace CS3750TechnicalPrototypes.Controllers
                 // return NotFound();
             }
 
-
             var history = await _context.BidHistory.ToListAsync();
             var auction = await _context.Auctions.Where(x => x.AuctionId == id).SingleOrDefaultAsync();
             var items = await _context.Items.Where(x => x.AuctionId == id).ToListAsync();
@@ -96,7 +95,8 @@ namespace CS3750TechnicalPrototypes.Controllers
 
         public IActionResult ViewActiveAuctions()
         {
-            var auctions = _context.Auctions.ToList();
+			var now = DateTime.Now;
+            var auctions = _context.Auctions.Where(a => a.StartDate <= now && a.EndDate > now).ToList();
             return View(auctions);
         }
 
