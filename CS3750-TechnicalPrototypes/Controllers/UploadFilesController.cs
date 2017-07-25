@@ -47,6 +47,11 @@ namespace CS3750TechnicalPrototypes.Controllers
             foreach (var formFile in files)
             {
                 fName = Path.GetFileName(formFile.FileName);
+                //if not file name foreach
+                if(fName == null)
+                {
+                    break;
+                }
                 var ext = Path.GetExtension(formFile.FileName).ToLower();
                 var uploads = "media";
                 var spon = "sponsor";
