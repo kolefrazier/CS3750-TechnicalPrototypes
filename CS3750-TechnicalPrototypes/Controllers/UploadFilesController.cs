@@ -7,6 +7,13 @@ using System.IO;
 using CS3750TechnicalPrototypes.Data;
 using CS3750TechnicalPrototypes.Models;
 using Microsoft.AspNetCore.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using CS3750TechnicalPrototypes.Models;
+using CS3750TechnicalPrototypes.Data;
 
 namespace CS3750TechnicalPrototypes.Controllers
 {
@@ -24,7 +31,8 @@ namespace CS3750TechnicalPrototypes.Controllers
 
         public IActionResult UploadView()
         {
-            return View();
+            var pics = _context.Media.ToList();
+            return View(pics);
         }
 
 

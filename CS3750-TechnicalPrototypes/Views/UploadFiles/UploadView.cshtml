@@ -1,22 +1,55 @@
+@model IEnumerable<CS3750TechnicalPrototypes.Models.Media>
+    @{
+        ViewData["Title"] = "UploadView";
+    }
 
-@{
-    ViewData["Title"] = "UploadView";
-}
+    <h2>UploadView</h2>
 
-<h2>UploadView</h2>
-
-<div>
-    <form method="post" enctype="multipart/form-data" asp-controller="UploadFiles" asp-action="Post">
-        <div class="form-group">
-            <div class="col-md-10">
-                <p>Upload one or more files using this form:</p>
-                <input type="file" name="files" multiple />
+    <div>
+        <form method="post" enctype="multipart/form-data" asp-controller="UploadFiles" asp-action="Post">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p>Upload one or more files using this form:</p>
+                    <input type="file" name="files" multiple />
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-10">
-                <input type="submit" value="Upload" />
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" value="Upload" />
+                </div>
             </div>
+        </form>
+    </div>
+
+    
+    <div>
+        <script src="~/js/owl.carousel.js"></script>
+
+        <div class="owl-carousel">
+            @foreach (var pic in Model)
+        {
+            var fileN = String.Concat(pic.MediaPath, pic.MediaName);
+            //  <div>test</div>
+                <div><img src="~/@fileN" width="100" height="100" /></div>
+        }
+
         </div>
-    </form>
-</div>
+
+        <script type="text/javascript">
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
+                items: 5,
+                loop: true,
+                margin: 10,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                autoplayHoverPause: true
+            });
+        </script>
+
+    </div>
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
