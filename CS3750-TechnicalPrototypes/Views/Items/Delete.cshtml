@@ -1,7 +1,7 @@
 @model CS3750TechnicalPrototypes.Models.Item
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Item";
 }
 
 <h2>Delete</h2>
@@ -13,10 +13,10 @@
     <dl class="dl-horizontal">
         <input type="hidden" asp-for="ItemId" />
         <dt>
-            @Html.DisplayNameFor(model => model.SponsorId)
+            @Html.DisplayNameFor(model => model.Sponsor.sponsorID)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.SponsorId)
+            @Html.DisplayFor(model => model.Sponsor.sponsorID)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ItemName)
