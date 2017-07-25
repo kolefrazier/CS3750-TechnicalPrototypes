@@ -4,12 +4,13 @@
 @model CS3750TechnicalPrototypes.Models.ViewModels.AuctionItem
 
 @{
-	ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";
+    Layout = "Carousel";
 
-	string UserEmail = Context.Session.GetString("UserEmail");
-	string RoleName = Context.Session.GetString("RoleName");
-	int? RoleId = Context.Session.GetInt32("RoleId");
-	bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
+    string UserEmail = Context.Session.GetString("UserEmail");
+    string RoleName = Context.Session.GetString("RoleName");
+    int? RoleId = Context.Session.GetInt32("RoleId");
+    bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
 }
 
 <h2>Auction Items</h2>
@@ -18,36 +19,36 @@
 <table class="table">
     <thead>
         <tr>
-			@if (IsPrivelegedUser)
-			{
-				<th>
-					@Html.DisplayNameFor(model => model.Item.First().ItemId)
-				</th>
-			}
+            @if (IsPrivelegedUser)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Item.First().ItemId)
+                </th>
+            }
             <th>
                 @Html.DisplayNameFor(model => model.Item.ElementAt(0).ItemName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Item.ElementAt(0).OpeningBid)
             </th>
-			@if (IsPrivelegedUser)
-			{
-				<th>
-					Bid Administration
-				</th>
-			}
+            @if (IsPrivelegedUser)
+            {
+                <th>
+                    Bid Administration
+                </th>
+            }
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Item)
         {
             <tr>
-				@if (IsPrivelegedUser)
-				{
-					<td>
-						@Html.DisplayFor(modelItem => item.ItemId)
-					</td>
-				}
+                @if (IsPrivelegedUser)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemId)
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.ItemName)
                 </td>
@@ -55,17 +56,17 @@
                     @Html.DisplayFor(modelItem => item.ItemValue)
                 </td>
 
-				@if (IsPrivelegedUser)
-				{
-					<td>
-						<a asp-action="Create" asp-route-ItemId="@item.ItemId" asp-route-AuctionId="@item.AuctionId">Enter Bid</a> |
-						<a asp-action="BidsByAuction">All Bids</a>
-						@*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
-							<a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
-							<a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
-					</td>
-				}
-                
+                @if (IsPrivelegedUser)
+                {
+                    <td>
+                        <a asp-action="Create" asp-route-ItemId="@item.ItemId" asp-route-AuctionId="@item.AuctionId">Enter Bid</a> |
+                        <a asp-action="BidsByAuction">All Bids</a>
+                        @*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
+                    </td>
+                }
+
             </tr>
         }
     </tbody>

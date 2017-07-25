@@ -34,11 +34,13 @@ namespace CS3750TechnicalPrototypes.Controllers
             var history = await _context.BidHistory.ToListAsync();
             var auction = await _context.Auctions.Where(x => x.AuctionId == id).SingleOrDefaultAsync();
             var items = await _context.Items.Where(x => x.AuctionId == id).ToListAsync();
+            var media = await _context.Media.ToListAsync();
 
             AuctionItem aucIt = new AuctionItem()
             {
                 Auction = auction,
-                Item = items
+                Item = items,
+                Media = media
             };
 
             return View(aucIt);

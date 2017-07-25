@@ -1,4 +1,13 @@
 ﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+@using Microsoft.AspNetCore.Http;
+
+@{
+    string UserEmail = Context.Session.GetString("UserEmail");
+    string RoleName = Context.Session.GetString("RoleName");
+    int? RoleId = Context.Session.GetInt32("RoleId");
+    bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,34 +52,72 @@
                         <li><a asp-area="" asp-controller="Items" asp-action="Index">Items</a></li>
                         <li><a asp-area="" asp-controller="BidHistories" asp-action="Index">Bid</a></li>*@
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-area="" asp-controller="Auction" asp-action="Index">Create Auction</a></li>
-                            <li><a asp-area="" asp-controller="Items" asp-action="Index">Create Item</a></li>
-                            <li><a href="#">More pages go here!</a></li>
-                            @*<li role="separator" class="divider"></li>*@
-                        </ul>
-                    </li>
+                    @if (IsPrivelegedUser)
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="Auction" asp-action="Index">View Auctions</a></li>
+                                <li><a asp-area="" asp-controller="Auction" asp-action="Create">Create Auction</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a asp-area="" asp-controller="Items" asp-action="Index">View Items</a></li>
+                                <li><a asp-area="" asp-controller="Items" asp-action="Create">Create Item</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">More pages go here!</a></li>
+                                @*<li role="separator" class="divider"></li>*@
+                            </ul>
+                        </li>
+                    }
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Auction<span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            @if (IsPrivelegedUser)
+                            {
+                                <li><a asp-area="" asp-controller="BidHistories" asp-action="ViewBidHistory">View My Bid History</a></li>
+                            }
                             <li><a asp-area="" asp-controller="BidHistories" asp-action="ViewActiveAuctions">View Current Auctions</a></li>
-                            <li><a asp-area="" asp-controller="BidHistories" asp-action="ViewBidHistory">View User Bid History</a></li>
+                            <li role="separator" class="divider"></li>
                             <li><a href="#">More pages go here!</a></li>
                             @*<li role="separator" class="divider"></li>*@
                         </ul>
                     </li>
                 </ul>
+
+                <div class="navbar-right">
+                    @if (Context.Session.GetString("LoggedIn") != "true" || RoleId == null)
+                    {
+                        <ul class="nav navbar-nav">
+                            <li><a asp-action="Login" asp-controller="Users">Login</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a asp-action="Create" asp-controller="Users">Register</a></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@UserEmail<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a asp-action="LogoutRedirectToLogin" asp-controller="Users">Not @UserEmail?</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a>Role: @RoleName (@RoleId)</a></li>
+                                    <li><a asp-action="Logout" asp-controller="Users">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+                </div>
+
             </div>
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
-    @*</div>*@
-       @* <hr />*@
-        @*   <footer>
+        <hr />
+          <footer>
+
 
                 <script src="~/js/owl.carousel.js"></script>
 
@@ -78,20 +125,26 @@
 
                 <!-- Set up your HTML -->
                 <div class="owl-carousel">
-                    <div> Pic 1 </div>
+                    @*<div> Pic 1 </div>
                     <div> Pic 2 </div>
                     <div> Pic 3 </div>
                     <div> Pic 4 </div>
                     <div> Pic 5 </div>
                     <div> Pic 6 </div>
-                    <div> Pic 7 </div>
+                    <div> Pic 7 </div>*@
+                    @foreach (var pic in Model.Media)
+                    {
+
+                        var fileN = String.Concat(pic.MediaPath, pic.MediaName);
+                        <div><img src="~/@fileN" width="100" height="100" /></div>
+                    }
                 </div>
 
                 @*<script type="text/javascript">
                                 $(document).ready(function () {
                                     $(".owl-carousel").owlCarousel();
                                 });
-                </script>
+                </script>*@
 
                 <script type="text/javascript">
                     var owl = $('.owl-carousel');
@@ -107,7 +160,8 @@
 
 
                 <p>&copy; 2017 - CS3750_TechnicalPrototypes</p>
-            </footer>*@
+            </footer>
+    </div>
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

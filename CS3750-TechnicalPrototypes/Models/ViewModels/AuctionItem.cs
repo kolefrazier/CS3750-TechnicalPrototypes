@@ -9,5 +9,6 @@ namespace CS3750TechnicalPrototypes.Models.ViewModels
     {
         public Auction Auction { get; set; }
         public IEnumerable<Item> Item { get; set; } 
+        public IEnumerable<Media> Media { get; set; }
     }
 }
