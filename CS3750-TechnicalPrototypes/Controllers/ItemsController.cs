@@ -171,7 +171,9 @@ namespace CS3750TechnicalPrototypes.Controllers
 
         private void PopulateSponsors()
         {
-
+            var SponsorsQuery = from i in _context.Sponsors
+                                select i;
+            ViewBag.sponsorID = new SelectList(SponsorsQuery.AsNoTracking(), "sponsorID", "sponsorName");
         }
 
     }
