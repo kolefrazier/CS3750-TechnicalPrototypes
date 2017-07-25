@@ -1,7 +1,7 @@
 @model IEnumerable<CS3750TechnicalPrototypes.Models.Item>
 
 @{
-	ViewData["Title"] = "Index";
+	ViewData["Title"] = "Items";
 
 	string UserEmail = Context.Session.GetString("UserEmail");
 	string RoleName = Context.Session.GetString("RoleName");
@@ -9,7 +9,7 @@
 	bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
 }
 
-<h2>Index</h2>
+<h2>Items</h2>
 
 @if (IsPrivelegedUser)
 {
