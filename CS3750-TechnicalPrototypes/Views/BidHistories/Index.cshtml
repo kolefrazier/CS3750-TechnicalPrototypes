@@ -22,14 +22,15 @@
             @if (IsPrivelegedUser)
             {
                 <th>
-                    @Html.DisplayNameFor(model => model.Item.First().ItemId)
+                    @Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemId)
                 </th>
             }
+            <th>Image</th>
             <th>
-                @Html.DisplayNameFor(model => model.Item.ElementAt(0).ItemName)
+                @Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Item.ElementAt(0).OpeningBid)
+                @Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.OpeningBid)
             </th>
             @if (IsPrivelegedUser)
             {
@@ -40,31 +41,44 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Item)
+        @foreach (var item in Model.Items)
         {
             <tr>
                 @if (IsPrivelegedUser)
                 {
                     <td>
-                        @Html.DisplayFor(modelItem => item.ItemId)
+                        @Html.DisplayFor(modelItem => item.Item.ItemId)
                     </td>
                 }
                 <td>
-                    @Html.DisplayFor(modelItem => item.ItemName)
+                    @if (item.Media.Count() > 0)
+                    {
+                    <img src="@item.Media.ElementAt(0).MediaPath" width="75" height="75" />
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ItemValue)
+                    @Html.DisplayFor(modelItem => item.Item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.ItemValue)
                 </td>
 
                 @if (IsPrivelegedUser)
                 {
                     <td>
-                        <a asp-action="Create" asp-route-ItemId="@item.ItemId" asp-route-AuctionId="@item.AuctionId">Enter Bid</a> |
+                        <a asp-action="Create" asp-route-ItemId="@item.Item.ItemId" asp-route-AuctionId="@item.Item.AuctionId">Enter Bid</a> |
                         <a asp-action="BidsByAuction">All Bids</a>
                         @*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
                             <a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
                             <a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
                     </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-action="Create" asp-route-ItemId="@item.Item.ItemId" asp-route-AuctionId="@item.Item.AuctionId">Enter Bid</a> 
+                    </td>
+
                 }
 
             </tr>

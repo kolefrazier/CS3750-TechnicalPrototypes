@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CS3750TechnicalPrototypes.Data;
 using CS3750TechnicalPrototypes.Models;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
-
+using CS3750TechnicalPrototypes.Models.ViewModels;
 
 namespace CS3750TechnicalPrototypes.Controllers
 {
@@ -24,8 +25,25 @@ namespace CS3750TechnicalPrototypes.Controllers
         // GET: Items
         public async Task<IActionResult> Index()
         {
-            var auctionContext = _context.Items.Include(i => i.Auction);
-            return View(await auctionContext.ToListAsync());
+            //var auctionContext = _context.Items.Include(i => i.Auction);
+            //return View(await auctionContext.ToListAsync());
+            List<ItemMedia> im = new List<ItemMedia>();
+
+            var items = await _context.Items.ToListAsync();
+
+            foreach (var item in items)
+            {
+                var media = await _context.Media.Where(x => x.ItemId == item.ItemId).ToListAsync();
+
+                ItemMedia modelItem = new ItemMedia
+                {
+                    Item = item,
+                    Media = media
+                };
+                im.Add(modelItem);
+            }
+
+            return View(im);
         }
 
         // GET: Items/Details/5
@@ -51,9 +69,9 @@ namespace CS3750TechnicalPrototypes.Controllers
         public IActionResult Create()
         {
             PopulateDropDownList();
-			PopulateSponsors();
+            PopulateSponsors();
 
-			return View();
+            return View();
         }
 
         // POST: Items/Create
@@ -88,9 +106,9 @@ namespace CS3750TechnicalPrototypes.Controllers
             }
 
             PopulateDropDownList();
-			PopulateSponsors();
+            PopulateSponsors();
 
-			return View(item);
+            return View(item);
         }
 
         // POST: Items/Edit/5

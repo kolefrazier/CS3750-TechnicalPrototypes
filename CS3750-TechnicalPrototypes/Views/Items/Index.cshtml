@@ -1,104 +1,103 @@
-@model IEnumerable<CS3750TechnicalPrototypes.Models.Item>
+@*@model IEnumerable<CS3750TechnicalPrototypes.Models.Item>*@
+
+@model IEnumerable<CS3750TechnicalPrototypes.Models.ViewModels.ItemMedia>
 
 @{
-	ViewData["Title"] = "Items";
+    ViewData["Title"] = "Items";
 
-	string UserEmail = Context.Session.GetString("UserEmail");
-	string RoleName = Context.Session.GetString("RoleName");
-	int? RoleId = Context.Session.GetInt32("RoleId");
-	bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
+    string UserEmail = Context.Session.GetString("UserEmail");
+    string RoleName = Context.Session.GetString("RoleName");
+    int? RoleId = Context.Session.GetInt32("RoleId");
+    bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
 }
 
 <h2>Items</h2>
 
 @if (IsPrivelegedUser)
 {
-	<p>
-		<a asp-action="Create">Create New</a>
-	</p>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
 }
 
 <table class="table">
     <thead>
         <tr>
             <!-- Change this once images database is created -->
-                <th>
-                    Image
-                </th>
-                
-                <th>
-                    
-                  @*  @Html.DisplayNameFor(model => model.)*@
-                </th>
-                <th>
-                    
-                    @Html.DisplayNameFor(model => model.ItemName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ItemDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ItemValue)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OpeningBid)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BidIncrement)
-                </th>
             <th>
-                @Html.DisplayNameFor(model => model.Auction)
+                Image
             </th>
-			@if (IsPrivelegedUser)
-			{
-				<th></th>
-			}
+            <th>
+
+                @Html.DisplayNameFor(model => model.Item.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item.ItemDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item.ItemValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item.OpeningBid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item.BidIncrement)
+            </th>
+
+            @if (IsPrivelegedUser)
+            {
+                <th></th>}
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <!-- change this once images database is created -->
-            <th>
-				<img src="~/images/defaultimage.jpg" />
-                @*<img src="http://static.asiawebdirect.com/m/bangkok/hotels/huahin-bangkok-com/hilton-resort/rooms/pageContent/02/highlightedBox/02/image.jpg" alt="Vacation" width="100" height="100" />*@
-            </th>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.SponsorId)*@
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemValue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OpeningBid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BidIncrement)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Auction.AuctionId)
-            </td>
-			@if (IsPrivelegedUser)
-			{
-				<td>
-					<a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
-					<a asp-action="Details" asp-route-id="@item.ItemId">Details</a> |
-					<a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a>
-				</td>
-			}
-			else
-			{
-				<td>
-					<a asp-action="Details" asp-route-id="@item.ItemId" class="btn btn-primary">Details</a>
-				</td>
-			}
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <!-- change this once images database is created -->
+                <th>
+                    @if (item.Media.Count() <= 0)
+                    {
+                       // <label>jaklsd</label>
+                    }
+                    else
+                    {                        
+                        <img src="@item.Media.ElementAt(0).MediaPath" width="50" height="50"/>
+                    }
+                    @*<img src="~/images/defaultimage.jpg" />*@
+                    @*<img src="http://static.asiawebdirect.com/m/bangkok/hotels/huahin-bangkok-com/hilton-resort/rooms/pageContent/02/highlightedBox/02/image.jpg" alt="Vacation" width="100" height="100" />*@
+                </th>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.SponsorId)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.ItemDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.ItemValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.OpeningBid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.BidIncrement)
+                </td>
+
+                @if (IsPrivelegedUser)
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Item.ItemId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Item.ItemId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Item.ItemId">Delete</a>
+                    </td>}
+                else
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Item.ItemId" class="btn btn-primary">Details</a>
+                    </td>}
+            </tr>
+        }
     </tbody>
 </table>

@@ -77,7 +77,14 @@ namespace CS3750TechnicalPrototypes.Controllers
             _context.Media.Add(image);
             await _context.SaveChangesAsync();
             // return Ok(new { count = files.Count, size, filePath, fName, test });
-            return RedirectToAction("UploadView");
+
+            if (itemId == 0)
+            {
+                return RedirectToAction("UploadView");
+            }else
+            {
+                return RedirectToAction("Edit", "Items", new { id = itemId });
+            }
         }
 
         public string createFilePath(int id, string fName, ref string shortPath)

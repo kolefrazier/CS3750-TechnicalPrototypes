@@ -30,19 +30,35 @@ namespace CS3750TechnicalPrototypes.Controllers
                 // return NotFound();
             }
 
-            var history = await _context.BidHistory.ToListAsync();
+            List<ItemMedia> im = new List<ItemMedia>();
+
+
+            // var history = await _context.BidHistory.ToListAsync();
             var auction = await _context.Auctions.Where(x => x.AuctionId == id).SingleOrDefaultAsync();
             var items = await _context.Items.Where(x => x.AuctionId == id).ToListAsync();
-            var media = await _context.Media.ToListAsync();
+            var carousel = await _context.Media.Where(x => x.ItemId == 0).ToListAsync();
 
-            AuctionItem aucIt = new AuctionItem()
+            foreach(var item in items)
+            {
+                var media = await _context.Media.Where(x => x.ItemId == item.ItemId).ToListAsync();
+
+                ItemMedia modelItem = new ItemMedia()
+                {
+                    Item = item,
+                    Media = media
+                };
+
+                im.Add(modelItem);
+            }
+
+            AuctionItem model = new AuctionItem
             {
                 Auction = auction,
-                Item = items,
-                Media = media
+                Carousel = carousel,
+                Items = im
             };
 
-            return View(aucIt);
+            return View(model);
         }
 
         //TODO: Fix Bids by Auction page

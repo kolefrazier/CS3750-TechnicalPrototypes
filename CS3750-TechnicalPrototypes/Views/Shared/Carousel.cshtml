@@ -63,8 +63,8 @@
                                 <li><a asp-area="" asp-controller="Items" asp-action="Index">View Items</a></li>
                                 <li><a asp-area="" asp-controller="Items" asp-action="Create">Create Item</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">More pages go here!</a></li>
-                                @*<li role="separator" class="divider"></li>*@
+                                <li><a asp-area="" asp-controller="MediaTypes" asp-action="Index">Manage Media Types</a></li>
+                                <li><a asp-controller="UploadFiles" asp-action="UploadView">Upload Carousel Pic</a></li>
                             </ul>
                         </li>
                     }
@@ -77,9 +77,6 @@
                                 <li><a asp-area="" asp-controller="BidHistories" asp-action="ViewBidHistory">View My Bid History</a></li>
                             }
                             <li><a asp-area="" asp-controller="BidHistories" asp-action="ViewActiveAuctions">View Current Auctions</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">More pages go here!</a></li>
-                            @*<li role="separator" class="divider"></li>*@
                         </ul>
                     </li>
                 </ul>
@@ -116,51 +113,48 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-          <footer>
+        <footer>
 
 
-                <script src="~/js/owl.carousel.js"></script>
+            <script src="~/js/owl.carousel.js"></script>
 
 
 
-                <!-- Set up your HTML -->
-                <div class="owl-carousel">
-                    @*<div> Pic 1 </div>
+            <!-- Set up your HTML -->
+            <div class="owl-carousel">
+                @*<div> Pic 1 </div>
                     <div> Pic 2 </div>
                     <div> Pic 3 </div>
                     <div> Pic 4 </div>
                     <div> Pic 5 </div>
                     <div> Pic 6 </div>
                     <div> Pic 7 </div>*@
-                    @foreach (var pic in Model.Media)
-                    {
+                @foreach (var pic in Model.Carousel)
+                {
+                    <div><img src="@pic.MediaPath" width="100" height="100" /></div>
+                }
+            </div>
 
-                        var fileN = String.Concat(pic.MediaPath, pic.MediaName);
-                        <div><img src="~/@fileN" width="100" height="100" /></div>
-                    }
-                </div>
-
-                @*<script type="text/javascript">
+            @*<script type="text/javascript">
                                 $(document).ready(function () {
                                     $(".owl-carousel").owlCarousel();
                                 });
                 </script>*@
 
-                <script type="text/javascript">
-                    var owl = $('.owl-carousel');
-                    owl.owlCarousel({
-                        items: 5,
-                        loop: true,
-                        margin: 10,
-                        autoplay: true,
-                        autoplayTimeout: 3000,
-                        autoplayHoverPause: true
-                    });
-                </script>
+            <script type="text/javascript">
+                var owl = $('.owl-carousel');
+                owl.owlCarousel({
+                    items: 5,
+                    loop: true,
+                    margin: 10,
+                    autoplay: true,
+                    autoplayTimeout: 3000,
+                    autoplayHoverPause: true
+                });
+            </script>
 
 
-                <p>&copy; 2017 - CS3750_TechnicalPrototypes</p>
-            </footer>
+        </footer>
     </div>
 
     <environment names="Development">
