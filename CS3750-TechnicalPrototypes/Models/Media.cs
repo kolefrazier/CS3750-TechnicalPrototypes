@@ -17,7 +17,9 @@ namespace CS3750TechnicalPrototypes.Models
         //Foreign Keys
       //  public int MediaTypeId { get; set; }    
         public int ItemId { get; set; }
+        //public int sponsorID { get; set; }
       //  public virtual Item Item { get; set; }
         public MediaType MediaType { get; set; }
+        public Sponsor Sponsor { get; set; }
     }
 }
