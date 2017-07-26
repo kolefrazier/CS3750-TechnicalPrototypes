@@ -1,19 +1,12 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using System.IO;
 using CS3750TechnicalPrototypes.Data;
 using CS3750TechnicalPrototypes.Models;
 using Microsoft.AspNetCore.Hosting;
-using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using CS3750TechnicalPrototypes.Models;
-using CS3750TechnicalPrototypes.Data;
 
 namespace CS3750TechnicalPrototypes.Controllers
 {
@@ -42,64 +35,82 @@ namespace CS3750TechnicalPrototypes.Controllers
         }
 
         [HttpPost("UploadFiles")]
-        public async Task<IActionResult> Post(List<IFormFile> files)
+        public async Task<IActionResult> Post(List<IFormFile> files, int itemId)
         {
-            long size = files.Sum(f => f.Length);
-
-            // full path to file in temp location
-            var filePath = Path.GetTempFileName();
-            
-            //var filePath = "";
             var fName = "";
-            var test = "";
+            var fPath = "";
+            var ext = "";
+            var shortPath = "";
+
             if (files.Count == 0)
             {
                 return RedirectToAction("UploadView");
             }
+
+            //TODO: Create method for handling file paths
             foreach (var formFile in files)
             {
                 fName = Path.GetFileName(formFile.FileName);
-                
-                var ext = Path.GetExtension(formFile.FileName).ToLower();
-                var uploads = "media";
-                var spon = "sponsor";
+                ext = Path.GetExtension(formFile.FileName).ToLower();
 
-                var path = Path.Combine(hostingEnv.WebRootPath, uploads);
-                Directory.CreateDirectory(path);
-
-                path = Path.Combine(path, spon);
-                Directory.CreateDirectory(path);
-
-                path = Path.Combine(path, fName);
-                test = Path.Combine(uploads, spon);
-                //test = Path.Combine(path, fName);
-                test = uploads + "/" + spon + "/";
+                //create our folder directory in the wwwroot folder
+                fPath = createFilePath(itemId, fName, ref shortPath);
 
                 if (formFile.Length > 0)
                 {
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    using (var stream = new FileStream(fPath, FileMode.Create))
                     {
                         await formFile.CopyToAsync(stream);
-
                     }
                 }
             }
 
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-            Media fp = new Media()
+            // create media model to store image data in db
+            Media image = new Media()
             {
-                MediaPath = test,
+                MediaPath = shortPath,
                 MediaName = fName,
-                ItemId = 1, //temp to avoid errors  
-                //MediaTypeId = 1
+                ItemId = itemId,
             };
 
-            _context.Media.Add(fp);
+
+            _context.Media.Add(image);
             await _context.SaveChangesAsync();
             // return Ok(new { count = files.Count, size, filePath, fName, test });
             return RedirectToAction("UploadView");
         }
-        
+
+        public string createFilePath(int id, string fName, ref string shortPath)
+        {
+            string media = "media";
+            string carousel = "carousel";
+            string item = "item";
+
+            //create top level media directory
+            var path = Path.Combine(hostingEnv.WebRootPath, media);
+            Directory.CreateDirectory(path);
+            shortPath = "\\" + media;
+
+            //if our id is 0 that means this is a carousel image
+            if (id == 0)
+            {
+                path = Path.Combine(path, carousel);
+                Directory.CreateDirectory(path);
+                shortPath += "\\" + carousel;
+            }
+            else
+            {
+                path = Path.Combine(path, item);
+                Directory.CreateDirectory(path);
+                shortPath += "\\" + item;
+
+            }
+
+            path = Path.Combine(path, fName);
+            shortPath += "\\" + fName;
+
+            return path;
+        }
+
     }
 }

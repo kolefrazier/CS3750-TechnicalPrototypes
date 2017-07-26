@@ -9,9 +9,10 @@ using CS3750TechnicalPrototypes.Models;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    partial class AuctionContextModelSnapshot : ModelSnapshot
+    [Migration("20170726171437_sponsorBool")]
+    partial class sponsorBool
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -156,7 +157,11 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<string>("PhotoToolTip");
 
+                    b.Property<bool>("isSponsor");
+
                     b.HasKey("PhotoID");
+
+                    b.HasIndex("ItemId");
 
                     b.HasIndex("MediaTypeID");
 
@@ -229,6 +234,11 @@ namespace CS3750TechnicalPrototypes.Migrations
 
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Media", b =>
                 {
+                    b.HasOne("CS3750TechnicalPrototypes.Models.Item")
+                        .WithMany("Media")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("CS3750TechnicalPrototypes.Models.MediaType", "MediaType")
                         .WithMany()
                         .HasForeignKey("MediaTypeID");

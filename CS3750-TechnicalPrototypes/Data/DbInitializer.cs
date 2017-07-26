@@ -239,7 +239,7 @@ namespace CS3750TechnicalPrototypes.Data
 					BidIncrement = 10.00,
 					Auction = context.Auctions.First(a => a.AuctionId == 1),
                     Sponsor = context.Sponsors.First(s => s.sponsorID == 2),
-					Media = null,
+					//Media = null,
 					BidHistory = null
 				},
 				new Item
@@ -251,7 +251,7 @@ namespace CS3750TechnicalPrototypes.Data
 					BidIncrement = 10.00,
 					Auction = context.Auctions.First(a => a.AuctionId == 2),
                     Sponsor = context.Sponsors.First(s => s.sponsorID == 2),
-					Media = null,
+					//Media = null,
 					BidHistory = null
                 },
 				new Item
@@ -263,7 +263,7 @@ namespace CS3750TechnicalPrototypes.Data
 					BidIncrement = 10.00,
 					Auction = context.Auctions.First(a => a.AuctionId == 3),
                     Sponsor = context.Sponsors.First(s => s.sponsorID == 1),
-					Media = null,
+					//Media = null,
 					BidHistory = null
 				},
 				new Item
@@ -275,7 +275,7 @@ namespace CS3750TechnicalPrototypes.Data
 					BidIncrement = 50.00,
 					Auction = context.Auctions.First(a => a.AuctionId == 2),
                     Sponsor = context.Sponsors.First(s => s.sponsorID == 3),
-					Media = null,
+					//Media = null,
 					BidHistory = null
 				}
 			};

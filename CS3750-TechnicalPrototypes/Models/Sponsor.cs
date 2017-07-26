@@ -16,6 +16,5 @@ namespace CS3750TechnicalPrototypes.Models
         public string sponsorEmail { get; set; }
         public IEnumerable<Item> Item { get; set; }
 
-        //public Media Media { get; set; }
     }
 }

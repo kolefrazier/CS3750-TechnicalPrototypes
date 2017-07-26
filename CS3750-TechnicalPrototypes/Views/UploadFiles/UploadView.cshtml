@@ -1,55 +1,62 @@
 @model IEnumerable<CS3750TechnicalPrototypes.Models.Media>
-    @{
-        ViewData["Title"] = "UploadView";
-    }
+@{
+    ViewData["Title"] = "UploadView";
+}
 
-    <h2>UploadView</h2>
+<h2>Upload Images</h2>
 
-    <div>
-        <form method="post" enctype="multipart/form-data" asp-controller="UploadFiles" asp-action="Post">
-            <div class="form-group">
-                <div class="col-md-10">
-                    <p>Upload one or more files using this form:</p>
-                    <input type="file" name="files" multiple />
-                </div>
+<div>
+    <form method="post" enctype="multipart/form-data" asp-controller="UploadFiles" asp-action="Post" asp-route-itemId="0">
+        <div class="form-group">
+            <div class="row">
+                <p>Upload one or more files using this form:</p>
+
+                <input type="file" name="files" multiple />
+
             </div>
-            <div class="form-group">
-                <div class="col-md-10">
-                    <input type="submit" value="Upload" />
-                </div>
+        </div>
+        @*<div class="form-group">
+            <div class="row">
+                <input type="radio" name="imageType" value="item" /> Item Image <br />
+                <input type="radio" name="imageType" value="sponsor" /> Sponsor Logo
             </div>
-        </form>
-    </div>
+        </div>*@
+        <div class="form-group">
+            <div class="row">
+                <input type="submit" value="Upload"/>
+            </div>
+        </div>
+    </form>
+</div>
 
-    
-    <div class="col-lg-12">
-        <script src="~/js/owl.carousel.js"></script>
 
-        <div class="owl-carousel">
-            @foreach (var pic in Model)
+<div class="">
+    <script src="~/js/owl.carousel.js"></script>
+
+    <div class="owl-carousel">
+        @foreach (var pic in Model)
         {
-            var fileN = String.Concat(pic.MediaPath, pic.MediaName);
-            //  <div>test</div>
-                <div><img src="~/@fileN" width="100" height="100" /></div>
+            //var fileN = String.Concat(pic.MediaPath, pic.MediaName);
+            <div><img src="@pic.MediaPath" width="100" height="100" /></div>
         }
 
-        </div>
-
-        <script type="text/javascript">
-            var owl = $('.owl-carousel');
-            owl.owlCarousel({
-                items: 5,
-                loop: true,
-                margin: 10,
-                autoplay: true,
-                autoplayTimeout: 3000,
-                autoplayHoverPause: true
-            });
-        </script>
-
     </div>
 
+    <script type="text/javascript">
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            items: 5,
+            loop: true,
+            margin: 10,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true
+        });
+    </script>
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
