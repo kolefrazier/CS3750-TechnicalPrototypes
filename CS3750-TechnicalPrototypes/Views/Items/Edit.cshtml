@@ -4,8 +4,9 @@
     ViewData["Title"] = "Edit Item";
 }
 
-<h2>Edit</h2>
+<hr />
 
+<h2>Upload Image</h2>
 <div>
     <form method="post" enctype="multipart/form-data" asp-controller="UploadFiles" asp-action="Post" asp-route-itemId="@Model.ItemId">
         <div class="form-group">
@@ -25,11 +26,11 @@
 </div>
 
 
-
+<hr />
+<h2>Edit Item</h2>
 <form asp-action="Edit">
     <div class="form-horizontal">
-        <h4>Item</h4>
-        <hr />
+ 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="ItemId" />
         <div class="form-group">

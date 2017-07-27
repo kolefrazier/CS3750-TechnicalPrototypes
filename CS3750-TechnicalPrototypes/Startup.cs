@@ -63,10 +63,11 @@ namespace CS3750TechnicalPrototypes
 			app.UseStaticFiles();
 
 			app.UseMvc(routes =>
-			{
-				routes.MapRoute(
-					name: "default",
-					template: "{controller=Auction}/{action=Index}/{id?}");
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=BidHistories}/{action=ViewActiveAuctions}/{id?}");
+					//template: "{controller=Auction}/{action=Index}/{id?}");
 			});
 
 			DbInitializer.Initialize(context);
