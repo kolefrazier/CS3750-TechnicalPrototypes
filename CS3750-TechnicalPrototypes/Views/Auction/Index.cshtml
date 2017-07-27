@@ -22,9 +22,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                Image
-            </th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.AuctionName)
                 </th>
@@ -43,10 +41,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <th>
-				<img src="~/images/defaultimage.jpg" />
-                @*<img src="http://static.asiawebdirect.com/m/bangkok/hotels/huahin-bangkok-com/hilton-resort/rooms/pageContent/02/highlightedBox/02/image.jpg" alt="vacation" width="100" height="100" />*@
-            </th>
             <td>
                 @Html.DisplayFor(modelItem => item.AuctionName)
             </td>
