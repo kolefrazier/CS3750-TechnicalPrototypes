@@ -259,7 +259,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-/CS3750-TechnicalPrototypes/wwwroot/images/Morgana_All_Out.png
-/CS3750-TechnicalPrototypes/wwwroot/images
-/CS3750-TechnicalPrototypes/wwwroot/media/sponsor
-*.png
+
