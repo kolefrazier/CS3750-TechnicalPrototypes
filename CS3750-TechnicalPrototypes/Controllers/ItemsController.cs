@@ -215,5 +215,26 @@ namespace CS3750TechnicalPrototypes.Controllers
 			ViewBag.CategoryId = new SelectList(CategoriesQuery.AsNoTracking(), "CategoryId", "Name");
 		}
 
+		// --- Item Bid History Methods ---
+		private Item GetItemById(int id)
+		{
+			return _context.Items.Where(i => i.ItemId == id).First();
+		}
+
+		private double GetMaxBidByItemId(int id)
+		{
+			var BidHistoryById = _context.BidHistory
+				.Where(b => b.ItemId == id)
+				.Max(x => x.BidAmount);
+
+			return BidHistoryById;
+		}
+
+		private double GetMinimumBidByItemId(int id)
+		{
+			Item SelectedItem = GetItemById(id);
+			double CurrentHighestBid = GetMaxBidByItemId(id);
+			return CurrentHighestBid + SelectedItem.BidIncrement;
+		}
     }
 }
