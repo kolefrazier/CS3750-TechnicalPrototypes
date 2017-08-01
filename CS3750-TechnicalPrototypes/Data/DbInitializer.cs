@@ -87,6 +87,32 @@ namespace CS3750TechnicalPrototypes.Data
             }
             context.SaveChanges();
 
+			// --- Categories ---
+			var categories = new Category[]
+			{
+				new Category
+				{
+					Name = "Trip",
+					Description = "A destination vacation!"
+				},
+				new Category
+				{
+					Name = "Hotel",
+					Description = "Hotel Room Packages and Specials"
+				},
+				new Category
+				{
+					Name = "Food",
+					Description = "A prize that you can eat."
+				}
+			};
+
+			foreach (Category c in categories)
+			{
+				context.Categories.Add(c);
+			}
+			context.SaveChanges();
+
             // --- Bidders ---
             var bidders = new Bidder[]
             {
@@ -239,6 +265,7 @@ namespace CS3750TechnicalPrototypes.Data
                     BidIncrement = 10.00,
                     Auction = context.Auctions.First(a => a.AuctionId == 1),
                     Sponsor = context.Sponsors.First(s => s.sponsorID == 2),
+					Category = context.Categories.First(c => c.CategoryId == 1),
 					//Media = null,
 					BidHistory = null
                 },
@@ -251,6 +278,7 @@ namespace CS3750TechnicalPrototypes.Data
                     BidIncrement = 10.00,
                     Auction = context.Auctions.First(a => a.AuctionId == 2),
                     Sponsor = context.Sponsors.First(s => s.sponsorID == 2),
+					Category = context.Categories.First(c => c.CategoryId == 1),
 					//Media = null,
 					BidHistory = null
                 },
@@ -263,6 +291,7 @@ namespace CS3750TechnicalPrototypes.Data
                     BidIncrement = 10.00,
                     Auction = context.Auctions.First(a => a.AuctionId == 3),
                     Sponsor = context.Sponsors.First(s => s.sponsorID == 1),
+					Category = context.Categories.First(c => c.CategoryId == 2),
 					//Media = null,
 					BidHistory = null
                 },
@@ -275,6 +304,7 @@ namespace CS3750TechnicalPrototypes.Data
                     BidIncrement = 50.00,
                     Auction = context.Auctions.First(a => a.AuctionId == 2),
                     Sponsor = context.Sponsors.First(s => s.sponsorID == 3),
+					Category = context.Categories.First(c => c.CategoryId == 3),
 					//Media = null,
 					BidHistory = null
                 }
