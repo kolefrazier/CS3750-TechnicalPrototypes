@@ -77,8 +77,9 @@ namespace CS3750TechnicalPrototypes.Controllers
         {
             PopulateDropDownList();
             PopulateSponsors();
+			PopulateCategoriesDropDown();
 
-            return View();
+			return View();
         }
 
         // POST: Items/Create
@@ -86,7 +87,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,sponsorID,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
+        public async Task<IActionResult> Create([Bind("ItemId,sponsorID,CategoryId,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -114,8 +115,10 @@ namespace CS3750TechnicalPrototypes.Controllers
 
             PopulateDropDownList();
             PopulateSponsors();
+			PopulateCategoriesDropDown();
 
-            return View(item);
+
+			return View(item);
         }
 
         // POST: Items/Edit/5
@@ -123,7 +126,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemId,sponsorID,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemId,sponsorID,CategoryId,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
         {
             if (id != item.ItemId)
             {
@@ -204,6 +207,13 @@ namespace CS3750TechnicalPrototypes.Controllers
                                 select i;
             ViewBag.sponsorID = new SelectList(SponsorsQuery.AsNoTracking(), "sponsorID", "sponsorName");
         }
+
+		private void PopulateCategoriesDropDown()
+		{
+			var CategoriesQuery = from i in _context.Categories
+								  select i;
+			ViewBag.CategoryId = new SelectList(CategoriesQuery.AsNoTracking(), "CategoryId", "Name");
+		}
 
     }
 }
