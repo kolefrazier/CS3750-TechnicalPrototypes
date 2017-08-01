@@ -83,7 +83,7 @@ namespace CS3750TechnicalPrototypes.Controllers
                 return RedirectToAction("UploadView");
             }else
             {
-                return RedirectToAction("Edit", "Items", new { id = itemId });
+                return RedirectToAction("UploadItemImage", "Items", new { id = itemId });
             }
         }
 

@@ -46,6 +46,13 @@ namespace CS3750TechnicalPrototypes.Controllers
             return View(im);
         }
 
+        public IActionResult UploadItemImage(int id)
+        {
+            var item = _context.Items.Where(x => x.ItemId == id).FirstOrDefault();
+
+            return View(item);
+        }
+
         // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
         {
