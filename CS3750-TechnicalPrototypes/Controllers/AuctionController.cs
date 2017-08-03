@@ -21,9 +21,37 @@ namespace CS3750TechnicalPrototypes.Controllers
         }
 
         // GET: Auction
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.Auctions.ToListAsync());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.EndDateSortParm = sortOrder == "EndDate" ? "endDate_desc" : "EndDate";
+            var auctions = from s in _context.Auctions
+                           select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    auctions = auctions.OrderByDescending(s => s.AuctionName);
+                    break;
+                case "Date":
+                    auctions = auctions.OrderBy(s => s.StartDate);
+                    break;
+                case "date_desc":
+                    auctions = auctions.OrderByDescending(s => s.StartDate);
+                    break;
+                case "EndDate":
+                    auctions = auctions.OrderBy(s => s.EndDate);
+                    break;
+                case "endDate_desc":
+                    auctions = auctions.OrderByDescending(s => s.StartDate);
+                    break;
+
+                default:
+                    auctions = auctions.OrderBy(s => s.AuctionName);
+                    break;
+            }
+            return View(auctions.ToList());
+            
         }
 
         // GET: Auction/Details/5

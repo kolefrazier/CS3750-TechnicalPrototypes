@@ -23,18 +23,19 @@
     <thead>
         <tr>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.AuctionName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StartDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EndDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EventId)
-                </th>
+            <th>
+                @Html.ActionLink("AuctionName", "Index", new { sortOrder = ViewBag.NameSortParm })
+                @* @Html.DisplayNameFor(model => model.AuctionName)*@
+            </th>
+            <th>
+                @Html.ActionLink("Start Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+                @*@Html.DisplayNameFor(model => model.StartDate)*@
+            </th>
+            <th>
+                @Html.ActionLink("End Date", "Index", new { sortOrder = ViewBag.EndDateSortParm })
+                @*@Html.DisplayNameFor(model => model.EndDate)*@
+            </th>
+           
             <th></th>
         </tr>
     </thead>
@@ -51,9 +52,7 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.EventId)
-            </td>
+            
 
 			@if (IsPrivelegedUser)
 			{
