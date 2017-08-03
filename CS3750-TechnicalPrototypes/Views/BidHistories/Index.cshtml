@@ -30,7 +30,7 @@
                 @Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.OpeningBid)
+                @Html.DisplayNameFor(model => model.Items.ElementAt(0).highestBid)
             </th>
             @if (IsPrivelegedUser)
             {
@@ -60,7 +60,7 @@
                     @Html.DisplayFor(modelItem => item.Item.ItemName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Item.ItemValue)
+                    @Html.DisplayFor(modelItem => item.highestBid)
                 </td>
 
                 @if (IsPrivelegedUser)

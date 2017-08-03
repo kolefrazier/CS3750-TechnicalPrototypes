@@ -9,5 +9,6 @@ namespace CS3750TechnicalPrototypes.Models.ViewModels
     {
         public Item Item { get; set; }
         public IEnumerable<Media> Media { get; set; }
+        public double highestBid { get; set; }
     }
 }

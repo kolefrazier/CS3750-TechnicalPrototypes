@@ -37,15 +37,18 @@ namespace CS3750TechnicalPrototypes.Controllers
             var auction = await _context.Auctions.Where(x => x.AuctionId == id).SingleOrDefaultAsync();
             var items = await _context.Items.Where(x => x.AuctionId == id).ToListAsync();
             var carousel = await _context.Media.Where(x => x.ItemId == 0).ToListAsync();
+           
 
             foreach(var item in items)
             {
                 var media = await _context.Media.Where(x => x.ItemId == item.ItemId).ToListAsync();
+                var highestBid = await _context.BidHistory.Where(x => x.ItemId == item.ItemId).MaxAsync(y=> y.BidAmount);
 
                 ItemMedia modelItem = new ItemMedia()
                 {
                     Item = item,
-                    Media = media
+                    Media = media,
+                    highestBid = highestBid
                 };
 
                 im.Add(modelItem);
