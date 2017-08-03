@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 
+/CS3750-TechnicalPrototypes/wwwroot/media/item/Morgana_All_Out.png
+/CS3750-TechnicalPrototypes/wwwroot/media/item/Untitled.png
