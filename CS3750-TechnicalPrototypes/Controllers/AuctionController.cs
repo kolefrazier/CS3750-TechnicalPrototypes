@@ -21,13 +21,18 @@ namespace CS3750TechnicalPrototypes.Controllers
         }
 
         // GET: Auction
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
             ViewBag.EndDateSortParm = sortOrder == "EndDate" ? "endDate_desc" : "EndDate";
             var auctions = from s in _context.Auctions
                            select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                auctions = auctions.Where(s => s.AuctionName.Contains(searchString));
+                                       
+            }
             switch (sortOrder)
             {
                 case "name_desc":
@@ -43,7 +48,7 @@ namespace CS3750TechnicalPrototypes.Controllers
                     auctions = auctions.OrderBy(s => s.EndDate);
                     break;
                 case "endDate_desc":
-                    auctions = auctions.OrderByDescending(s => s.StartDate);
+                    auctions = auctions.OrderByDescending(s => s.EndDate);
                     break;
 
                 default:

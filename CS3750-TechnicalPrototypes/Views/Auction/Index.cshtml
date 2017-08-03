@@ -19,12 +19,20 @@
 	</p>
 }
 
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>
-
+           
             <th>
-                @Html.ActionLink("AuctionName", "Index", new { sortOrder = ViewBag.NameSortParm })
+                @Html.ActionLink("Auction Name", "Index", new { sortOrder = ViewBag.NameSortParm })
                 @* @Html.DisplayNameFor(model => model.AuctionName)*@
             </th>
             <th>
