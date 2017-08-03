@@ -5,112 +5,146 @@
 }
 
 <div class="row">
-    <h2>Create Bid</h2>
-    <h4>Manual Bid Entry</h4>
-    <a asp-action="Index">Back to List</a>
+    <h2>@Html.DisplayFor(model => model.Item.ItemName)</h2>
 </div>
 
-<h1>@Html.DisplayFor(model => model.AuctionId)</h1>
 
-<hr />
 
-<form asp-action="Create">
-    <div class="form-horizontal">
+<div class="col-md-4">
+
+    <div style="min-height:200px;min-width:200px;">
+        <img src="@Model.Media.ElementAt(0).MediaPath" id="bigpic" style="max-height:200px;max-width:200px" />
+    </div>
+
+    <div class="owl-carousel" style="max-width:200px;" id="thumbs">
+        @foreach (var pic in Model.Media)
+        {
+            <div class="item">
+                <img src="@pic.MediaPath" style="max-height:75px;max-width:75px" />
+            </div>
+        }
+    </div>
+</div>
+
+
+
+<form asp-action="Create" class="col-md-8">
+    <div class="">
 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
             @Html.HiddenFor(model => model.ItemId)
             @Html.HiddenFor(model => model.AuctionId)
 
-            @*
-                <input asp-for="ItemId" value="@{@Model.ItemId}" hidden="hidden" />
-                <input asp-for="AuctionId" value="@{@Model.AuctionId}" hidden="hidden" />
-            *@
 
-
-            <div class="col-md-6">
+            <div class="">
                 <div class="form-group">
-                    <label asp-for="BidAmount" class="col-md-4 control-label"></label>
-                    <div class="col-md-8">
+                    <label asp-for="BidAmount" class="control-label"></label>
+                    <div class="">
                         <input asp-for="BidAmount" class="form-control" />
                         <span asp-validation-for="BidAmount" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="BidDate" class="col-md-4 control-label"></label>
-                    <div class="col-md-8">
-                        <input asp-for="BidDate" value="@DateTime.Now" class="form-control" />
+                    <div class="">
+                        <input type="hidden" asp-for="BidDate" value="@DateTime.Now" class="form-control" />
                         <span asp-validation-for="BidDate" class="text-danger"></span>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="">
                 <div class="form-group">
-                    <label asp-for="Bidder_FirstName" class="col-md-4 control-label"></label>
-                    <div class="col-md-8">
+                    <label asp-for="Bidder_FirstName" class="control-label"></label>
+                    <div class="">
                         <input asp-for="Bidder_FirstName" class="form-control" />
                         <span asp-validation-for="Bidder_FirstName" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Bidder_LastName" class="col-md-4 control-label"></label>
-                    <div class="col-md-8">
+                    <label asp-for="Bidder_LastName" class=" control-label"></label>
+                    <div class="">
                         <input asp-for="Bidder_LastName" class="form-control" />
                         <span asp-validation-for="Bidder_LastName" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Bidder_PhoneNumber" class="col-md-4 control-label"></label>
-                    <div class="col-md-8">
+                    <label asp-for="Bidder_PhoneNumber" class="control-label"></label>
+                    <div class="">
                         <input asp-for="Bidder_PhoneNumber" class="form-control" />
                         <span asp-validation-for="Bidder_PhoneNumber" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Bidder_EmailAddress" class="col-md-4 control-label"></label>
-                    <div class="col-md-8">
+                    <label asp-for="Bidder_EmailAddress" class="control-label"></label>
+                    <div class="">
                         <input asp-for="Bidder_EmailAddress" class="form-control" />
                         <span asp-validation-for="Bidder_EmailAddress" class="text-danger"></span>
                     </div>
+
                 </div>
             </div>
         </div>
 
         <div class="row form-group text-center">
-            <div class="col-md-12">
+            <div class="">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </div>
     </div>
 </form>
 
-<div class="owl-carousel" style="max-width:20%">
-    @foreach (var pic in Model.Media)
-    {
-        <div class="item">
-            <img src="@pic.MediaPath" />
-            <div class="owl-dot"><span></span></div>
-        </div>
-    }
-</div>
+<a asp-action="Index">Back to List</a>
+
+
+
 
 
 
 <script type="text/javascript">
     var owl = $('.owl-carousel');
     owl.owlCarousel({
-        items: 1,
+        items: 5,
         loop: false,
-        center: true,
+        center: false,
         margin: 10,
         autoplay: false
     });
 </script>
+
+
+<script type="text/javascript">
+
+    function init() {
+
+        th = document.getElementById('thumbs').getElementsByTagName('img');
+        for (c = 0; c < th.length; c++) {
+            th[c].onclick = function () {
+                swapImage(this.src);
+
+            }
+        }
+    }
+
+    function swapImage(url) {
+
+        document.getElementById('bigpic').src = url;
+
+    }
+
+    window.addEventListener ?
+        window.addEventListener('load', init, false) :
+        window.attachEvent('onload', init);
+
+</script>
+
+
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

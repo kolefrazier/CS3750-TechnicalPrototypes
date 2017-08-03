@@ -32,33 +32,8 @@
     </div>
 </div>*@
 
-<div>
-    <form method="post" enctype="multipart/form-data" asp-controller="UploadFiles" asp-action="Post">
-        <div class="form-group">
-            <div class="col-md-10">
-                <p>Upload one or more files using this form:</p>
-                <input type="file" name="files" multiple />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-10">
-                <input type="submit" value="Upload" />
-            </div>
-        </div>
-    </form>
-</div>
 
-
-<script>
-    $('#myModal').on('shown.bs.modal', function () {
-        $('#myInput').focus()
-    })</script>
-
-
-
-<p></p>
-<hr />
-<footer>
+@*<footer>
 
     <script src="~/js/owl.carousel.js"></script>
 
@@ -76,7 +51,7 @@
                         $(document).ready(function () {
                             $(".owl-carousel").owlCarousel();
                         });
-        </script>*@
+        </script>
 
     <script type="text/javascript">
         var owl = $('.owl-carousel');
@@ -89,5 +64,40 @@
             autoplayHoverPause: true
         });
     </script>
-</footer>
+</footer> *@
 
+<div style="min-height:100px;min-width:100px">
+    <img id="bigpic" src="~/media/carousel/batman.jpg" style="max-height:100px;max-width:100px" />
+</div>
+
+<div id="thumbs" style="max-height:40px;max-width:40px">
+    <img src="~/media/carousel/csharp.png" style="max-height:40px;max-width:40px" />
+    <img src="~/media/carousel/download (2).jpg" style="max-height:40px;max-width:40px"/>
+    <img src="~/media/carousel/thanks.jpg" style="max-height:40px;max-width:40px" />
+</div>
+
+<script type="text/javascript">
+
+    function init() {
+
+        th = document.getElementById('thumbs').getElementsByTagName('img');
+        for (c = 0; c < th.length; c++) {
+            th[c].onclick = function () {
+                swapImage(this.src);
+
+            }
+        }
+    }
+
+    function swapImage(url) {
+
+     
+        document.getElementById('bigpic').src = url;
+
+    }
+
+    window.addEventListener ?
+        window.addEventListener('load', init, false) :
+        window.attachEvent('onload', init);
+
+</script>

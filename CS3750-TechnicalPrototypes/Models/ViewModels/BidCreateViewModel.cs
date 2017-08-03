@@ -15,6 +15,7 @@ namespace CS3750TechnicalPrototypes.Models.ViewModels
 		public double BidAmount { get; set; }
 		public int ItemId { get; set; }
 		public int AuctionId { get; set; }
+        public Item Item { get; set; }
         public IEnumerable<Media> Media { get; set; }
 
 		//Bidder model placeholders
