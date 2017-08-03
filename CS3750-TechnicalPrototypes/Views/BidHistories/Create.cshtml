@@ -1,13 +1,13 @@
 @model CS3750TechnicalPrototypes.Models.ViewModels.BidCreateViewModel
 
 @{
-	ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create";
 }
 
 <div class="row">
-	<h2>Create Bid</h2>
-	<h4>Manual Bid Entry</h4>
-	<a asp-action="Index">Back to List</a>
+    <h2>Create Bid</h2>
+    <h4>Manual Bid Entry</h4>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 <h1>@Html.DisplayFor(model => model.AuctionId)</h1>
@@ -15,80 +15,103 @@
 <hr />
 
 <form asp-action="Create">
-	<div class="form-horizontal">
+    <div class="form-horizontal">
 
-		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-		<div class="row">			
-				@Html.HiddenFor(model => model.ItemId)
-				@Html.HiddenFor(model => model.AuctionId)
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            @Html.HiddenFor(model => model.ItemId)
+            @Html.HiddenFor(model => model.AuctionId)
 
-			@*
-				<input asp-for="ItemId" value="@{@Model.ItemId}" hidden="hidden" />
-				<input asp-for="AuctionId" value="@{@Model.AuctionId}" hidden="hidden" />
-			*@
-            
+            @*
+                <input asp-for="ItemId" value="@{@Model.ItemId}" hidden="hidden" />
+                <input asp-for="AuctionId" value="@{@Model.AuctionId}" hidden="hidden" />
+            *@
 
-			<div class="col-md-6">
-				<div class="form-group">
-					<label asp-for="BidAmount" class="col-md-4 control-label"></label>
-					<div class="col-md-8">
-						<input asp-for="BidAmount" class="form-control" />
-						<span asp-validation-for="BidAmount" class="text-danger"></span>
-					</div>
-				</div>
 
-				<div class="form-group">
-					<label asp-for="BidDate" class="col-md-4 control-label"></label>
-					<div class="col-md-8">
-						<input asp-for="BidDate" value="@DateTime.Now" class="form-control" />
-						<span asp-validation-for="BidDate" class="text-danger"></span>
-					</div>
-				</div>
-			</div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="BidAmount" class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="BidAmount" class="form-control" />
+                        <span asp-validation-for="BidAmount" class="text-danger"></span>
+                    </div>
+                </div>
 
-			<div class="col-md-6">
-				<div class="form-group">
-					<label asp-for="Bidder_FirstName" class="col-md-4 control-label"></label>
-					<div class="col-md-8">
-						<input asp-for="Bidder_FirstName" class="form-control" />
-						<span asp-validation-for="Bidder_FirstName" class="text-danger"></span>
-					</div>
-				</div>
+                <div class="form-group">
+                    <label asp-for="BidDate" class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="BidDate" value="@DateTime.Now" class="form-control" />
+                        <span asp-validation-for="BidDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
 
-				<div class="form-group">
-					<label asp-for="Bidder_LastName" class="col-md-4 control-label"></label>
-					<div class="col-md-8">
-						<input asp-for="Bidder_LastName" class="form-control" />
-						<span asp-validation-for="Bidder_LastName" class="text-danger"></span>
-					</div>
-				</div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Bidder_FirstName" class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="Bidder_FirstName" class="form-control" />
+                        <span asp-validation-for="Bidder_FirstName" class="text-danger"></span>
+                    </div>
+                </div>
 
-				<div class="form-group">
-					<label asp-for="Bidder_PhoneNumber" class="col-md-4 control-label"></label>
-					<div class="col-md-8">
-						<input asp-for="Bidder_PhoneNumber" class="form-control" />
-						<span asp-validation-for="Bidder_PhoneNumber" class="text-danger"></span>
-					</div>
-				</div>
+                <div class="form-group">
+                    <label asp-for="Bidder_LastName" class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="Bidder_LastName" class="form-control" />
+                        <span asp-validation-for="Bidder_LastName" class="text-danger"></span>
+                    </div>
+                </div>
 
-				<div class="form-group">
-					<label asp-for="Bidder_EmailAddress" class="col-md-4 control-label"></label>
-					<div class="col-md-8">
-						<input asp-for="Bidder_EmailAddress" class="form-control" />
-						<span asp-validation-for="Bidder_EmailAddress" class="text-danger"></span>
-					</div>
-				</div>
-			</div>
-		</div>
+                <div class="form-group">
+                    <label asp-for="Bidder_PhoneNumber" class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="Bidder_PhoneNumber" class="form-control" />
+                        <span asp-validation-for="Bidder_PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
 
-		<div class="row form-group text-center">
-			<div class="col-md-12">
-				<input type="submit" value="Create" class="btn btn-primary" />
-			</div>
-		</div>
-	</div>
+                <div class="form-group">
+                    <label asp-for="Bidder_EmailAddress" class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="Bidder_EmailAddress" class="form-control" />
+                        <span asp-validation-for="Bidder_EmailAddress" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group text-center">
+            <div class="col-md-12">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
 </form>
 
+<div class="owl-carousel" style="max-width:20%">
+    @foreach (var pic in Model.Media)
+    {
+        <div class="item">
+            <img src="@pic.MediaPath" />
+            <div class="owl-dot"><span></span></div>
+        </div>
+    }
+</div>
+
+
+
+<script type="text/javascript">
+    var owl = $('.owl-carousel');
+    owl.owlCarousel({
+        items: 1,
+        loop: false,
+        center: true,
+        margin: 10,
+        autoplay: false
+    });
+</script>
+
 @section Scripts {
-	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

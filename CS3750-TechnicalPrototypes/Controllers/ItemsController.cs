@@ -61,9 +61,20 @@ namespace CS3750TechnicalPrototypes.Controllers
                 return NotFound();
             }
 
-            var item = await _context.Items
-                .Include(i => i.Auction)
-                .SingleOrDefaultAsync(m => m.ItemId == id);
+            //get the item
+            var item = await _context.Items.Include(i => i.Auction).SingleOrDefaultAsync(m => m.ItemId == id);
+
+            //get the items media
+            var media = await _context.Media.Where(x => x.ItemId == item.ItemId).ToListAsync();
+
+            ItemMedia model = new ItemMedia
+            {
+                Item = item,
+                Media = media
+            };
+           // im.Add(modelItem);
+
+
             if (item == null)
             {
                 return NotFound();

@@ -139,10 +139,12 @@ namespace CS3750TechnicalPrototypes.Controllers
         {
             if (ItemId != null && ItemId > 0 && AuctionId != null && AuctionId > 0)
             {
+                var media = _context.Media.Where(x => x.ItemId == ItemId).ToList();
                 BidCreateViewModel tmp = new BidCreateViewModel
                 {
                     ItemId = (int)ItemId,
-                    AuctionId = (int)AuctionId
+                    AuctionId = (int)AuctionId,
+                    Media = media
                 };
                 return View(tmp);
             }
