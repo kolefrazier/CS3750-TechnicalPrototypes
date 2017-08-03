@@ -88,8 +88,9 @@ namespace CS3750TechnicalPrototypes.Controllers
         {
             PopulateDropDownList();
             PopulateSponsors();
+			PopulateCategoriesDropDown();
 
-            return View();
+			return View();
         }
 
         // POST: Items/Create
@@ -97,7 +98,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,sponsorID,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
+        public async Task<IActionResult> Create([Bind("ItemId,sponsorID,CategoryId,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -125,8 +126,10 @@ namespace CS3750TechnicalPrototypes.Controllers
 
             PopulateDropDownList();
             PopulateSponsors();
+			PopulateCategoriesDropDown();
 
-            return View(item);
+
+			return View(item);
         }
 
         // POST: Items/Edit/5
@@ -134,7 +137,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemId,sponsorID,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemId,sponsorID,CategoryId,ItemName,ItemDescription,ItemValue,OpeningBid,BidIncrement,AuctionId")] Item item)
         {
             if (id != item.ItemId)
             {
@@ -216,5 +219,33 @@ namespace CS3750TechnicalPrototypes.Controllers
             ViewBag.sponsorID = new SelectList(SponsorsQuery.AsNoTracking(), "sponsorID", "sponsorName");
         }
 
+		private void PopulateCategoriesDropDown()
+		{
+			var CategoriesQuery = from i in _context.Categories
+								  select i;
+			ViewBag.CategoryId = new SelectList(CategoriesQuery.AsNoTracking(), "CategoryId", "Name");
+		}
+
+		// --- Item Bid History Methods ---
+		private Item GetItemById(int id)
+		{
+			return _context.Items.Where(i => i.ItemId == id).First();
+		}
+
+		private double GetMaxBidByItemId(int id)
+		{
+			var BidHistoryById = _context.BidHistory
+				.Where(b => b.ItemId == id)
+				.Max(x => x.BidAmount);
+
+			return BidHistoryById;
+		}
+
+		private double GetMinimumBidByItemId(int id)
+		{
+			Item SelectedItem = GetItemById(id);
+			double CurrentHighestBid = GetMaxBidByItemId(id);
+			return CurrentHighestBid + SelectedItem.BidIncrement;
+		}
     }
 }

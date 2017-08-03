@@ -22,5 +22,6 @@ namespace CS3750TechnicalPrototypes.Models
         public virtual BidHistory BidHistory { get; set; }
        // public IEnumerable<Media> Media { get; set; } causing issues with media uploads
         public Sponsor Sponsor { get; set; }
-    }
+		public Category Category { get; set; }
+	}
 }
