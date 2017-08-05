@@ -22,13 +22,16 @@ namespace CS3750TechnicalPrototypes.Controllers
         }
 
         // GET: BidHistories
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index(int? id, string sortOrder)
         {
             if (id == null)
             {
                 return RedirectToAction("ViewActiveAuctions");
                 // return NotFound();
             }
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.BidSortParm = sortOrder == "hBid" ? "hBid_desc" : "hBid";
+
 
             List<ItemMedia> im = new List<ItemMedia>();
 
@@ -43,7 +46,7 @@ namespace CS3750TechnicalPrototypes.Controllers
             {
                 var media = await _context.Media.Where(x => x.ItemId == item.ItemId).ToListAsync();
                 var highestBid = await _context.BidHistory.Where(x => x.ItemId == item.ItemId).MaxAsync(y=> y.BidAmount);
-
+                
                 ItemMedia modelItem = new ItemMedia()
                 {
                     Item = item,
@@ -60,6 +63,23 @@ namespace CS3750TechnicalPrototypes.Controllers
                 Carousel = carousel,
                 Items = im
             };
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    model.Items = model.Items.OrderByDescending(s => s.Item.ItemName);
+                    break;
+                case "hBid":
+                    model.Items = model.Items.OrderBy(s => s.highestBid);
+                    break;
+                case "hBid_desc":
+                    model.Items = model.Items.OrderByDescending(s => s.highestBid);
+                    break;
+                default:
+                    model.Items = model.Items.OrderBy(s => s.Item.ItemName);
+                    break;
+            }
+           
+           
 
             return View(model);
         }

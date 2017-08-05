@@ -22,15 +22,18 @@
             @if (IsPrivelegedUser)
             {
                 <th>
+
                     @Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemId)
                 </th>
             }
             <th>Image</th>
             <th>
-                @Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemName)
+                @Html.ActionLink("Item", "Index", new { sortOrder = ViewBag.NameSortParm })
+                @*@Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemName)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Items.ElementAt(0).highestBid)
+                @Html.ActionLink("High Bid", "Index", new { sortOrder = ViewBag.BidSortParm })
+                @*@Html.DisplayNameFor(model => model.Items.ElementAt(0).highestBid)*@
             </th>
             @if (IsPrivelegedUser)
             {
