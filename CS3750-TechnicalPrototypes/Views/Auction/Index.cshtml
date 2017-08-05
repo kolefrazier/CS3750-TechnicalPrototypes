@@ -1,83 +1,112 @@
 @model IEnumerable<CS3750TechnicalPrototypes.Models.Auction>
 
 @{
-	ViewData["Title"] = "Index";
-   // Layout = "Carousel";    
+    ViewData["Title"] = "Index";
+    // Layout = "Carousel";
 
-	string UserEmail = Context.Session.GetString("UserEmail");
-	string RoleName = Context.Session.GetString("RoleName");
-	int? RoleId = Context.Session.GetInt32("RoleId");
-	bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
+    string UserEmail = Context.Session.GetString("UserEmail");
+    string RoleName = Context.Session.GetString("RoleName");
+    int? RoleId = Context.Session.GetInt32("RoleId");
+    bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
 }
 
-<h2>Auction Page</h2>
+<div class="container">
+    <div class="row text-center">
+        string heading = AuctionName;
+        Label1.Text = string.Format("<h2>{0}</h2>", heading);
+        <div class="col-lg-12 col-md-12 text-center">
+            <div class="row">
+                <h4 id="countdown"></h4>
+                <script>
+                var countDownDate = new Date("").getTime();
+                var x = setInterval(function () {
+                var now = new Date().getTime();
+                var remainder = countDownDate - now;
+                var days = Math.floor(remainder / (1000 * 60 * 60 * 24)); /* 1000ms = 1 second, 60s in 1 min, 60 min in one hour, 24 hours in one day */
+                var hours = Math.floor((remainder % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); /* Ms in a day / Ms in an hour */
+                var minutes = Math.floor((remainder % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((remainder % (1000 * 60)) / 1000);
+                document.getElementById("countdown").innerHTML = days + " Days&emsp;" + hours + " Hours&emsp;" + minutes + " Minutes&emsp;" + seconds + " Seconds";
+                    if (remainder < 0)
+                    {
+                        clearInterval(x);
+                        document.getElementById("countdown").innerHTML = "";
+                    }
+                }, 1000);
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
 
-@if (IsPrivelegedUser)
-{
-	<p>
-		<a asp-action="Create">Create New</a>
-	</p>
-}
+        @if (IsPrivelegedUser)
+        {
+            <p>
+                <a asp-action="Create">Create New</a>
+            </p>
+        }
 
-@using (Html.BeginForm())
-{
-    <p>
-        Find by name: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
-    </p>
-}
+        @using (Html.BeginForm())
+        {
+            <p>
+                Find by name: @Html.TextBox("SearchString")
+                <input type="submit" value="Search" />
+            </p>
+        }
 
-<table class="table">
-    <thead>
-        <tr>
-           
-            <th>
-                @Html.ActionLink("Auction Name", "Index", new { sortOrder = ViewBag.NameSortParm })
-                @* @Html.DisplayNameFor(model => model.AuctionName)*@
-            </th>
-            <th>
-                @Html.ActionLink("Start Date", "Index", new { sortOrder = ViewBag.DateSortParm })
-                @*@Html.DisplayNameFor(model => model.StartDate)*@
-            </th>
-            <th>
-                @Html.ActionLink("End Date", "Index", new { sortOrder = ViewBag.EndDateSortParm })
-                @*@Html.DisplayNameFor(model => model.EndDate)*@
-            </th>
-           
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuctionName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
+        <table class="table">
+            <thead>
+                <tr>
 
-            
+                    <th>
+                        @Html.ActionLink("Auction Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                        @* @Html.DisplayNameFor(model => model.AuctionName)*@
+                    </th>
+                    <th>
+                        @Html.ActionLink("Start Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+                        @*@Html.DisplayNameFor(model => model.StartDate)*@
+                    </th>
+                    <th>
+                        @Html.ActionLink("End Date", "Index", new { sortOrder = ViewBag.EndDateSortParm })
+                        @*@Html.DisplayNameFor(model => model.EndDate)*@
+                    </th>
 
-			@if (IsPrivelegedUser)
-			{
-				<td>
-					<a asp-action="Edit" asp-route-id="@item.AuctionId">Edit</a> |
-					<a asp-action="Details" asp-route-id="@item.AuctionId">Details</a> |
-					<a asp-action="Delete" asp-route-id="@item.AuctionId">Delete</a>
-				</td>
-			} else
-			{
-				<td>
-					<a asp-action="Details" asp-route-id="@item.AuctionId" class="btn btn-primary">View Auction Details</a>
-				</td>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AuctionName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
 
-			}
 
-        </tr>
-}
-    </tbody>
-</table>
+
+                        @if (IsPrivelegedUser)
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.AuctionId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.AuctionId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.AuctionId">Delete</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a asp-action="Details" asp-route-id="@item.AuctionId" class="btn btn-primary">View Auction Details</a>
+                            </td>
+
+                        }
+
+                    </tr>
+                }
+            </tbody>
+        </table>
