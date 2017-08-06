@@ -16,7 +16,7 @@
 <h2>Auction Items</h2>
 
 
-<table class="table">
+<table class="table" >
     <thead>
         <tr>
             @if (IsPrivelegedUser)
@@ -32,13 +32,13 @@
                 @*@Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemName)*@
             </th>
             <th>
-                @Html.ActionLink("High Bid", "Index", new { sortOrder = ViewBag.BidSortParm })
+                @Html.ActionLink("Highest Bid", "Index", new { sortOrder = ViewBag.BidSortParm })
                 @*@Html.DisplayNameFor(model => model.Items.ElementAt(0).highestBid)*@
             </th>
             @if (IsPrivelegedUser)
             {
                 <th>
-                    Bid Administration
+                    @*Bid Administration*@
                 </th>
             }
         </tr>
@@ -59,8 +59,19 @@
                         <img src="@item.Media.ElementAt(0).MediaPath" width="75" height="75" />
                     }
                 </td>
-                <td>
+                <td style="width:60%">
                     @Html.DisplayFor(modelItem => item.Item.ItemName)
+                    <p>
+                        <a data-toggle="collapse" href="#collapseDesc" aria-expanded="false" aria-controls="collapseDesc">
+                            View Details
+                        </a>
+
+                        <div class="collapse" id="collapseDesc">
+                            <div class="card card-block">
+                                @Html.DisplayFor(modelItem => item.Item.ItemDescription)
+                            </div>
+                        </div>
+                    </p>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.highestBid)
@@ -90,33 +101,33 @@
 
 
 @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Launch demo modal
-</button>
+        Launch demo modal
+    </button>
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <input class="form-control" />
-                    </div>
-                    <div class="form-group">
-                      <input class="form-control" />
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Submit</button>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input class="form-control" />
+                        </div>
+                        <div class="form-group">
+                          <input class="form-control" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
