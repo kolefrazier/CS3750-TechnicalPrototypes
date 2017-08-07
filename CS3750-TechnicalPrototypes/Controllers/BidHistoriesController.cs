@@ -22,7 +22,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         }
 
         // GET: BidHistories
-        public async Task<IActionResult> Index(int? id, string sortOrder)
+        public async Task<IActionResult> Index(int? id, string sortOrder, string searchString)
         {
             if (id == null)
             {
@@ -63,6 +63,12 @@ namespace CS3750TechnicalPrototypes.Controllers
                 Carousel = carousel,
                 Items = im
             };
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                model.Items = model.Items.Where(s => s.Item.ItemName.Contains(searchString)
+                                       || s.highestBid.ToString() == searchString);
+            }
             switch (sortOrder)
             {
                 case "name_desc":
