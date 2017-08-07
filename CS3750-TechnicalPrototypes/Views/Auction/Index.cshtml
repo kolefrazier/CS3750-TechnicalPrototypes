@@ -18,7 +18,7 @@
             <div class="row">
                 <h4 id="countdown"></h4>
                 <script>
-                var countDownDate = new Date("").getTime();
+                var countDownDate = new Date(@ViewBag.endDate).getTime();
                 var x = setInterval(function () {
                 var now = new Date().getTime();
                 var remainder = countDownDate - now;

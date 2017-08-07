@@ -194,7 +194,7 @@ namespace CS3750TechnicalPrototypes.Controllers
 
         private void FormattedEndDateTime()
         {
-            ViewBag.endDate = new DateTime();
+            ViewBag.endDate = ("d MMM yyyy HH:mm:ss");
         }
 
     }
