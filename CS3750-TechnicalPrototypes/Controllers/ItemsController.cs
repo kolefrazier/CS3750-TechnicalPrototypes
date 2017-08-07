@@ -241,11 +241,18 @@ namespace CS3750TechnicalPrototypes.Controllers
 			return BidHistoryById;
 		}
 
-		private double GetMinimumBidByItemId(int id)
-		{
-			Item SelectedItem = GetItemById(id);
-			double CurrentHighestBid = GetMaxBidByItemId(id);
-			return CurrentHighestBid + SelectedItem.BidIncrement;
-		}
+        private double GetMinimumBidByItemId(int id)
+        {
+            Item SelectedItem = GetItemById(id);
+            double CurrentHighestBid = GetMaxBidByItemId(id);
+            if (CurrentHighestBid <= 0)
+            {
+                return SelectedItem.OpeningBid + SelectedItem.BidIncrement;
+            }
+            else
+            {
+                return CurrentHighestBid + SelectedItem.BidIncrement;
+            }
+        }
     }
 }

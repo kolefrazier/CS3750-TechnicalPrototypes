@@ -1,63 +1,60 @@
 @model IEnumerable<CS3750TechnicalPrototypes.Models.Auction>
 
 @{
-    ViewData["Title"] = "ViewActiveAuctions";
+    ViewData["Title"] = "Current Auctions";
 }
 
-<h2>Auctions Currently Active</h2>
-
-
-<table class="table">
-    <thead>
-        <tr>
+<div class="row text-center">
+    <h2>Current Auctions</h2>
+    <hr />
+</div>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.AuctionName)
+                    @*@Html.DisplayNameFor(model => model.AuctionName)*@
+                    Auction Name
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Description)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.StartDate)
+                    @*@Html.DisplayNameFor(model => model.StartDate)*@
+                    Start Date
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EndDate)
+                    @*@Html.DisplayNameFor(model => model.EndDate)*@
+                    End Date
                 </th>
-                <th>
-                    @*@Html.DisplayNameFor(model => model.EventId)*@
-                </th>
-                <th>
-                   @* @Html.DisplayNameFor(model => model.ItemID)*@
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuctionName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.EventId)*@
-            </td>
-            <td>
-            @*    @Html.DisplayFor(modelItem => item.ItemID)*@
-            </td>
-            <td>
-                <a value="View Auction" asp-action="Index" asp-route-id="@item.AuctionId">View Auction</a>
-                @*<a asp-action="Details" asp-route-id="@item.AuctionId">Details</a> 
-                <a asp-action="Delete" asp-route-id="@item.AuctionId">Delete</a>*@
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                <th></th> @*Header space for the "View Auction!" button, without header text.*@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AuctionName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.StartDate)*@
+                        @item.StartDate.ToString("dd MMMM yyyy ")
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.EndDate.ToString("dd MMMM yyyy "))*@
+                        @item.EndDate.ToString("dd MMMM yyyy ")
+                    </td>
+                    <td>
+                        <a value="View Auction" asp-action="Index" asp-route-id="@item.AuctionId" class="btn btn-success">View Auction</a>
+                        @*<a asp-action="Details" asp-route-id="@item.AuctionId">Details</a>
+                            <a asp-action="Delete" asp-route-id="@item.AuctionId">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
