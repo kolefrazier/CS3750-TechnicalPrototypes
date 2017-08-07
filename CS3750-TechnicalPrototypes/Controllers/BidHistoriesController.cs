@@ -175,7 +175,9 @@ namespace CS3750TechnicalPrototypes.Controllers
                     ItemId = (int)ItemId,
                     AuctionId = (int)AuctionId,
                     Media = media,
-                    Item = item
+                    Item = item,
+                    ItemCurrentBid = GetMaxBidByItemId(item.ItemId),
+                    ItemMinimumBid = GetMinimumBidByItemId(item.ItemId)
                 };
                 return View(tmp);
             }
@@ -207,9 +209,15 @@ namespace CS3750TechnicalPrototypes.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BidDate,BidAmount,ItemId,AuctionId,Bidder_FirstName,Bidder_LastName,Bidder_PhoneNumber,Bidder_EmailAddress")] BidCreateViewModel bid)
+        public async Task<IActionResult> Create([Bind("BidDate,BidAmount,ItemId,AuctionId,ItemCurrentBid,ItemMinimumBid,Bidder_FirstName,Bidder_LastName,Bidder_PhoneNumber,Bidder_EmailAddress")] BidCreateViewModel bid)
         {
             // Item item = _context.Items.SingleOrDefault(i => i.ItemId == 1); // bid.ItemId); //Temp debug workaround because ItemId keeps passing in as 0.
+            double ItemMinimumBid = GetMinimumBidByItemId(bid.ItemId);
+            if(bid.BidAmount < ItemMinimumBid)
+            {
+                ModelState.AddModelError("BidAmount", "Your bid must be greater than or equal to the minimum bid.");
+                return View();
+            }
 
             Bidder newBidder = new Bidder
             {
@@ -327,6 +335,34 @@ namespace CS3750TechnicalPrototypes.Controllers
         private bool BidHistoryExists(int id)
         {
             return _context.BidHistory.Any(e => e.BidHistoryId == id);
+        }
+
+        //Utility Methods
+        private Item GetItemById(int id)
+        {
+            return _context.Items.Where(i => i.ItemId == id).First();
+        }
+
+        private double GetMaxBidByItemId(int id)
+        {
+            var BidHistoryById = _context.BidHistory
+                .Where(b => b.ItemId == id)
+                .Max(x => x.BidAmount);
+
+            return BidHistoryById;
+        }
+
+        private double GetMinimumBidByItemId(int id)
+        {
+            Item SelectedItem = GetItemById(id);
+            double CurrentHighestBid = GetMaxBidByItemId(id);
+            if(CurrentHighestBid <= 0)
+            {
+                return SelectedItem.OpeningBid + SelectedItem.BidIncrement;
+            } else
+            {
+                return CurrentHighestBid + SelectedItem.BidIncrement;
+            }
         }
     }
 }

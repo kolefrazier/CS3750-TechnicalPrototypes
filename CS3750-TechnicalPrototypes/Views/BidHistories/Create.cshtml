@@ -4,106 +4,133 @@
     ViewData["Title"] = "Create";
 }
 
+<div class="row text-center">
+    <div class="col-md-1">
+        <a asp-action="Index" asp-controller="BidHistories" asp-route-id="@{@Model.AuctionId}" class="btn btn-primary">Return to Auction</a>
+    </div>
+    <div class="col-md-11">
+        <h2>@Html.DisplayFor(model => model.Item.ItemName)</h2>
+    </div>
+</div>
+<hr />
+
 <div class="row">
-    <h2>@Html.DisplayFor(model => model.Item.ItemName)</h2>
-</div>
+    <div class="col-md-4">
 
+        <div style="min-height:200px;min-width:200px;">
+            <img src="@Model.Media.ElementAt(0).MediaPath" id="bigpic" style="max-height:200px;max-width:200px" />
+        </div>
 
-
-<div class="col-md-4">
-
-    <div style="min-height:200px;min-width:200px;">
-        <img src="@Model.Media.ElementAt(0).MediaPath" id="bigpic" style="max-height:200px;max-width:200px" />
+        <div class="owl-carousel" style="max-width:200px;" id="thumbs">
+            @foreach (var pic in Model.Media)
+            {
+                <div class="item">
+                    <img src="@pic.MediaPath" style="max-height:75px;max-width:75px" />
+                </div>
+            }
+        </div>
     </div>
 
-    <div class="owl-carousel" style="max-width:200px;" id="thumbs">
-        @foreach (var pic in Model.Media)
-        {
-            <div class="item">
-                <img src="@pic.MediaPath" style="max-height:75px;max-width:75px" />
-            </div>
-        }
-    </div>
-</div>
-
-
-
-<form asp-action="Create" class="col-md-8">
-    <div class="">
-
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-md-8">
         <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>@Model.Item.ItemDescription</p>
+                </div>
+
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>Value</dt>
+                        <dd><b>THB</b> @Model.Item.ItemValue</dd>
+
+                        <dt>Current Bid</dt>
+                        <dd><b>THB</b> @Model.ItemCurrentBid</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <hr />
+    <form asp-action="Create" class="col-md-12">
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @Html.HiddenFor(model => model.ItemId)
             @Html.HiddenFor(model => model.AuctionId)
 
 
-            <div class="">
-                <div class="form-group">
-                    <label asp-for="BidAmount" class="control-label"></label>
-                    <div class="">
-                        <input asp-for="BidAmount" class="form-control" />
-                        <span asp-validation-for="BidAmount" class="text-danger"></span>
+            <div class="row col-md-8 col-md-push-2 text-center">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <dl>
+                            <dt>Minimum Bid</dt>
+                            <dd><b>THB</b> @Model.ItemMinimumBid</dd>
+                        </dl>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BidAmount" class="control-label"></label>
+                        <div class="">
+                            <input asp-for="BidAmount" class="form-control" />
+                            <span asp-validation-for="BidAmount" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="">
+                            <input type="hidden" asp-for="BidDate" value="@DateTime.Now" class="form-control" />
+                            <span asp-validation-for="BidDate" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="">
-                        <input type="hidden" asp-for="BidDate" value="@DateTime.Now" class="form-control" />
-                        <span asp-validation-for="BidDate" class="text-danger"></span>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Bidder_FirstName" class="control-label"></label>
+                        <div class="">
+                            <input asp-for="Bidder_FirstName" class="form-control" />
+                            <span asp-validation-for="Bidder_FirstName" class="text-danger"></span>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="">
-                <div class="form-group">
-                    <label asp-for="Bidder_FirstName" class="control-label"></label>
-                    <div class="">
-                        <input asp-for="Bidder_FirstName" class="form-control" />
-                        <span asp-validation-for="Bidder_FirstName" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Bidder_LastName" class=" control-label"></label>
-                    <div class="">
-                        <input asp-for="Bidder_LastName" class="form-control" />
-                        <span asp-validation-for="Bidder_LastName" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="Bidder_LastName" class=" control-label"></label>
+                        <div class="">
+                            <input asp-for="Bidder_LastName" class="form-control" />
+                            <span asp-validation-for="Bidder_LastName" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="Bidder_PhoneNumber" class="control-label"></label>
-                    <div class="">
-                        <input asp-for="Bidder_PhoneNumber" class="form-control" />
-                        <span asp-validation-for="Bidder_PhoneNumber" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Bidder_EmailAddress" class="control-label"></label>
-                    <div class="">
-                        <input asp-for="Bidder_EmailAddress" class="form-control" />
-                        <span asp-validation-for="Bidder_EmailAddress" class="text-danger"></span>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Bidder_PhoneNumber" class="control-label"></label>
+                        <div class="">
+                            <input asp-for="Bidder_PhoneNumber" class="form-control" />
+                            <span asp-validation-for="Bidder_PhoneNumber" class="text-danger"></span>
+                        </div>
                     </div>
 
+                    <div class="form-group">
+                        <label asp-for="Bidder_EmailAddress" class="control-label"></label>
+                        <div class="">
+                            <input asp-for="Bidder_EmailAddress" class="form-control" />
+                            <span asp-validation-for="Bidder_EmailAddress" class="text-danger"></span>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="row form-group text-center">
             <div class="">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Place Bid" class="btn btn-success" />
             </div>
         </div>
-    </div>
-</form>
-
-<a asp-action="Index">Back to List</a>
-
-
-
-
-
+    </form>
+</div>
 
 <script type="text/javascript">
     var owl = $('.owl-carousel');

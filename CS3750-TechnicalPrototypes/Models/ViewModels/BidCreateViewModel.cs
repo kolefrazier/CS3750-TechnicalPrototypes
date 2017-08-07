@@ -18,8 +18,12 @@ namespace CS3750TechnicalPrototypes.Models.ViewModels
         public Item Item { get; set; }
         public IEnumerable<Media> Media { get; set; }
 
-		//Bidder model placeholders
-		[Display(Name = "First Name")]
+        //Item Information
+        public double ItemCurrentBid { get; set; }
+        public double ItemMinimumBid { get; set; }
+
+        //Bidder model placeholders
+        [Display(Name = "First Name")]
 		public string Bidder_FirstName { get; set; }
 		[Display(Name = "Last Name")]
 		public string Bidder_LastName { get; set; }
