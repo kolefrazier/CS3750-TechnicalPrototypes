@@ -29,8 +29,8 @@ namespace CS3750TechnicalPrototypes.Data
                 {
                     AuctionName = "25th Year Anniversary",
                     Description = "This is our first auction of the year! Currently open!",
-                    StartDate = DateTime.Parse("2017-7-8"),
-                    EndDate = DateTime.Parse("2017-8-1"),
+                    StartDate = DateTime.Today.AddDays(-3),
+                    EndDate = DateTime.Today.AddDays(4),
 					//OpeningBid = 58500,
 					//ItemID = 1
 				},
