@@ -111,35 +111,37 @@
         </div>
     </nav>
     <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-
-
+        <div class="row">
+            @RenderBody()
+        </div>
+        
+        <div class="row" style="margin-top: 15%;">
+            <div class="text-center">
+                <p>Thank you to our sponsors for making this auction possible!</p>
+            </div>
+            <hr />
             <script src="~/js/owl.carousel.js"></script>
-
-
 
             <!-- Set up your HTML -->
             <div class="owl-carousel">
                 @*<div> Pic 1 </div>
-                    <div> Pic 2 </div>
-                    <div> Pic 3 </div>
-                    <div> Pic 4 </div>
-                    <div> Pic 5 </div>
-                    <div> Pic 6 </div>
-                    <div> Pic 7 </div>*@
+                <div> Pic 2 </div>
+                <div> Pic 3 </div>
+                <div> Pic 4 </div>
+                <div> Pic 5 </div>
+                <div> Pic 6 </div>
+                <div> Pic 7 </div>*@
                 @foreach (var pic in Model.Carousel)
-                {
+            {
                     <div><img src="@pic.MediaPath" style="max-width:20%; max-height:20%" /></div>
                 }
             </div>
 
             @*<script type="text/javascript">
-                                $(document).ready(function () {
-                                    $(".owl-carousel").owlCarousel();
-                                });
-                </script>*@
+                            $(document).ready(function () {
+                                $(".owl-carousel").owlCarousel();
+                            });
+            </script>*@
 
             <script type="text/javascript">
                 var owl = $('.owl-carousel');
@@ -152,10 +154,16 @@
                     autoplayHoverPause: true
                 });
             </script>
-
-
-        </footer>
+        </div>
     </div>
+
+    <footer class="navbar-fixed-bottom">
+        <hr />
+        <div class="text-center text-muted">
+            <p>&copy; Cornbread Mafia Software, 2017</p>
+        </div>
+    </footer>
+    
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
