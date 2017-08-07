@@ -52,7 +52,7 @@ namespace CS3750TechnicalPrototypes
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				app.UseSession();
+				//app.UseSession();
 				app.UseBrowserLink();
 			}
 			else
@@ -61,8 +61,9 @@ namespace CS3750TechnicalPrototypes
 			}
 
 			app.UseStaticFiles();
+            app.UseSession();
 
-			app.UseMvc(routes =>
+            app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",

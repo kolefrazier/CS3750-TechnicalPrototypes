@@ -21,7 +21,7 @@ namespace CS3750TechnicalPrototypes.Controllers
         }
 
         // GET: Auction
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public IActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
