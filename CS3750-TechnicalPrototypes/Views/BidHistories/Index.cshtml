@@ -69,11 +69,16 @@
                 <td style="width:60%">
                     @Html.DisplayFor(modelItem => item.Item.ItemName)
                     <p>
-                        <a data-toggle="collapse" href="#collapseDesc" aria-expanded="false" aria-controls="collapseDesc">
+
+                        @{
+                            var collapseDesc = "collapseDesc" + item.Item.ItemId;
+                        }
+                        <a data-toggle="collapse" href="#@collapseDesc" aria-expanded="false" aria-controls="@collapseDesc">
                             View Details
                         </a>
 
-                        <div class="collapse" id="collapseDesc">
+               
+                        <div class="collapse" id="@collapseDesc">
                             <div class="card card-block">
                                 @Html.DisplayFor(modelItem => item.Item.ItemDescription)
                             </div>
