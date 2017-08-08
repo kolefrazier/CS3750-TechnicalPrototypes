@@ -9,13 +9,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\images\Banners\**" />
+    <Content Remove="wwwroot\images\Banners\**" />
+    <EmbeddedResource Remove="wwwroot\images\Banners\**" />
+    <None Remove="wwwroot\images\Banners\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\css\owl.carousel.css" />
     <Content Include="wwwroot\css\owl.carousel.min.css" />
     <Content Include="wwwroot\css\owl.theme.default.css" />
     <Content Include="wwwroot\css\owl.theme.default.min.css" />
     <Content Include="wwwroot\css\owl.theme.green.css" />
     <Content Include="wwwroot\css\owl.theme.green.min.css" />
+    <Content Include="wwwroot\images\AuctionBanner.jpg" />
     <Content Include="wwwroot\images\defaultimage.jpg" />
+    <Content Include="wwwroot\images\MainBanner.jpg" />
+    <Content Include="wwwroot\images\video-game-banner-trimmed.png" />
     <Content Include="wwwroot\js\owl.carousel.js" />
     <Content Include="wwwroot\js\owl.carousel.min.js" />
   </ItemGroup>

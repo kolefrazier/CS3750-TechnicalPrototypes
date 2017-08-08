@@ -13,6 +13,8 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    height: 90%;
+    background-color: white;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -41,13 +43,32 @@ textarea {
     }
 }
 
+/*.BodyContainer {
+    position: relative;
+    background-color: white;
+}*/
+
 .BannerImage {
     width: 100%;
     padding-top: 0px;
-    height: 5%;
+    height: 100%;
     background-size: cover;
+    background-attachment: fixed;
+    background-image: url('~/images/MainBanner.jpg');
+    position: fixed;
 }
 
-.BannerImage img {
-    height: 3%;
+/*.BannerImage img {
+    height: 100%;
+    position: absolute;
+}*/
+
+.parallax {
+    width: 100%;
+    padding-top: 0px;
+    height: 25%;
+    background-image: url('../images/mainbanner.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
