@@ -10,7 +10,9 @@ namespace CS3750TechnicalPrototypes.Models
     {
         [Key]
         public int BidHistoryId { get; set; }
+        [Display(Name = "Bid Date")]
         public DateTime BidDate { get; set; }
+        [Display(Name = "Bid Amount")]
         public double BidAmount { get; set; }
 
 

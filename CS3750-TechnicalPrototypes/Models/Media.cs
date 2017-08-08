@@ -10,8 +10,11 @@ namespace CS3750TechnicalPrototypes.Models
     {
         [Key]
         public int PhotoID { get; set; }
+        [Display(Name = "Media Path")]
         public string MediaPath { get; set; }
+        [Display(Name = "Media Name")]
         public string MediaName { get; set; }
+        [Display(Name = "Tooltip Text")]
         public string PhotoToolTip { get; set; }
 
 

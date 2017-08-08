@@ -13,6 +13,7 @@ namespace CS3750TechnicalPrototypes.Models
         [Required]
         [Display(Name = "Sponsor Name")]
         public string sponsorName { get; set; }
+        [Display(Name = "Sponsor Email")]
         public string sponsorEmail { get; set; }
         public IEnumerable<Item> Item { get; set; }
 
