@@ -183,7 +183,7 @@ namespace CS3750TechnicalPrototypes.Controllers
             }
             else
             {
-                return View();
+                return RedirectToAction("Index");
             }
 
         }
@@ -211,12 +211,48 @@ namespace CS3750TechnicalPrototypes.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BidDate,BidAmount,ItemId,AuctionId,ItemCurrentBid,ItemMinimumBid,Bidder_FirstName,Bidder_LastName,Bidder_PhoneNumber,Bidder_EmailAddress")] BidCreateViewModel bid)
         {
-            // Item item = _context.Items.SingleOrDefault(i => i.ItemId == 1); // bid.ItemId); //Temp debug workaround because ItemId keeps passing in as 0.
+            //Retrieve this stuff just incase of validation errors:
+            var media = _context.Media.Where(x => x.ItemId == bid.ItemId).ToList();
+            var item = _context.Items.Where(x => x.ItemId == bid.ItemId).SingleOrDefault();
+
+            bool HasErrors = false;
             double ItemMinimumBid = GetMinimumBidByItemId(bid.ItemId);
             if(bid.BidAmount < ItemMinimumBid)
             {
                 ModelState.AddModelError("BidAmount", "Your bid must be greater than or equal to the minimum bid.");
-                return View();
+                //return RedirectToAction("Create", new { ItemId = bid.ItemId, AuctionId = bid.AuctionId });
+
+                //Re-retrieve some values to prevent null exceptions
+                bid.Media = media;
+                bid.Item = item;
+                HasErrors = true;
+            }
+
+            //Manual validations... Please don't look too close at the laziness.
+            if(String.IsNullOrWhiteSpace(bid.Bidder_FirstName))
+            {
+                ModelState.AddModelError("Bidder_FirstName", "Please enter your first name.");
+                HasErrors = true;
+            }
+            if (string.IsNullOrWhiteSpace(bid.Bidder_LastName))
+            {
+                ModelState.AddModelError("Bidder_LastName", "Please enter your last name.");
+                HasErrors = true;
+            }
+            if (String.IsNullOrWhiteSpace(bid.Bidder_PhoneNumber))
+            {
+                ModelState.AddModelError("Bidder_PhoneNumber", "Please a valid phone number.");
+                HasErrors = true;
+            }
+            if (String.IsNullOrWhiteSpace(bid.Bidder_EmailAddress))
+            {
+                ModelState.AddModelError("Bidder_EmailAddress", "Please a valid email address.");
+                HasErrors = true;
+            }
+
+            if (HasErrors)
+            {
+                return View(bid);
             }
 
             Bidder newBidder = new Bidder
@@ -233,8 +269,6 @@ namespace CS3750TechnicalPrototypes.Controllers
             _context.Bidders.Add(newBidder);
             await _context.SaveChangesAsync();
 
-
-
             BidHistory newBid = new BidHistory
             {
                 //Auction = _context.Auctions.SingleOrDefault(a => a.AuctionId == 1), //Temp debug workaround because AuctionId keeps passing in as 0.
@@ -246,10 +280,11 @@ namespace CS3750TechnicalPrototypes.Controllers
                 //Bidder = _context.Bidders.FirstOrDefault(b => b.FirstName == bid.Bidder_FirstName && b.LastName == bid.Bidder_LastName)
             };
 
-            _context.BidHistory.Add(newBid);
-            await _context.SaveChangesAsync();
+            var AddedBid = _context.BidHistory.Add(newBid);
+            int SavedValue = await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "BidHistories", new { id = bid.AuctionId });
+
         }
 
         // GET: BidHistories/Edit/5
@@ -343,6 +378,7 @@ namespace CS3750TechnicalPrototypes.Controllers
             return _context.Items.Where(i => i.ItemId == id).First();
         }
 
+        //Max Bid is basically the current bid (the highest, valid bid)
         private double GetMaxBidByItemId(int id)
         {
             var BidHistoryById = _context.BidHistory
@@ -352,6 +388,7 @@ namespace CS3750TechnicalPrototypes.Controllers
             return BidHistoryById;
         }
 
+        //Current Bid + Bid Increment
         private double GetMinimumBidByItemId(int id)
         {
             Item SelectedItem = GetItemById(id);
