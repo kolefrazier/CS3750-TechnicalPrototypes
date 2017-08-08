@@ -35,3 +35,14 @@ textarea {
         display: none;
     }
 }
+
+.BannerImage {
+    width: 100%;
+    padding-top: 0px;
+    height: 5%;
+    background-size: cover;
+}
+
+.BannerImage img {
+    height: 3%;
+}
