@@ -8,7 +8,12 @@ namespace CS3750TechnicalPrototypes.Models
 {
 	public enum Roles
 	{
-		User, OfficeWorker, Administrator
+        [Display(Name = "Regular User")]
+		User,
+        [Display(Name = "Office Staff")]
+        OfficeWorker,
+        [Display(Name = "Site Administrator")]
+        Administrator
 	}
 
 	public class Role

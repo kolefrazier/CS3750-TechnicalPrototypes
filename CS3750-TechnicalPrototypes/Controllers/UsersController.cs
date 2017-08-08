@@ -29,6 +29,12 @@ namespace CS3750TechnicalPrototypes.Controllers
 			return RedirectToAction("Login");
 		}
 
+        public IActionResult AllUsers()
+        {
+            var AllUsers = _context.Bidders.ToList();
+            return View(AllUsers.AsEnumerable());
+        }
+
 		// GET: Users/Details/5
 		public async Task<IActionResult> Details(int? id)
 		{

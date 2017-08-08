@@ -1,5 +1,6 @@
 @model CS3750TechnicalPrototypes.Models.Role
-
+@using System.Collections.Generic;
+@using Microsoft.AspNetCore.Mvc.Rendering;
 @{
     ViewData["Title"] = "Create";
 }
@@ -21,7 +22,9 @@
         <div class="form-group">
             <label asp-for="UserRole" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="UserRole" class="form-control"></select>
+                @*<select asp-for="UserRole" asp-items="ViewBag.RoleNames" class="form-control"></select>*@
+                @*@Html.GetEnumSelectList(typeof(CS3750TechnicalPrototypes.Models.Roles))*@
+                <select asp-for="UserRole" asp-items="Html.GetEnumSelectList<CS3750TechnicalPrototypes.Models.Roles>()" class="form-control"></select>
                 <span asp-validation-for="UserRole" class="text-danger"></span>
             </div>
         </div>

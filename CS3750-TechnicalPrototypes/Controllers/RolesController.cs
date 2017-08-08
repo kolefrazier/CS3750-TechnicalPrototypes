@@ -149,5 +149,11 @@ namespace CS3750TechnicalPrototypes.Controllers
         {
             return _context.Roles.Any(e => e.RoleID == id);
         }
+
+        private void PopulateRolesDropdown()
+        {
+            string[] RoleNames = Enum.GetNames(typeof(Roles));
+            ViewBag.RoleNames = new SelectList(RoleNames.AsEnumerable());
+        }
     }
 }
