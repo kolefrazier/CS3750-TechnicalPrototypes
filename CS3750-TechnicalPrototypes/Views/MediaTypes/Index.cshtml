@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Media Types</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,24 +12,27 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.MediaDescription)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MediaDescription)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MediaDescription)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MediaTypeID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MediaTypeID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MediaTypeID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MediaDescription)
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@item.MediaTypeID" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.MediaTypeID" class="btn btn-primary btn-sm">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.MediaTypeID" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

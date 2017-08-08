@@ -8,6 +8,7 @@
     string RoleName = Context.Session.GetString("RoleName");
     int? RoleId = Context.Session.GetInt32("RoleId");
     bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
+    var CurrentTime = DateTime.Now;
 }
 
 <div class="container">
@@ -80,9 +81,6 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.AuctionName)
-                            @{ 
-                                var CurrentTime = DateTime.Now;
-                            }
                             @if(item.StartDate <= CurrentTime && item.EndDate > CurrentTime)
                             {
                                 <label class="label label-success">Open for Bidding!</label>
@@ -93,7 +91,7 @@
                             @item.StartDate.ToString("dd MMMM yyyy ")
                         </td>
                         <td>
-                            @*@Html.DisplayFor(modelItem => item.EndDate.ToString("dd MMMM yyyy "))*@
+                            @*@Html.DisplayFor(modelItem => item.EndDate)*@
                             @item.EndDate.ToString("dd MMMM yyyy ")
                         </td>
 
