@@ -16,6 +16,7 @@ namespace CS3750TechnicalPrototypes.Models
 		public int RoleID { get; set; }
         [Display(Name = "Short Description")]
         public string ShortDescription { get; set; }
+        [Display(Name = "Role Level (enum)")]
 		public Roles UserRole { get; set; }		
 	}
 }
