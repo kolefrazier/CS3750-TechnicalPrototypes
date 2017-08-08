@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CS3750TechnicalPrototypes.Migrations
 {
-    public partial class fix : Migration
+    public partial class EndOfProjectRoleUp : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,6 +41,20 @@ namespace CS3750TechnicalPrototypes.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BidHistory", x => x.BidHistoryId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Category",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Category", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,33 +116,25 @@ namespace CS3750TechnicalPrototypes.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Item",
+                name: "Media",
                 columns: table => new
                 {
-                    ItemId = table.Column<int>(nullable: false)
+                    PhotoID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AuctionId = table.Column<int>(nullable: false),
-                    BidHistoryId = table.Column<int>(nullable: true),
-                    BidIncrement = table.Column<double>(nullable: false),
-                    ItemDescription = table.Column<string>(nullable: true),
-                    ItemName = table.Column<string>(nullable: true),
-                    ItemValue = table.Column<double>(nullable: false),
-                    OpeningBid = table.Column<double>(nullable: false)
+                    ItemId = table.Column<int>(nullable: false),
+                    MediaName = table.Column<string>(nullable: true),
+                    MediaPath = table.Column<string>(nullable: true),
+                    MediaTypeID = table.Column<int>(nullable: true),
+                    PhotoToolTip = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Item", x => x.ItemId);
+                    table.PrimaryKey("PK_Media", x => x.PhotoID);
                     table.ForeignKey(
-                        name: "FK_Item_Auction_AuctionId",
-                        column: x => x.AuctionId,
-                        principalTable: "Auction",
-                        principalColumn: "AuctionId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Item_BidHistory_BidHistoryId",
-                        column: x => x.BidHistoryId,
-                        principalTable: "BidHistory",
-                        principalColumn: "BidHistoryId",
+                        name: "FK_Media_MediaType_MediaTypeID",
+                        column: x => x.MediaTypeID,
+                        principalTable: "MediaType",
+                        principalColumn: "MediaTypeID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -159,31 +165,47 @@ namespace CS3750TechnicalPrototypes.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Media",
+                name: "Item",
                 columns: table => new
                 {
-                    PhotoID = table.Column<int>(nullable: false)
+                    ItemId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ItemId = table.Column<int>(nullable: false),
-                    MediaName = table.Column<string>(nullable: true),
-                    MediaPath = table.Column<string>(nullable: true),
-                    MediaTypeID = table.Column<int>(nullable: true),
-                    PhotoToolTip = table.Column<string>(nullable: true)
+                    AuctionId = table.Column<int>(nullable: false),
+                    BidHistoryId = table.Column<int>(nullable: true),
+                    BidIncrement = table.Column<double>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: true),
+                    ItemDescription = table.Column<string>(nullable: true),
+                    ItemName = table.Column<string>(nullable: true),
+                    ItemValue = table.Column<double>(nullable: false),
+                    OpeningBid = table.Column<double>(nullable: false),
+                    sponsorID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Media", x => x.PhotoID);
+                    table.PrimaryKey("PK_Item", x => x.ItemId);
                     table.ForeignKey(
-                        name: "FK_Media_Item_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Item",
-                        principalColumn: "ItemId",
+                        name: "FK_Item_Auction_AuctionId",
+                        column: x => x.AuctionId,
+                        principalTable: "Auction",
+                        principalColumn: "AuctionId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Media_MediaType_MediaTypeID",
-                        column: x => x.MediaTypeID,
-                        principalTable: "MediaType",
-                        principalColumn: "MediaTypeID",
+                        name: "FK_Item_BidHistory_BidHistoryId",
+                        column: x => x.BidHistoryId,
+                        principalTable: "BidHistory",
+                        principalColumn: "BidHistoryId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Item_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Item_Sponsor_sponsorID",
+                        column: x => x.sponsorID,
+                        principalTable: "Sponsor",
+                        principalColumn: "sponsorID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -203,9 +225,14 @@ namespace CS3750TechnicalPrototypes.Migrations
                 column: "BidHistoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Media_ItemId",
-                table: "Media",
-                column: "ItemId");
+                name: "IX_Item_CategoryId",
+                table: "Item",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Item_sponsorID",
+                table: "Item",
+                column: "sponsorID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Media_MediaTypeID",
@@ -222,25 +249,28 @@ namespace CS3750TechnicalPrototypes.Migrations
                 name: "Event");
 
             migrationBuilder.DropTable(
-                name: "Media");
-
-            migrationBuilder.DropTable(
-                name: "Sponsor");
-
-            migrationBuilder.DropTable(
-                name: "Role");
-
-            migrationBuilder.DropTable(
                 name: "Item");
 
             migrationBuilder.DropTable(
-                name: "MediaType");
+                name: "Media");
+
+            migrationBuilder.DropTable(
+                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "Auction");
 
             migrationBuilder.DropTable(
                 name: "BidHistory");
+
+            migrationBuilder.DropTable(
+                name: "Category");
+
+            migrationBuilder.DropTable(
+                name: "Sponsor");
+
+            migrationBuilder.DropTable(
+                name: "MediaType");
         }
     }
 }

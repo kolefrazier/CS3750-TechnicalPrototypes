@@ -9,8 +9,8 @@ using CS3750TechnicalPrototypes.Models;
 namespace CS3750TechnicalPrototypes.Migrations
 {
     [DbContext(typeof(AuctionContext))]
-    [Migration("20170720144056_fix2")]
-    partial class fix2
+    [Migration("20170808141928_EndOfProjectRoleUp")]
+    partial class EndOfProjectRoleUp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,6 +90,22 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.ToTable("BidHistory");
                 });
 
+            modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Category");
+                });
+
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Event", b =>
                 {
                     b.Property<int>("EventID")
@@ -121,6 +137,8 @@ namespace CS3750TechnicalPrototypes.Migrations
 
                     b.Property<double>("BidIncrement");
 
+                    b.Property<int?>("CategoryId");
+
                     b.Property<string>("ItemDescription");
 
                     b.Property<string>("ItemName");
@@ -136,6 +154,8 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.HasIndex("AuctionId");
 
                     b.HasIndex("BidHistoryId");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("sponsorID");
 
@@ -158,8 +178,6 @@ namespace CS3750TechnicalPrototypes.Migrations
                     b.Property<string>("PhotoToolTip");
 
                     b.HasKey("PhotoID");
-
-                    b.HasIndex("ItemId");
 
                     b.HasIndex("MediaTypeID");
 
@@ -225,6 +243,10 @@ namespace CS3750TechnicalPrototypes.Migrations
                         .WithMany("Item")
                         .HasForeignKey("BidHistoryId");
 
+                    b.HasOne("CS3750TechnicalPrototypes.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("CS3750TechnicalPrototypes.Models.Sponsor", "Sponsor")
                         .WithMany("Item")
                         .HasForeignKey("sponsorID");
@@ -232,11 +254,6 @@ namespace CS3750TechnicalPrototypes.Migrations
 
             modelBuilder.Entity("CS3750TechnicalPrototypes.Models.Media", b =>
                 {
-                    b.HasOne("CS3750TechnicalPrototypes.Models.Item")
-                        .WithMany("Media")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("CS3750TechnicalPrototypes.Models.MediaType", "MediaType")
                         .WithMany()
                         .HasForeignKey("MediaTypeID");
