@@ -11,34 +11,7 @@
     var CurrentTime = DateTime.Now;
 }
 
-<div class="container">
-    <div class="row text-center">
-        string heading = AuctionName;
-        Label1.Text = string.Format("<h2>{0}</h2>", heading);
-        <div class="col-lg-12 col-md-12 text-center">
-            <div class="row">
-                <h4 id="countdown"></h4>
-                <script>
-                var countDownDate = new Date(@ViewBag.endDate).getTime();
-                var x = setInterval(function () {
-                var now = new Date().getTime();
-                var remainder = countDownDate - now;
-                var days = Math.floor(remainder / (1000 * 60 * 60 * 24)); /* 1000ms = 1 second, 60s in 1 min, 60 min in one hour, 24 hours in one day */
-                var hours = Math.floor((remainder % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); /* Ms in a day / Ms in an hour */
-                var minutes = Math.floor((remainder % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((remainder % (1000 * 60)) / 1000);
-                document.getElementById("countdown").innerHTML = days + " Days&emsp;" + hours + " Hours&emsp;" + minutes + " Minutes&emsp;" + seconds + " Seconds";
-                    if (remainder < 0)
-                    {
-                        clearInterval(x);
-                        document.getElementById("countdown").innerHTML = "";
-                    }
-                }, 1000);
-                </script>
-            </div>
-        </div>
-    </div>
-</div>
+<h2>Auction Page</h2>
 
         @if (IsPrivelegedUser)
         {
