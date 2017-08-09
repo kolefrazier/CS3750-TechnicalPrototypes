@@ -108,10 +108,20 @@
                     </p>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Item.ItemValue)
+                    <div class="container">
+                        <div class="row text-center">
+                            <p>Real Value</p>
+                            <div class="span4">@Html.DisplayFor(modelItem => item.Item.ItemValue)</div>
+                        </div>
+                    </div>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.highestBid)
+                    <div class="container">
+                        <div class="row text-center">
+                            <p>Current Bid</p>
+                            <div class="span4">@Html.DisplayFor(modelItem => item.highestBid)</div>
+                        </div>
+                    </div>
                 </td>
 
                 @if (IsPrivelegedUser)
