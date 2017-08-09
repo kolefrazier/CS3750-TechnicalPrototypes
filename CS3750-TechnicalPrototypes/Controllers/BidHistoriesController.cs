@@ -9,6 +9,7 @@ using CS3750TechnicalPrototypes.Data;
 using CS3750TechnicalPrototypes.Models;
 using CS3750TechnicalPrototypes.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
+using X.PagedList;
 
 namespace CS3750TechnicalPrototypes.Controllers
 {
@@ -22,13 +23,14 @@ namespace CS3750TechnicalPrototypes.Controllers
         }
 
         // GET: BidHistories
-        public async Task<IActionResult> Index(int? id, string sortOrder, string searchString)
+        public async Task<IActionResult> Index(int? id, string sortOrder, string searchString, string currentFilter, int? page)
         {
             if (id == null)
             {
                 return RedirectToAction("ViewActiveAuctions");
                 // return NotFound();
             }
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.BidSortParm = sortOrder == "hBid" ? "hBid_desc" : "hBid";
 
@@ -63,7 +65,16 @@ namespace CS3750TechnicalPrototypes.Controllers
                 Carousel = carousel,
                 Items = im
             };
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
+            ViewBag.CurrentFilter = searchString;
             if (!String.IsNullOrEmpty(searchString))
             {
                 model.Items = model.Items.Where(s => s.Item.ItemName.Contains(searchString)
@@ -84,10 +95,15 @@ namespace CS3750TechnicalPrototypes.Controllers
                     model.Items = model.Items.OrderBy(s => s.Item.ItemName);
                     break;
             }
-           
-           
+            //ViewBag 
+            
+           int pageNumber = (page ?? 1);
+           return View(model.Items.ToPagedList(pageNumber, 3));
 
-            return View(model);
+
+
+
+           return View(model);
         }
 
         //TODO: Fix Bids by Auction page

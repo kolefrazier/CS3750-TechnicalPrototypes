@@ -1,26 +1,29 @@
 <!--Page containing all the currently selected auctions individual items. Each auction can have more than one item-->
 
 
-@model CS3750TechnicalPrototypes.Models.ViewModels.AuctionItem
+@*@model CS3750TechnicalPrototypes.Models.ViewModels.AuctionItem*@
+@model X.PagedList.IPagedList<CS3750TechnicalPrototypes.Models.ViewModels.AuctionItem>
+    @using X.PagedList
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "Carousel";
 
-@{
-    ViewData["Title"] = "Index";
-    Layout = "Carousel";
+        string UserEmail = Context.Session.GetString("UserEmail");
+        string RoleName = Context.Session.GetString("RoleName");
+        int? RoleId = Context.Session.GetInt32("RoleId");
+        bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
+    }
 
-    string UserEmail = Context.Session.GetString("UserEmail");
-    string RoleName = Context.Session.GetString("RoleName");
-    int? RoleId = Context.Session.GetInt32("RoleId");
-    bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
-}
 
-<h2>Auction Items</h2>
+    <h2>Auction Items</h2>
 
-<div class="container">
-    <div class="row text-center">
-        <div class="col-lg-12 col-md-12 text-center">
-            <div class="row">
-                <h4 id="countdown"></h4>
-                <script>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-12 col-md-12 text-center">
+                <div class="row">
+                    <h4 id="countdown"></h4>
+                    <script>
                 var countDownDate = new Date(@Model.Auction.EndDate).getTime();
                 var x = setInterval(function () {
                 var now = new Date().getTime();
@@ -36,132 +39,132 @@
                         document.getElementById("countdown").innerHTML = "";
                     }
                 }, 1000);
-                </script>
+                    </script>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@using (Html.BeginForm())
-{
-    <p>
-        Find by name: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
-    </p>
-}
+    @using (Html.BeginForm())
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString")
+            <input type="submit" value="Search" />
+        </p>
+    }
 
-<table class="table" >
-    <thead>
-        <tr>
-            @if (IsPrivelegedUser)
-            {
-                <th>
-
-                    @Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemId)
-                </th>
-            }
-            <th>Image</th>
-            <th>
-                @Html.ActionLink("Item", "Index", new { sortOrder = ViewBag.NameSortParm })
-                @*@Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemName)*@
-            </th>
-            <th>
-                @Html.ActionLink("Highest Bid", "Index", new { sortOrder = ViewBag.BidSortParm })
-                @*@Html.DisplayNameFor(model => model.Items.ElementAt(0).highestBid)*@
-            </th>
-            @if (IsPrivelegedUser)
-            {
-                <th>
-                    @*Bid Administration*@
-                </th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Items)
-        {
+    <table class="table">
+        <thead>
             <tr>
                 @if (IsPrivelegedUser)
-                {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Item.ItemId)
-                    </td>
+            {
+                    <th>
+
+                        @Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemId)
+                    </th>
                 }
-                <td>
-                    @if (item.Media.Count() > 0)
-                    {
-                        <img src="@item.Media.ElementAt(0).MediaPath" width="75" height="75" />
-                    }
-                </td>
-                <td style="width:60%">
-                    @Html.DisplayFor(modelItem => item.Item.ItemName)
-                    <p>
-                        <a data-toggle="collapse" href="#collapseDesc" aria-expanded="false" aria-controls="collapseDesc">
-                            View Details
-                        </a>
-
-                        <div class="collapse" id="collapseDesc">
-                            <div class="card card-block">
-                                @Html.DisplayFor(modelItem => item.Item.ItemDescription)
-                            </div>
-                        </div>
-                    </p>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.highestBid)
-                </td>
-
+                <th>Image</th>
+                <th>
+                    @Html.ActionLink("Item", "Index", new { sortOrder = ViewBag.NameSortParm })
+                    @*@Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemName)*@
+                </th>
+                <th>
+                    @Html.ActionLink("Highest Bid", "Index", new { sortOrder = ViewBag.BidSortParm })
+                    @*@Html.DisplayNameFor(model => model.Items.ElementAt(0).highestBid)*@
+                </th>
                 @if (IsPrivelegedUser)
-                {
-                    <td>
-                        <a asp-action="Create" asp-route-ItemId="@item.Item.ItemId" asp-route-AuctionId="@item.Item.AuctionId">Enter Bid</a> |
-                        <a asp-action="BidsByAuction">All Bids</a>
-                        @*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
-                    </td>
+            {
+                    <th>
+                        @*Bid Administration*@
+                    </th>
                 }
-                else
-                {
-                    <td>
-                        <a asp-action="Create" asp-route-ItemId="@item.Item.ItemId" asp-route-AuctionId="@item.Item.AuctionId">Enter Bid</a>
-                    </td>
-                }
-
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    @if (IsPrivelegedUser)
+                {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Item.ItemId)
+                        </td>
+                    }
+                    <td>
+                        @if (item.Media.Count() > 0)
+                        {
+                            <img src="@item.Media.ElementAt(0).MediaPath" width="75" height="75" />
+                        }
+                    </td>
+                    <td style="width:60%">
+                        @Html.DisplayFor(modelItem => item.Item.ItemName)
+                        <p>
+                            <a data-toggle="collapse" href="#collapseDesc" aria-expanded="false" aria-controls="collapseDesc">
+                                View Details
+                            </a>
+
+                            <div class="collapse" id="collapseDesc">
+                                <div class="card card-block">
+                                    @Html.DisplayFor(modelItem => item.Item.ItemDescription)
+                                </div>
+                            </div>
+                        </p>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.highestBid)
+                    </td>
+
+                    @if (IsPrivelegedUser)
+                {
+                        <td>
+                            <a asp-action="Create" asp-route-ItemId="@item.Item.ItemId" asp-route-AuctionId="@item.Item.AuctionId">Enter Bid</a> |
+                            <a asp-action="BidsByAuction">All Bids</a>
+                            @*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a asp-action="Create" asp-route-ItemId="@item.Item.ItemId" asp-route-AuctionId="@item.Item.AuctionId">Enter Bid</a>
+                        </td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
 
 
-@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        Launch demo modal
-    </button>
+    @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            Launch demo modal
+        </button>
 
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <input class="form-control" />
-                        </div>
-                        <div class="form-group">
-                          <input class="form-control" />
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <input class="form-control" />
+                            </div>
+                            <div class="form-group">
+                              <input class="form-control" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Submit</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
