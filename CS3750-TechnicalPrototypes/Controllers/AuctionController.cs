@@ -192,10 +192,5 @@ namespace CS3750TechnicalPrototypes.Controllers
             return _context.Auctions.Any(e => e.AuctionId == id);
         }
 
-        private void FormattedEndDateTime()
-        {
-            ViewBag.endDate = ("d MMM yyyy HH:mm:ss");
-        }
-
     }
 }
