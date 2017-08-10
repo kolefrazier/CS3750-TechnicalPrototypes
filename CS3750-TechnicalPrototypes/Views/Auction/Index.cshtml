@@ -28,8 +28,10 @@
         @using (Html.BeginForm())
         {
             <p>
-                Find by name: @Html.TextBox("SearchString")
-                <input type="submit" value="Search" />
+                <div class="col-lg-12 text-right">
+                    Find Auction: @Html.TextBox("SearchString")
+                    <input type="submit" value="Search" />
+                </div>
             </p>
         }
 
