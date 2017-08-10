@@ -11,14 +11,19 @@
     var CurrentTime = DateTime.Now;
 }
 
-<h2>Auction Page</h2>
+<div class="row text-center"><h2>All Auctions</h2></div>
 
+<div class="row">
+    <p>
+        <a asp-action="ViewActiveAuctions" asp-controller="BidHistories" class="btn btn-success">View Only Current Auctions</a>
         @if (IsPrivelegedUser)
         {
-            <p>
-                <a asp-action="Create">Create New</a>
-            </p>
+            <a asp-action="Create" class="btn btn-info">Create New</a>
         }
+    </p>
+    <hr />
+</div>
+        
 
         @using (Html.BeginForm())
         {

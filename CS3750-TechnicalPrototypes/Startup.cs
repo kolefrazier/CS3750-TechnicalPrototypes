@@ -67,8 +67,8 @@ namespace CS3750TechnicalPrototypes
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=BidHistories}/{action=ViewActiveAuctions}/{id?}");
-					//template: "{controller=Auction}/{action=Index}/{id?}");
+                    //template: "{controller=BidHistories}/{action=ViewActiveAuctions}/{id?}");
+					template: "{controller=Auction}/{action=Index}/{id?}");
 			});
 
 			DbInitializer.Initialize(context);
