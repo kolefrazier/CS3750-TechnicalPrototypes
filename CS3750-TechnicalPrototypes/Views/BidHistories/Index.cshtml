@@ -11,34 +11,39 @@
     string RoleName = Context.Session.GetString("RoleName");
     int? RoleId = Context.Session.GetInt32("RoleId");
     bool IsPrivelegedUser = (RoleName == "Administrator" || RoleName == "OfficeWorker");
-}
 
-<h2>Auction Items</h2>
+    string FormattedDateString = Model.Auction.EndDate.ToString("d MMM yyyy HH:mm:ss"); @*Pre-format the date for use in the countdown.*@
+}
 
 <div class="container">
     <div class="row text-center">
+        <h2>Welcome to the @Model.Auction.AuctionName Auction</h2>
         <div class="col-lg-12 col-md-12 text-center">
             <div class="row">
+                <h4><u>Time Remaining to Place a Bid</u></h4>
                 <h4 id="countdown"></h4>
                 <script>
-                var countDownDate = new Date(@Model.Auction.EndDate).getTime();
-                var x = setInterval(function () {
-                var now = new Date().getTime();
-                var remainder = countDownDate - now;
-                var days = Math.floor(remainder / (1000 * 60 * 60 * 24)); /* 1000ms = 1 second, 60s in 1 min, 60 min in one hour, 24 hours in one day */
-                var hours = Math.floor((remainder % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); /* Ms in a day / Ms in an hour */
-                var minutes = Math.floor((remainder % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((remainder % (1000 * 60)) / 1000);
-                document.getElementById("countdown").innerHTML = days + " Days&emsp;" + hours + " Hours&emsp;" + minutes + " Minutes&emsp;" + seconds + " Seconds";
-                    if (remainder < 0)
-                    {
-                        clearInterval(x);
-                        document.getElementById("countdown").innerHTML = "";
-                    }
-                }, 1000);
+                    var countDownDate = new Date("@FormattedDateString").getTime(); /* FormattedDateString needs to be wrapped in double quotes. */
+                    var x = setInterval(function () {
+                    var now = new Date().getTime();
+                    var remainder = countDownDate - now;
+                    var days = Math.floor(remainder / (1000 * 60 * 60 * 24)); /* 1000ms = 1 second, 60s in 1 min, 60 min in one hour, 24 hours in one day */
+                    var hours = Math.floor((remainder % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); /* Ms in a day / Ms in an hour */
+                    var minutes = Math.floor((remainder % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((remainder % (1000 * 60)) / 1000);
+                    document.getElementById("countdown").innerHTML = days + " Days&emsp;" + hours + " Hours&emsp;" + minutes + " Minutes&emsp;" + seconds + " Seconds";
+                        if (remainder < 0)
+                        {
+                            clearInterval(x);
+                            document.getElementById("countdown").innerHTML = "";
+                        }
+                    }, 1000);
                 </script>
             </div>
         </div>
+    </div>
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+        <hr />
     </div>
 </div>
 
@@ -129,23 +134,14 @@
                     </div>
                 </td>
 
-                @if (IsPrivelegedUser)
-                {
-                    <td>
-                        <a asp-action="Create" asp-route-ItemId="@item.Item.ItemId" asp-route-AuctionId="@item.Item.AuctionId">Enter Bid</a> |
-                        <a asp-action="BidsByAuction">All Bids</a>
-                        @*<a asp-action="Edit" asp-route-id="@item.BidHistoryId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.BidHistoryId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.BidHistoryId">Delete</a>*@
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        <a asp-action="Create" asp-route-ItemId="@item.Item.ItemId" asp-route-AuctionId="@item.Item.AuctionId">Enter Bid</a>
-                    </td>
-                }
+                <td>
+                    <a asp-action="Create" asp-route-ItemId="@item.Item.ItemId" asp-route-AuctionId="@item.Item.AuctionId" class="btn btn-primary">Enter Bid</a>
 
+                    @if (IsPrivelegedUser)
+                    {
+                        <a asp-action="BidsByAuction" class="btn btn-info">All Bids</a>
+                    }
+                </td>
             </tr>
         }
     </tbody>
