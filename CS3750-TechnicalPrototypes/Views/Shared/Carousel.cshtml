@@ -110,25 +110,25 @@
             </div>
         </div>
     </nav>
+    <div>
+        <div class="BannerImage top">
+            <img src="~/images/AuctionBanner.jpg" style="width: 100%; height: 40%; background-size:cover;" />
+        </div>
+    </div>
     <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
+        <div class="row">
+            @RenderBody()
+        </div>
 
-
+        <div class="row" style="margin-top: 15%;">
+            <div class="text-center">
+                <p>Thank you to our sponsors for making this auction possible!</p>
+            </div>
+            <hr />
             <script src="~/js/owl.carousel.js"></script>
-
-
 
             <!-- Set up your HTML -->
             <div class="owl-carousel">
-                @*<div> Pic 1 </div>
-                    <div> Pic 2 </div>
-                    <div> Pic 3 </div>
-                    <div> Pic 4 </div>
-                    <div> Pic 5 </div>
-                    <div> Pic 6 </div>
-                    <div> Pic 7 </div>*@
                 @foreach (var pic in Model.Carousel)
                 {
                     <div><img src="@pic.MediaPath" style="max-width:20%; max-height:20%" /></div>
@@ -152,10 +152,16 @@
                     autoplayHoverPause: true
                 });
             </script>
-
-
-        </footer>
+        </div>
     </div>
+
+    <footer >
+        @* <hr />*@
+        <div class="text-center text-muted">
+            <p>&copy; Cornbread Mafia Software, 2017</p>
+        </div>
+    </footer>
+
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
