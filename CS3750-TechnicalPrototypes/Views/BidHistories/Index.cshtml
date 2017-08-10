@@ -50,8 +50,10 @@
 @using (Html.BeginForm())
 {
     <p>
-        Find by name: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
+        <div class="col-lg-12 text-right">
+            Find Auction: @Html.TextBox("SearchString")
+            <input type="submit" value="Search" height="30" />
+        </div>
     </p>
 }
 
@@ -71,9 +73,10 @@
                 @*@Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemName)*@
             </th>
             <th>
-                @Html.ActionLink("Highest Bid", "Index", new { sortOrder = ViewBag.BidSortParm })
+                @Html.ActionLink("Current Bid", "Index", new { sortOrder = ViewBag.BidSortParm })
                 @*@Html.DisplayNameFor(model => model.Items.ElementAt(0).highestBid)*@
             </th>
+            <th>Real Value</th>
             @if (IsPrivelegedUser)
             {
                 <th>
@@ -120,20 +123,17 @@
                 <td>
                     <div class="container">
                         <div class="row header text-center">
-                            <p>Real Value</p>
-                            <div class="col-md-12 text-center">@Html.DisplayFor(modelItem => item.Item.ItemValue)</div>
+                            @Html.DisplayFor(modelItem => item.highestBid)
                         </div>
                     </div>
                 </td>
                 <td>
                     <div class="container">
                         <div class="row header text-center">
-                            <p>Current Bid</p>
-                            <div class="col-md-12 text-center">@Html.DisplayFor(modelItem => item.highestBid)</div>
+                            @Html.DisplayFor(modelItem => item.Item.ItemValue)
                         </div>
                     </div>
                 </td>
-
                 <td>
                     <a asp-action="Create" asp-route-ItemId="@item.Item.ItemId" asp-route-AuctionId="@item.Item.AuctionId" class="btn btn-primary">Enter Bid</a>
 
