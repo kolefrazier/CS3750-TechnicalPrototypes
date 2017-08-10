@@ -71,9 +71,10 @@
                 @*@Html.DisplayNameFor(model => model.Items.ElementAt(0).Item.ItemName)*@
             </th>
             <th>
-                @Html.ActionLink("Highest Bid", "Index", new { sortOrder = ViewBag.BidSortParm })
+                @Html.ActionLink("Current Bid", "Index", new { sortOrder = ViewBag.BidSortParm })
                 @*@Html.DisplayNameFor(model => model.Items.ElementAt(0).highestBid)*@
             </th>
+            <th>Real Value</th>
             @if (IsPrivelegedUser)
             {
                 <th>
@@ -120,20 +121,17 @@
                 <td>
                     <div class="container">
                         <div class="row header text-center">
-                            <p>Real Value</p>
-                            <div class="col-md-12 text-center">@Html.DisplayFor(modelItem => item.Item.ItemValue)</div>
+                            <div class="col-sm-12 text-center">@Html.DisplayFor(modelItem => item.highestBid)</div>
                         </div>
                     </div>
                 </td>
                 <td>
                     <div class="container">
                         <div class="row header text-center">
-                            <p>Current Bid</p>
-                            <div class="col-md-12 text-center">@Html.DisplayFor(modelItem => item.highestBid)</div>
+                            <div class="col-sm-12 text-center">@Html.DisplayFor(modelItem => item.Item.ItemValue)</div>
                         </div>
                     </div>
                 </td>
-
                 <td>
                     <a asp-action="Create" asp-route-ItemId="@item.Item.ItemId" asp-route-AuctionId="@item.Item.AuctionId" class="btn btn-primary">Enter Bid</a>
 
