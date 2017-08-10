@@ -72,3 +72,13 @@ textarea {
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.parallax-auction {
+    width: 100%;
+    padding-top: 0px;
+    height: 25%;
+    background-image: url('../images/AuctionBanner.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
