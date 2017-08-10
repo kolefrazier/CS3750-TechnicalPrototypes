@@ -113,7 +113,7 @@
                         </a>
 
                
-                        <div class="collapse" id="@collapseDesc">
+                        <div class="collapse" id="@collapseDesc" style="padding: 10px 5px 10px 10px; background-color: lightgrey;">
                             <div class="card card-block">
                                 @Html.DisplayFor(modelItem => item.Item.ItemDescription)
                             </div>
@@ -121,18 +121,10 @@
                     </p>
                 </td>
                 <td>
-                    <div class="container">
-                        <div class="row header text-center">
-                            @Html.DisplayFor(modelItem => item.highestBid)
-                        </div>
-                    </div>
+                    @Html.DisplayFor(modelItem => item.highestBid)
                 </td>
                 <td>
-                    <div class="container">
-                        <div class="row header text-center">
-                            @Html.DisplayFor(modelItem => item.Item.ItemValue)
-                        </div>
-                    </div>
+                    @Html.DisplayFor(modelItem => item.Item.ItemValue)
                 </td>
                 <td>
                     <a asp-action="Create" asp-route-ItemId="@item.Item.ItemId" asp-route-AuctionId="@item.Item.AuctionId" class="btn btn-primary">Enter Bid</a>
